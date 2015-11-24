@@ -194,9 +194,7 @@ public class BinaryHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 		 * toString. if it has children, it will have a notation like
 		 * [childLeft(left)childRight](pos)[blabla] so we must add "[ ]" to the
 		 * string. The same thing goes for the right.
-		 */ if (left == null && right != null) {
-			leftString = "_";
-		}
+		 */ 
 		if (left != null) {
 			int leftPos = getPosition(left);
 			leftString = toString(leftPos);
@@ -207,9 +205,6 @@ public class BinaryHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 			}
 		}
 
-		if (right == null && left != null) {
-			rightString = "_";
-		}
 		if (right != null) {
 			int rightPos = getPosition(right);
 			rightString = toString(rightPos);
