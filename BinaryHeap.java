@@ -29,17 +29,26 @@ public class BinaryHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 	}
 
 	protected T getLeft(int pos) {
-		// try/catch for pos in numberElements
-		return vector[2 * pos + 1];
+		try {
+			return vector[2 * pos + 1];
+		} catch (IndexOutOfBoundsException e) {
+			System.err.println("Left child does not exist. Returning null...");
+			return null;
+		}
 	}
 
 	protected T getRight(int pos) {
-		return vector[2 * pos + 2];
+		try {
+			return vector[2 * pos + 2];
+		} catch (IndexOutOfBoundsException e) {
+			System.err.println("Right child does not exist. Returning null...");
+			return null;
+		}
 	}
 
 	public boolean add(T element) {
 		try {
-			if (element == null) {
+			if (element == null || numElements == vector.length) {
 				return false;
 			} else {
 				// add the element and apply ascending filter
@@ -89,11 +98,22 @@ public class BinaryHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 	}
 
 	public boolean remove(T element) {
-		if (element == null) {
+		if (element == null || isEmpty()) {
 			return false;
 		} else {
-			vector[0] = element;
-			descendingFilter(0);
+			int elemPos = getPosition(element);
+			// if the element is not in the heap
+			if (elemPos == -1) {
+				return false;
+			}
+			// the last element of the heap will occupy the
+			// place of the element to remove
+			vector[elemPos] = vector[numElements - 1];
+			vector[numElements - 1] = null;
+			// apply descending filter to every element of the heap
+			for (int i = 0; i < numElements; i++) {
+				descendingFilter(i);
+			}
 
 			numElements--;
 			return true;
@@ -102,22 +122,24 @@ public class BinaryHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 	}
 
 	private void descendingFilter(int position) {
-		// until the element is not a leaf
+		// until the element is a leaf
 		while (getRight(position) != null || getLeft(position) != null) {
 			T element = vector[position];
 			T left = getLeft(position);
 			T right = getRight(position);
-
-			// if the element's key is lower than both of
-			// its children's, interchange with minimum of the children
-			T min = right;
-			if (left.compareTo(min) < 0) {
+			T min;
+			// get the minimum among the children
+			if (right == null && left != null) {
 				min = left;
+			} else if (right != null && left == null) {
+				min = right;
+			} else {
+				min = getMin(left, right);
 			}
-
-			int minPos = getPosition(min);
-
+			// if the element is greater than the minimum,
+			// interchange them
 			if (element.compareTo(min) > 0) {
+				int minPos = getPosition(min);
 				vector[position] = min;
 				vector[minPos] = element;
 				position = minPos;
@@ -127,8 +149,15 @@ public class BinaryHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 		}
 	}
 
+	private T getMin(T left, T min) {
+		if (left.compareTo(min) < 0) {
+			min = left;
+		}
+		return min;
+	}
+
 	public int getPosition(T element) {
-		for (int i = 0; i < vector.length; i++) {
+		for (int i = 0; i < numElements; i++) {
 			if (element.compareTo(vector[i]) == 0) {
 				return i;
 			}
@@ -145,26 +174,54 @@ public class BinaryHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 		numElements = 0;
 	}
 
-	// tree string (inorder in our classes)
-	// toString to the left, right and concatenate
 	protected String toString(int pos) {
-		String aux = "[";
-		int top = numElements;
-		if (pos == 0) {
-			top = numElements / 2;
+		String leftString = "";
+		String rightString = "";
+		String element = vector[pos].toString();
+		T left = getLeft(pos);
+		T right = getRight(pos);
+
+		if (isEmpty()) {
+			return "";
 		}
-		for (int i = pos; i < top; i++) {
-			T left = getLeft(i);
-			T right = getRight(i);
-			if (left != null && right != null) {
-				aux += "[" + left + "(" + vector[i] + ")" + right + "]";
-			} else if (left == null && right != null) {
-				aux += "[_(" + vector[i] + ")" + right;
-			} else if (left != null && right == null) {
-				aux += left + "(" + vector[i] + ")_]";
+
+		if (left == null && right == null) {
+			return element;
+		}
+
+		/*
+		 * if there is a left child, leftString must be whatever we get from its
+		 * toString. if it has children, it will have a notation like
+		 * [childLeft(left)childRight](pos)[blabla] so we must add "[ ]" to the
+		 * string. The same thing goes for the right.
+		 */ if (left == null && right != null) {
+			leftString = "_";
+		}
+		if (left != null) {
+			int leftPos = getPosition(left);
+			leftString = toString(leftPos);
+			if (leftString.contains("(")) {
+				leftString = "[" + leftString + "]";
+			} else {
+				return element;
 			}
 		}
-		return aux + "]";
+
+		if (right == null && left != null) {
+			rightString = "_";
+		}
+		if (right != null) {
+			int rightPos = getPosition(right);
+			rightString = toString(rightPos);
+			if (rightString.contains("(")) {
+				rightString = "[" + rightString + "]";
+			} else {
+				return element;
+
+			}
+		}
+
+		return leftString + "(" + element + ")" + rightString;
 	}
 
 	// tree string

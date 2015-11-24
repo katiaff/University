@@ -240,70 +240,164 @@ public class BinaryHeapTest {
 		BinaryHeap<Integer> heap = new BinaryHeap<Integer>();
 
 		assertTrue(heap.isEmpty());
-		assertTrue(heap.add(8));
+		heap = createHeap3();
 		assertFalse(heap.isEmpty());
-		assertEquals("8", heap.toString());
-		assertTrue(heap.add(7));
-		assertEquals("8(7)", heap.toString());
-		assertTrue(heap.add(14));
-		assertEquals("8(7)14", heap.toString());
-		assertTrue(heap.add(17));
-		assertEquals("[17(8)](7)14", heap.toString());
-		assertTrue(heap.add(9));
-		assertEquals("[17(8)9](7)14", heap.toString());
-		assertTrue(heap.add(18));
-		assertEquals("[17(8)9](7)[18(14)]", heap.toString());
-		assertTrue(heap.add(11));
-		assertEquals("[17(8)9](7)[18(11)14]", heap.toString());
-		assertTrue(heap.add(12));
-		assertEquals("[[17(12)](8)9](7)[18(11)14]", heap.toString());
-		assertTrue(heap.add(4));
-		assertEquals("[[17(8)12](7)9](4)[18(11)14]", heap.toString());
-		assertTrue(heap.add(3));
-		assertEquals("[[17(8)12](4)[9(7)]](3)[18(11)14]", heap.toString());
-		assertTrue(heap.add(6));
-		assertEquals("[[17(8)12](4)[9(6)7]](3)[18(11)14]", heap.toString());
-		assertTrue(heap.add(2));
-		assertEquals("[[17(8)12](4)[9(6)7]](2)[[18(11)](3)14]", heap.toString());
-		assertTrue(heap.add(15));
-		assertEquals("[[17(8)12](4)[9(6)7]](2)[[18(11)15](3)14]", heap.toString());
-		assertTrue(heap.add(1));
-		assertEquals("[[17(8)12](4)[9(6)7]](1)[[18(11)15](2)[14(3)]]", heap.toString());
-		assertTrue(heap.add(20));
-		assertEquals("[[17(8)12](4)[9(6)7]](1)[[18(11)15](2)[14(3)20]]", heap.toString());
+		// assertTrue(heap.add(8));
+		// assertFalse(heap.isEmpty());
+		// assertEquals("8", heap.toString());
+		// assertTrue(heap.add(7));
+		// assertEquals("8(7)", heap.toString());
+		// assertTrue(heap.add(14));
+		// assertEquals("8(7)14", heap.toString());
+		// assertTrue(heap.add(17));
+		// assertEquals("[17(8)](7)14", heap.toString());
+		// assertTrue(heap.add(9));
+		// assertEquals("[17(8)9](7)14", heap.toString());
+		// assertTrue(heap.add(18));
+		// assertEquals("[17(8)9](7)[18(14)]", heap.toString());
+		// assertTrue(heap.add(11));
+		// assertEquals("[17(8)9](7)[18(11)14]", heap.toString());
+		// assertTrue(heap.add(12));
+		// assertEquals("[[17(12)](8)9](7)[18(11)14]", heap.toString());
+		// assertTrue(heap.add(4));
+		// assertEquals("[[17(8)12](7)9](4)[18(11)14]", heap.toString());
+		// assertTrue(heap.add(3));
+		// assertEquals("[[17(8)12](4)[9(7)]](3)[18(11)14]", heap.toString());
+		// assertTrue(heap.add(6));
+		// assertEquals("[[17(8)12](4)[9(6)7]](3)[18(11)14]", heap.toString());
+		// assertTrue(heap.add(2));
+		// assertEquals("[[17(8)12](4)[9(6)7]](2)[[18(11)](3)14]",
+		// heap.toString());
+		// assertTrue(heap.add(15));
+		// assertEquals("[[17(8)12](4)[9(6)7]](2)[[18(11)15](3)14]",
+		// heap.toString());
+		// assertTrue(heap.add(1));
+		// assertEquals("[[17(8)12](4)[9(6)7]](1)[[18(11)15](2)[14(3)]]",
+		// heap.toString());
+		// assertTrue(heap.add(20));
+		// assertEquals("[[17(8)12](4)[9(6)7]](1)[[18(11)15](2)[14(3)20]]",
+		// heap.toString());
+
+		//
+		assertEquals(1, ((int) heap.poll()));
+		// assertEquals("[[17(8)12](4)[9(6)7]](2)[[18(11)15](3)[20(14)]]",
+		// heap.toString());
+		assertEquals("2 4 3 8 6 11 14 17 12 9 7 18 15 20", heap.internalString());
+		assertEquals(2, ((int) heap.poll()));
+		// assertEquals("[[17(8)12](4)[9(6)7]](3)[[18(15)20](11)14]",
+		// heap.toString());
+		assertEquals("3 4 11 8 6 15 14 17 12 9 7 18 20", heap.internalString());
+		assertEquals(3, ((int) heap.poll()));
+		// assertEquals("[[17(8)12](6)[9(7)20]](4)[[18(15)](11)14]",
+		// heap.toString());
+		assertEquals("4 6 11 8 7 15 14 17 12 9 20 18", heap.internalString());
+		assertEquals(4, ((int) heap.poll()));
+		// assertEquals("[[17(8)12](7)[18(9)20]](6)[15(11)14]",
+		// heap.toString());
+		assertEquals("6 7 11 8 9 15 14 17 12 18 20", heap.internalString());
+		assertEquals(6, ((int) heap.poll()));
+		// assertEquals("[[17(12)20](8)[18(9)]](7)[15(11)14]", heap.toString());
+		assertEquals("7 8 11 12 9 15 14 17 20 18", heap.internalString());
+		assertEquals(7, ((int) heap.poll()));
+		assertEquals("8 9 11 12 18 15 14 17 20", heap.internalString());
+		// assertEquals("[[17(12)20](9)18](8)[15(11)14]", heap.toString());
+		assertEquals(8, ((int) heap.poll()));
+		assertEquals("9 12 11 17 18 15 14 20", heap.internalString());
+		// assertEquals("[[20(17)](12)18](9)[15(11)14]", heap.toString());
+		assertEquals(9, ((int) heap.poll()));
+		assertEquals("11 12 14 17 18 15 20", heap.internalString());
+		// assertEquals("[17(12)18](11)[15(14)20]", heap.toString());
+		assertEquals(11, ((int) heap.poll()));
+		assertEquals("12 17 14 20 18 15", heap.internalString());
+		// assertEquals("[20(17)18](12)[15(14)]", heap.toString());
+		assertEquals(12, ((int) heap.poll()));
+		assertEquals("14 17 15 20 18", heap.internalString());
+		// assertEquals("[20(17)18](14)15", heap.toString());
+		assertEquals(14, ((int) heap.poll()));
+		assertEquals("15 17 18 20", heap.internalString());
+		// assertEquals("[20(17)](15)18", heap.toString());
+		assertEquals(15, ((int) heap.poll()));
+		assertEquals("17 20 18", heap.internalString());
+		// assertEquals("20(17)18", heap.toString());
+		assertEquals(17, ((int) heap.poll()));
+		assertEquals("18 20", heap.internalString());
+		// assertEquals("20(18)", heap.toString());
+		assertEquals(18, ((int) heap.poll()));
+		assertEquals("20", heap.internalString());
+		// assertEquals("20", heap.toString());
+		assertEquals(20, ((int) heap.poll()));
+		assertEquals("", heap.internalString());
+		// assertEquals("", heap.toString());
+		assertTrue(heap.isEmpty());
+	}
+
+	private BinaryHeap<Integer> createHeap3() {
+		int numbers[] = new int[] { 8, 7, 14, 17, 9, 18, 11, 12, 4, 3, 6, 2, 15, 1, 20 };
+		BinaryHeap<Integer> heap = new BinaryHeap<Integer>();
+
+		assertTrue(heap.isEmpty());
+
+		assertTrue(heap.add(numbers[0]));
+		assertEquals("8", heap.internalString());
 		assertFalse(heap.isEmpty());
 
-		assertEquals(1, ((int) heap.poll()));
-		assertEquals("[[17(8)12](4)[9(6)7]](2)[[18(11)15](3)[20(14)]]", heap.toString());
-		assertEquals(2, ((int) heap.poll()));
-		assertEquals("[[17(8)12](4)[9(6)7]](3)[[18(15)20](11)14]", heap.toString());
-		assertEquals(3, ((int) heap.poll()));
-		assertEquals("[[17(8)12](6)[9(7)20]](4)[[18(15)](11)14]", heap.toString());
-		assertEquals(4, ((int) heap.poll()));
-		assertEquals("[[17(8)12](7)[18(9)20]](6)[15(11)14]", heap.toString());
-		assertEquals(6, ((int) heap.poll()));
-		assertEquals("[[17(12)20](8)[18(9)]](7)[15(11)14]", heap.toString());
-		assertEquals(7, ((int) heap.poll()));
-		assertEquals("[[17(12)20](9)18](8)[15(11)14]", heap.toString());
-		assertEquals(8, ((int) heap.poll()));
-		assertEquals("[[20(17)](12)18](9)[15(11)14]", heap.toString());
-		assertEquals(9, ((int) heap.poll()));
-		assertEquals("[17(12)18](11)[15(14)20]", heap.toString());
-		assertEquals(11, ((int) heap.poll()));
-		assertEquals("[20(17)18](12)[15(14)]", heap.toString());
-		assertEquals(12, ((int) heap.poll()));
-		assertEquals("[20(17)18](14)15", heap.toString());
-		assertEquals(14, ((int) heap.poll()));
-		assertEquals("[20(17)](15)18", heap.toString());
-		assertEquals(15, ((int) heap.poll()));
-		assertEquals("20(17)18", heap.toString());
-		assertEquals(17, ((int) heap.poll()));
-		assertEquals("20(18)", heap.toString());
-		assertEquals(18, ((int) heap.poll()));
-		assertEquals("20", heap.toString());
-		assertEquals(20, ((int) heap.poll()));
-		assertEquals("", heap.toString());
-		assertTrue(heap.isEmpty());
+		assertTrue(heap.add(numbers[1]));
+		assertEquals("7 8", heap.internalString());
+		assertFalse(heap.isEmpty());
+
+		assertTrue(heap.add(numbers[2]));
+		assertEquals("7 8 14", heap.internalString());
+		assertFalse(heap.isEmpty());
+
+		assertTrue(heap.add(numbers[3]));
+		assertEquals("7 8 14 17", heap.internalString());
+		assertFalse(heap.isEmpty());
+
+		assertTrue(heap.add(numbers[4]));
+		assertEquals("7 8 14 17 9", heap.internalString());
+		assertFalse(heap.isEmpty());
+
+		assertTrue(heap.add(numbers[5]));
+		assertEquals("7 8 14 17 9 18", heap.internalString());
+		assertFalse(heap.isEmpty());
+
+		assertTrue(heap.add(numbers[6]));
+		assertEquals("7 8 11 17 9 18 14", heap.internalString());
+		assertFalse(heap.isEmpty());
+
+		assertTrue(heap.add(numbers[7]));
+		assertEquals("7 8 11 12 9 18 14 17", heap.internalString());
+		assertFalse(heap.isEmpty());
+
+		assertTrue(heap.add(numbers[8]));
+		assertEquals("4 7 11 8 9 18 14 17 12", heap.internalString());
+		assertFalse(heap.isEmpty());
+
+		assertTrue(heap.add(numbers[9]));
+		assertEquals("3 4 11 8 7 18 14 17 12 9", heap.internalString());
+		assertFalse(heap.isEmpty());
+
+		assertTrue(heap.add(numbers[10]));
+		assertEquals("3 4 11 8 6 18 14 17 12 9 7", heap.internalString());
+		assertFalse(heap.isEmpty());
+
+		assertTrue(heap.add(numbers[11]));
+		assertEquals("2 4 3 8 6 11 14 17 12 9 7 18", heap.internalString());
+		assertFalse(heap.isEmpty());
+
+		assertTrue(heap.add(numbers[12]));
+		assertEquals("2 4 3 8 6 11 14 17 12 9 7 18 15", heap.internalString());
+		assertFalse(heap.isEmpty());
+
+		assertTrue(heap.add(numbers[13]));
+		assertEquals("1 4 2 8 6 11 3 17 12 9 7 18 15 14", heap.internalString());
+		assertFalse(heap.isEmpty());
+
+		assertTrue(heap.add(numbers[14]));
+		assertEquals("1 4 2 8 6 11 3 17 12 9 7 18 15 14 20", heap.internalString());
+		assertFalse(heap.isEmpty());
+
+		return heap;
 	}
 
 	@Test
@@ -408,13 +502,12 @@ public class BinaryHeapTest {
 			heap.isEmpty();
 		}
 	}
-	
+
 	@Test
 	public void toStringTest() {
 		BinaryHeap<Integer> heap = new BinaryHeap<Integer>();
 		heap = createHeap();
-		assertEquals("[[[10(3)6](2)[8(5)_]](1)[9(4)7]",heap.toString());
+		assertEquals("[[[10(3)6](2)[8(5)_]](1)[9(4)7]", heap.toString());
 	}
-	
-	
+
 }
