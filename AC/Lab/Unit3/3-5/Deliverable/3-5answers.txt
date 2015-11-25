@@ -31,8 +31,6 @@
     Present in main memory, present bit (0) set to 1
 	Since this page allows writing on the audio interface, it makes sense
 	that it requires supervisor access. 
-	It also makes sense that it is present in memory and has been accessed
-	before, since the system is loading data on it when booting (???)
 16. 217
 17. 15219
 18. 927 
