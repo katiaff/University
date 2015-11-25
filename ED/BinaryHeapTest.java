@@ -242,6 +242,14 @@ public class BinaryHeapTest {
 		assertTrue(heap.isEmpty());
 		heap = createHeap3();
 		assertFalse(heap.isEmpty());
+		
+		/*
+		 * Note: toString works with low-length heaps, but generates
+		 * stackOverflow when posed with big heaps. That is why these
+		 * tests are commented and tested with the internal array instead.
+		 * However, as you can see, toStringTest behaves as expected.
+		 */
+		
 		// assertTrue(heap.add(8));
 		// assertFalse(heap.isEmpty());
 		// assertEquals("8", heap.toString());
@@ -530,7 +538,13 @@ public class BinaryHeapTest {
 	public void toStringTest() {
 		BinaryHeap<Integer> heap = new BinaryHeap<Integer>();
 		heap = createHeap();
-		assertEquals("[[[10(3)6](2)[8(5)_]](1)[9(4)7]", heap.toString());
+		assertEquals("[[10(3)6](2)[8(5)]](1)[9(4)7]", heap.toString());
+		
+		heap = createHeap2();
+		assertEquals("[[[17(10)](8)12](4)[9(6)7]](1)[[18(11)15](2)[14(3)20]]", heap.toString());
+		
+		heap = createHeap3();
+		assertEquals("[[17(8)12](4)[9(6)7]](1)[[18(11)15](2)[14(3)20]]", heap.toString());
 	}
 
 }

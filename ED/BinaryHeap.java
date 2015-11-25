@@ -189,33 +189,21 @@ public class BinaryHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 			return element;
 		}
 
-		/*
-		 * if there is a left child, leftString must be whatever we get from its
-		 * toString. if it has children, it will have a notation like
-		 * [childLeft(left)childRight](pos)[blabla] so we must add "[ ]" to the
-		 * string. The same thing goes for the right.
-		 */ 
 		if (left != null) {
 			int leftPos = getPosition(left);
 			leftString = toString(leftPos);
-			if (leftString.contains("(")) {
+			if (getLeft(leftPos) != null || getRight(leftPos) != null) {
 				leftString = "[" + leftString + "]";
-			} else {
-				return element;
 			}
 		}
 
 		if (right != null) {
 			int rightPos = getPosition(right);
 			rightString = toString(rightPos);
-			if (rightString.contains("(")) {
+			if (getLeft(rightPos) != null || getRight(rightPos) != null) {
 				rightString = "[" + rightString + "]";
-			} else {
-				return element;
-
 			}
 		}
-
 		return leftString + "(" + element + ")" + rightString;
 	}
 
