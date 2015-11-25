@@ -1,8 +1,0 @@
-Memory word size = 16 bits
-Address width (number of bits) = 12
-Unified cache (one level)
-Number of cache blocks = 8
-Number of words per block = 4
-4-way set associative placement strategy
-LRU replacement strategy
-Write-back writing strategy

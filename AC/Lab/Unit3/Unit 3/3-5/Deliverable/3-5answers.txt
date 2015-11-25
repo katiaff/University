@@ -19,8 +19,8 @@
 	should not be able to modify a task's data.
 	Of course, then it is logical that it can be cached to access it faster.
 11. 380
-12. 48 *
-13. 28000 *
+12. 400
+13. 28000
 14. XX
 15. Page: F8338h
     Write, read/write bit (1) set to 1
@@ -35,5 +35,5 @@
 	before, since the system is loading data on it when booting (???)
 16. 217
 17. 15219
-18. XXX * 
+18. 927 
 19. 222208
