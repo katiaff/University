@@ -1,0 +1,39 @@
+1. No, because it depends on a constant (DNI) and a global variable whose virtual address is always the same.
+2. Yes, because when the MMU translates a virtual address it is assigned a different physical address each time.
+3. 08052h
+4. C0000000h
+5. Yes, because the physical address is never the same so adding C0000000h to it would give different values.
+6. 080h
+7. 30AD4080h
+8. 052h
+9. 30998000h
+10. Page: F0998h
+    Read, read/write bit (1) set to 0
+    Supervisor, user/supervisor bit (2) 2 set to 0
+    Cache writing write-through, write-though bit (3) set to 1
+    Can be cached, cache disabled bit (4) set to 0
+    Has not been accessed, accessed bit (5) set to 0
+    Not present in main memory, present bit (0) set to 0
+	Since it is a data page of a task, it makes sense that it is 
+	for reading and only allows supervisor only, since a common user
+	should not be able to modify a task's data.
+	Of course, then it is logical that it can be cached to access it faster.
+11. 380
+12. 48 *
+13. 28000 *
+14. XX
+15. Page: F8338h
+    Write, read/write bit (1) set to 1
+    Supervisor, user/supervisor bit (2) 2 set to 0
+    Cache writing write-back, write-though bit (3) set to 0
+    Cannot be cached, cache disabled bit (4) set to 1
+    Has been accessed, accessed bit (5) set to 1
+    Present in main memory, present bit (0) set to 1
+	Since this page allows writing on the audio interface, it makes sense
+	that it requires supervisor access. 
+	It also makes sense that it is present in memory and has been accessed
+	before, since the system is loading data on it when booting (???)
+16. 217
+17. 15219
+18. XXX * 
+19. 222208

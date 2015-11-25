@@ -1,0 +1,26 @@
+; Código de la tarea 2.  El resultado de compilar este fichero se
+; usará para generar un archivo de memoria de nombre "1-1tarea2.mem".  
+; Para ello, bastará con borrar las 3 primeras líneas del fichero
+; ejecutable y renombrar el fichero obtenido usando la extensión ".mem".
+;
+; Durante su ejecución, este programa escribe contínuamente en el 
+; periférico pantalla el número 2 que identifica la tarea 2, aunque 
+; cada vez con un color y fondo diferente.
+
+
+	ORIGEN 2000h
+	INICIO primera
+	
+	.PILA 15h
+	
+	.CODIGO
+primera:
+	MOVL R1, '2'
+	MOVH R1, 0
+repite:
+	MOVL R2, 00h
+	MOVH R2, 01h
+	ADD R1, R1, R2
+	INT 10h
+	JMP repite
+FIN

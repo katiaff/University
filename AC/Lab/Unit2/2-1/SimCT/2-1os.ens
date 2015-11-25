@@ -1,0 +1,494 @@
+; Este programa contiene el código de un SO muy sencillo para el
+; computador von Neumann, el cual se carga a partir de la dirección
+; 8000h. Implementa un único servicio, el servicio 10h. Este servicio
+; escribe por pantalla el carácter que se le pasa a través del
+; registro R1. El periférico pantalla se supone ubicado a partir de la
+; dirección F800h.  Se supone además que hay un único dispositivo que
+; genera interrupciones y que tiene asociada la interrupción 1. Como
+; tal utilizaremos el periférico luces, ubicado a partir de la
+; dirección FA00h. Asimismo se supone que hay dos tareas en el
+; sistema, las cuales deben cargarse en memoria manualmente. Cada vez
+; que se produce una interrupción, se salva el estado de la tarea que
+; se estaba ejecutando y se recupera el estado de la otra tarea, la
+; cual pasa a ejecutarse.  NOTA: debido a las limitaciones de la
+; arquitectura de la CPU teórica, el SO modifica el registro R0 y no
+; lo restaura. Las tareas no deben usar este registro, pues una
+; transferencia de control al SO puede modificar su valor.
+
+
+PTR_PILA_SO      EQU 0F000h ; Límite inferior de la pila del SO más 1.
+
+; Primera instrucción de las tareas 1 y 2 y punteros de pila
+; iniciales. En un sistema operativo real, estos valores se
+; obtendrían automáticamente de los archivos ejecutables. El PC
+; inicial se correspondería con el segundo valor del archivo
+; ejecutable, mientras que el puntero de pila inicial se
+; correspondería con el tercer valor.
+;-----------------------------------------------------------
+;-- Para introducir más tareas hay que modificar este código
+;-----------------------------------------------------------
+NTAREAS          EQU 2
+PC_TAREA_1       EQU 1000h
+PC_TAREA_2       EQU 2000h
+PTR_PILA_TAREA_1 EQU 101Ch
+PTR_PILA_TAREA_2 EQU 201Ch
+
+	ORIGEN 8000h ; EL SO se ubica en los 32K más altos.
+	INICIO primera_SO
+
+	; Variables globales del SO.
+	.DATOS
+temporal   VALOR 0 ; Variable temporal.
+tarea      VALOR 1 ; Índice de la tarea que se está ejecutando.
+cursor     VALOR 0 ; Inicialmente está en la esquina superior izquierda.
+estado_R1  VALOR NTAREAS VECES 0FFFFh ; Estado inicial de R1 a R7 de
+estado_R2  VALOR NTAREAS VECES 0FFFFh ; las tareas. Todos pasan a almacenar
+estado_R3  VALOR NTAREAS VECES 0FFFFh ; el valor FFFFh.
+estado_R4  VALOR NTAREAS VECES 0FFFFh
+estado_R5  VALOR NTAREAS VECES 0FFFFh
+estado_R6  VALOR NTAREAS VECES 0FFFFh
+estado_R7  VALOR NTAREAS VECES 0FFFFh
+
+	; Código del SO.
+	.CODIGO
+primera_SO:
+       ; Inicializar el puntero de pila del SO. La pila del SO 
+       ; debe ser independiente de la pila de cada tarea.
+       MOVL R7, BYTEBAJO PTR_PILA_SO       
+       MOVH R7, BYTEALTO PTR_PILA_SO       
+
+       ; Instalar la rutina "escribe_car" como el servicio 10h del SO.
+       MOVL R0, 10h
+       MOVH R0, 0
+       MOVL R1, BYTEBAJO DIRECCION escribe_car
+       MOVH R1, BYTEALTO DIRECCION escribe_car
+       MOV [R0], R1
+
+       ; Instalar la rutina de servicio de la interrupción 1.
+       MOVL R0, 1
+       MOVH R0, 0
+       MOVL R1, BYTEBAJO DIRECCION rut_servicio_interr
+       MOVH R1, BYTEALTO DIRECCION rut_servicio_interr
+       MOV [R0], R1
+
+       ; Inicializar el estado de las tareas.
+       CALL inicializa_estado_tareas
+
+       ; Hacer que la primera tarea que se ejecute sea la tarea 1.
+       ; Debe notarse que tras la inicialización anterior, la pila de
+       ; la tarea 1 contiene un valor de PC que apunta a su primera
+       ; instrucción.  
+       MOVL R0, BYTEBAJO DIRECCION estado_R7 
+       MOVH R0, BYTEALTO DIRECCION estado_R7
+       MOV R7, [R0] 
+       IRET
+
+;-----------------------------------------------------------------------
+; Rutina que implementa el servicio 10h. El código ASCII del carácter
+; a escribir en la posición del cursor se lee del byte menos
+; significativo de R1. El byte más significativo de R1 contiene el
+; atributo.
+PROCEDIMIENTO escribe_car
+
+       ; Para no complicar esta rutina y la de servicio de la
+       ; interrupción se inhabilitan las interrupciones durante la
+       ; ejecución de este servicio. En un SO real esto no debería
+       ; hacerse.
+       CLI
+
+       ;-------------------------------------------------------------
+       ; En el bloque siguiente se produce la conmutación de la pila
+       ; de la tarea a la del sistema operativo y se guarda el estado
+       ; de la tarea que se estaba ejecutando. 
+       ; Este bloque es el mismo en todos los manejadores.
+       ;-------------------------------------------------------------
+      
+       ; Almacena en la variable temporal el puntero de pila de la
+       ; tarea, para salvarlo más adelante en el lugar apropiado. Las
+       ; limitaciones de la arquitectura de la CPU teórica nos impiden
+       ; salvarlo ya directamente en dicho lugar.
+       MOVL R0, BYTEBAJO DIRECCION temporal
+       MOVH R0, BYTEALTO DIRECCION temporal
+       MOV [R0], R7
+
+       ; El nuevo puntero de pila pasa a ser el del SO. Es
+       ; decir, se lleva a cabo la commutación de la pila de la tarea
+       ; a la del SO. Debe recordarse que la interrupción no es
+       ; aceptada durante la ejecución de una interrupción anterior, ni
+       ; durante la llamada al servicio.
+       MOVL R7, BYTEBAJO PTR_PILA_SO       
+       MOVH R7, BYTEALTO PTR_PILA_SO       
+
+       ; Almacena en memoria el valor que tenían los registros R1 a R6
+       ; justo antes de comenzar la ejecución de la rutina de servicio
+       ; de la interrupción.  
+       CALL guarda_estado_R1_a_R6
+
+       ; Aprovechando que ya hemos salvado los registros de propósito
+       ; general, podemos mover el valor salvado de R7 de la tarea
+       ; desde la variable temporal hasta el lugar apropiado.
+       MOVL R0, BYTEBAJO DIRECCION temporal
+       MOVH R0, BYTEALTO DIRECCION temporal
+       MOV R0, [R0] ; R0 = valor de R7 de la tarea.
+       MOVL R2, BYTEBAJO DIRECCION tarea
+       MOVH R2, BYTEALTO DIRECCION tarea 
+       MOV R2, [R2] ; R2 = tarea
+       MOVL R3, BYTEBAJO DIRECCION estado_R7
+       MOVH R3, BYTEALTO DIRECCION estado_R7
+       ADD R3, R3, R2 
+       DEC R3 ; R3 = dirección para guardar R7 de tarea.
+       MOV [R3], R0
+
+       ;-------------------------------------------------------------
+       ; Aquí comienza el cuerpo de la rutina de servicio.
+       ;-------------------------------------------------------------
+      
+       MOVH R2, 0F8h
+       MOVL R2, 00h ; R2 = dir. base de la pantalla.
+       MOVL R3, BYTEBAJO DIRECCION cursor
+       MOVH R3, BYTEALTO DIRECCION cursor
+       MOV R4, [R3] ; R4 = posición del cursor.
+       ADD R2, R2, R4 ; R2 = dir. en la interfaz.
+       MOV [R2], R1 ; Escribe el carácter R1 en la interfaz.
+       INC R4 ; R4 = siguiente posición del cursor.
+       MOVL R0, 120
+       MOVH R0, 0
+       COMP R4, R0 ; Si la posición del cursor está fuera de la
+                   ; interfaz.
+       BRNZ nuevo_cursor
+       XOR R4, R4, R4 ; La nueva posición del cursor es la esquina
+                      ; superior izquierda.     
+nuevo_cursor:
+       MOV [R3], R4 ; Actualiza la variable que almacena la nueva
+                    ; posición del cursor.
+
+       ;-------------------------------------------------------------
+       ; Aquí termina el cuerpo de la rutina de servicio.
+       ;-------------------------------------------------------------
+      
+       ;-------------------------------------------------------------
+       ; En el bloque siguiente se produce la conmutación de la pila
+       ; del sistema operativo a la de la tarea y se recupera el
+       ; estado de la tarea que tiene que ejecutarse a continuación.
+       ; Este bloque es el mismo en todos los manejadores.
+       ; -------------------------------------------------------------
+      
+       ; Almacena en "temporal" el puntero de pila de la nueva 
+       ; tarea a ejecutar.
+       MOVL R0, BYTEBAJO DIRECCION estado_R7
+       MOVH R0, BYTEALTO DIRECCION estado_R7
+       MOVL R2, BYTEBAJO DIRECCION tarea
+       MOVH R2, BYTEALTO DIRECCION tarea
+       MOV R2, [R2] ; R2 = tarea
+       ADD R0, R0, R2
+       DEC R0
+       MOV R0, [R0]
+       MOVL R1, BYTEBAJO DIRECCION temporal
+       MOVH R1, BYTEALTO DIRECCION temporal
+       MOV [R1], R0
+
+       ; Recupera el estado de los registros R1 a R6. La recuperación
+       ; depende del valor de la variable "tarea".
+       ; Nota: el registro R7 se recupera justo después.
+       CALL recupera_estado_R1_a_R6
+
+       ; El nuevo puntero de pila es el de la tarea. Es decir, se
+       ; produce la conmutación de la pila del SO a la de la tarea a
+       ; ejecutar
+       MOVL R0, BYTEBAJO DIRECCION temporal
+       MOVH R0, BYTEALTO DIRECCION temporal
+       MOV R7, [R0]
+       
+       IRET ; Una vez se ejecuta esta intrucción toma el control la tarea.
+FINP
+
+
+;-----------------------------------------------------------------------
+; Rutina encargada de inicializar el estado de las tareas
+PROCEDIMIENTO inicializa_estado_tareas
+
+       ; Salva los registros R1 a R3 antes de ser modificados.
+       ; Nota: el registro R0 nunca se salva.	      
+       PUSH R1
+       PUSH R2
+       PUSH R3
+
+       ; R2 = 0001. Almacenará el nuevo valor de SR que se guardará en
+       ; la pila de cada tarea. El bit IF será 1.
+       MOVL R2, 1 
+       MOVH R2, 0
+
+       ;------------------------------------------------------------------
+       ;-- Para cada tarea debe repetirse el siguiente fragmento de código
+       ;------------------------------------------------------------------
+        
+       ; Inicializa el contenido de la pila de la tarea 1, como si se
+       ; hubiese producido una interrupción justo antes de ejecutarse
+       ; su primera instrucción.
+       MOVL R0, BYTEBAJO PC_TAREA_1
+       MOVH R0, BYTEALTO PC_TAREA_1 ; R0 = PC_TAREA_1
+       MOVL R1, BYTEBAJO PTR_PILA_TAREA_1
+       MOVH R1, BYTEALTO PTR_PILA_TAREA_1
+       DEC R1
+       MOV [R1], R2
+       DEC R1
+       MOV [R1], R0
+
+       ; Inicializa el estado salvado del registro R7 de la tarea 1.
+       MOVL R3, BYTEBAJO DIRECCION estado_R7
+       MOVH R3, BYTEALTO DIRECCION estado_R7
+       MOV [R3], R1 
+
+       ; Inicializa el contenido de la pila de la tarea 2, como si se
+       ; hubiese producido una interrupción justo antes de ejecutarse
+       ; su primera instrucción.
+       MOVL R0, BYTEBAJO PC_TAREA_2
+       MOVH R0, BYTEALTO PC_TAREA_2 ; R0 = PC_TAREA_2
+       MOVL R1, BYTEBAJO PTR_PILA_TAREA_2
+       MOVH R1, BYTEALTO PTR_PILA_TAREA_2
+       DEC R1
+       MOV [R1], R2
+       DEC R1
+       MOV [R1], R0
+
+       ; Inicializa el estado salvado del registro R7 de la tarea 2.
+       INC R3
+       MOV [R3], R1 
+
+       ; Recupera los registros modificados.
+       POP R3
+       POP R2
+       POP R1
+
+       RET
+FINP
+
+
+;-----------------------------------------------------------------------
+; Rutina de servicio de la interrupción 1. Esta interrupción se lanza
+; cada vez que el usuario pulsa el botón de generación de interrupción
+; del periférico luces, con la cual se trata de emular la interrupción
+; periódica del temporizador del sistema operativo. 
+PROCEDIMIENTO rut_servicio_interr
+
+       ;-------------------------------------------------------------
+       ; En el bloque siguiente se produce la conmutación de la pila
+       ; de la tarea a la del sistema operativo y se guarda el estado
+       ; de la tarea que se estaba ejecutando. 
+       ; Este bloque es el mismo en todos los manejadores.
+       ;-------------------------------------------------------------
+      
+       ; Almacena en la variable temporal el puntero de pila de la
+       ; tarea, para salvarlo más adelante en el lugar apropiado. Las
+       ; limitaciones de la arquitectura de la CPU teórica nos impiden
+       ; salvarlo ya directamente en dicho lugar.
+       MOVL R0, BYTEBAJO DIRECCION temporal
+       MOVH R0, BYTEALTO DIRECCION temporal
+       MOV [R0], R7
+
+       ; El nuevo puntero de pila pasa a ser el del SO. Es
+       ; decir, se lleva a cabo la commutación de la pila de la tarea
+       ; a la del SO. Debe recordarse que la interrupción no es
+       ; aceptada durante la ejecución de una interrupción anterior, ni
+       ; durante la llamada al servicio.
+       MOVL R7, BYTEBAJO PTR_PILA_SO       
+       MOVH R7, BYTEALTO PTR_PILA_SO       
+
+       ; Almacena en memoria el valor que tenían los registros R1 a R6
+       ; justo antes de comenzar la ejecución de la rutina de servicio
+       ; de la interrupción.  
+       CALL guarda_estado_R1_a_R6
+
+       ; Aprovechando que ya hemos salvado los registros de propósito
+       ; general, podemos mover el valor salvado de R7 de la tarea
+       ; desde la variable temporal hasta el lugar apropiado.
+       MOVL R0, BYTEBAJO DIRECCION temporal
+       MOVH R0, BYTEALTO DIRECCION temporal
+       MOV R0, [R0] ; R0 = valor de R7 de la tarea.
+       MOVL R2, BYTEBAJO DIRECCION tarea
+       MOVH R2, BYTEALTO DIRECCION tarea
+       MOV R2, [R2] ; R2 = tarea
+       MOVL R3, BYTEBAJO DIRECCION estado_R7
+       MOVH R3, BYTEALTO DIRECCION estado_R7
+       ADD R3, R3, R2 
+       DEC R3 ; R3 = dirección para guardar R7 de tarea.
+       MOV [R3], R0
+
+       ;-------------------------------------------------------------
+       ; Aquí comienza el cuerpo de la rutina de interrupción.
+       ;-------------------------------------------------------------
+      
+       ; Calcula el índice de la nueva tarea a ejecutar, el
+       ; cual escribe en la variable "tarea".
+       CALL planifica
+
+       ;-------------------------------------------------------------
+       ; Aquí termina el cuerpo de la rutina de interrupción.
+       ;-------------------------------------------------------------
+      
+       ;-------------------------------------------------------------
+       ; En el bloque siguiente se produce la conmutación de la pila
+       ; del sistema operativo a la de la tarea y se recupera el
+       ; estado de la tarea que tiene que ejecutarse a continuación.
+       ; Este bloque es el mismo en todos los manejadores.
+       ; -------------------------------------------------------------
+      
+       ; Almacena en "temporal" el puntero de pila de la nueva 
+       ; tarea a ejecutar.
+       MOVL R0, BYTEBAJO DIRECCION estado_R7
+       MOVH R0, BYTEALTO DIRECCION estado_R7
+       MOVL R2, BYTEBAJO DIRECCION tarea
+       MOVH R2, BYTEALTO DIRECCION tarea
+       MOV R2, [R2] ; R2 = tarea
+       ADD R0, R0, R2
+       DEC R0
+       MOV R0, [R0]
+       MOVL R1, BYTEBAJO DIRECCION temporal
+       MOVH R1, BYTEALTO DIRECCION temporal
+       MOV [R1], R0
+
+       ; Recupera el estado de los registros R1 a R6. La recuperación
+       ; depende del valor de la variable "tarea".
+       ; Nota: el registro R7 se recupera justo después.
+       CALL recupera_estado_R1_a_R6
+
+       ; El nuevo puntero de pila es el de la tarea. Es decir, se
+       ; produce la conmutación de la pila del SO a la de la tarea a
+       ; ejecutar
+       MOVL R0, BYTEBAJO DIRECCION temporal
+       MOVH R0, BYTEALTO DIRECCION temporal
+       MOV R7, [R0]
+       
+       IRET ; Una vez se ejecuta esta intrucción toma el control la tarea.
+FINP
+
+
+;-----------------------------------------------------------------------
+; Guarda el estado de los registros R1 a R6. El lugar en que debe
+; guardarlos depende del valor de la variable "tarea".
+PROCEDIMIENTO guarda_estado_R1_a_R6
+    
+       ; R6 = número de tareas.
+       PUSH R6 ; Lo salvamos antes de modificarlo.
+       MOVL R6, BYTEBAJO NTAREAS
+       MOVH R6, BYTEALTO NTAREAS
+
+       ; R0 = dirección de almacenamiento del valor de R1.
+       MOVL R0, BYTEBAJO DIRECCION estado_R1
+       MOVH R0, BYTEALTO DIRECCION estado_R1
+       PUSH R1 ; Lo salvamos antes de modificarlo.
+       MOVL R1, BYTEBAJO DIRECCION tarea
+       MOVH R1, BYTEALTO DIRECCION tarea
+       MOV R1, [R1] ; R1 = tarea
+       ADD R0, R0, R1
+       DEC R0      
+
+       ; Guarda R1.
+       POP R1
+       MOV [R0], R1
+       
+       ; Guarda R2.
+       ADD R0, R0, R6
+       MOV [R0], R2
+
+       ; Guarda R3.
+       ADD R0, R0, R6
+       MOV [R0], R3
+
+       ; Guarda R4.
+       ADD R0, R0, R6
+       MOV [R0], R4
+
+       ; Guarda R5.
+       ADD R0, R0, R6
+       MOV [R0], R5
+
+       ; Guarda R6.
+       ADD R0, R0, R6
+       POP R6
+       MOV [R0], R6
+
+       RET
+FINP       
+
+
+;-----------------------------------------------------------------------
+; Calcula la siguiente tarea a ejecutar y almacena su índice en la
+; variable "tarea".
+PROCEDIMIENTO planifica
+       PUSH R1
+       PUSH R2
+
+       ; R0 = dirección de la variable "tarea".
+       MOVL R0, BYTEBAJO DIRECCION tarea
+       MOVH R0, BYTEALTO DIRECCION tarea
+
+       ; R1 = última tarea que se estaba ejecutando.
+       MOV R1, [R0] 
+
+       ; R2 = número de tareas
+       MOVL R2, BYTEBAJO NTAREAS
+       MOVH R2, BYTEALTO NTAREAS
+
+       ; última tarea = última tarea + 1 
+       INC R1
+
+       ; Si última tarea > número de tareas => última tarea = 1.
+       COMP R2, R1
+       BRNS final       
+       MOVL R1, 1
+       MOVH R1, 0
+final:   
+       MOV [R0], R1 ; Actualiza el valor de la variable "tarea".
+
+       POP R2
+       POP R1
+       RET
+FINP       
+
+
+;-----------------------------------------------------------------------
+; Recupera el estado de los registros R1 a R6. El lugar desde el que debe
+; leerlos depende del valor de la variable "tarea".
+PROCEDIMIENTO recupera_estado_R1_a_R6
+
+       ; R0 = dirección de almacenamiento del valor de R1.
+       MOVL R0, BYTEBAJO DIRECCION estado_R1
+       MOVH R0, BYTEALTO DIRECCION estado_R1
+       MOVL R1, BYTEBAJO DIRECCION tarea
+       MOVH R1, BYTEALTO DIRECCION tarea
+       MOV R1, [R1]
+       ADD R0, R0, R1
+       DEC R0      
+   
+       ; R6 = número de tareas.
+       MOVL R6, BYTEBAJO NTAREAS
+       MOVH R6, BYTEALTO NTAREAS
+
+       ; Recupera R1
+       MOV R1, [R0]
+       
+       ; Recupera R2
+       ADD R0, R0, R6 ; R0 = dirección de almacenamiento del valor de R2.
+       MOV R2, [R0]
+
+       ; Recupera R3
+       ADD R0, R0, R6 ; R0 = dirección de almacenamiento del valor de R3.
+       MOV R3, [R0]
+
+       ; Recupera R4
+       ADD R0, R0, R6 ; R0 = dirección de almacenamiento del valor de R4.
+       MOV R4, [R0]
+
+       ; Recupera R5
+       ADD R0, R0, R6 ; R0 = dirección de almacenamiento del valor de R5.       
+       MOV R5, [R0]
+
+       ; Recupera R6
+       ADD R0, R0, R6 ; R0 = dirección de almacenamiento del valor de R6. 
+       MOV R6, [R0]
+
+       RET
+FINP       
+
+FIN

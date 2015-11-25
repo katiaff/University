@@ -1,0 +1,49 @@
+00000000-00000fff : reserved
+00001000-00001fff : System RAM
+00002000-0000ffff : reserved
+00010000-0009fbff : System RAM
+0009fc00-0009ffff : RAM buffer
+000a0000-000bffff : PCI Bus 0000:00
+  000a0000-000bffff : Video RAM area
+000c0000-000effff : PCI Bus 0000:00
+  000c0000-000c7fff : Video ROM
+  000cd800-000cf7ff : Adapter ROM
+  000cf800-000cffff : Adapter ROM
+000f0000-000fffff : PCI Bus 0000:00
+  000f0000-000fffff : reserved
+    000f0000-000fffff : System ROM
+00100000-7f55abff : System RAM
+  00100000-005cf0bd : Kernel code
+  005cf0be-00818667 : Kernel data
+  008ca000-009a0adb : Kernel bss
+7f55ac00-7f55ebff : ACPI Non-volatile Storage
+7f55ec00-7f560bff : ACPI Tables
+7f560c00-7fffffff : reserved
+80000000-dfffffff : PCI Bus 0000:00
+  80000000-801fffff : PCI Bus 0000:02
+  80200000-80200fff : Intel Flush Page
+  c0000000-cfffffff : 0000:00:02.0
+  dfb00000-dfbfffff : PCI Bus 0000:02
+    dfbf0000-dfbfffff : 0000:02:00.0
+      dfbf0000-dfbfffff : tg3
+  dfc00000-dfcfffff : PCI Bus 0000:01
+  dfdfc000-dfdfffff : 0000:00:1b.0
+    dfdfc000-dfdfffff : ICH HD audio
+  dfe00000-dfe7ffff : 0000:00:02.0
+  dfe80000-dfefffff : 0000:00:02.1
+  dff00000-dfffffff : 0000:00:02.0
+e0000000-efffffff : PCI MMCONFIG 0000 [bus 00-ff]
+  e0000000-efffffff : reserved
+f0000000-febfffff : PCI Bus 0000:00
+fec00000-fed003ff : reserved
+  fec00000-fec003ff : IOAPIC 0
+  fed00000-fed003ff : HPET 0
+fed20000-fed9ffff : reserved
+  fed20000-fed9ffff : PCI Bus 0000:00
+fee00000-feefffff : reserved
+  fee00000-fee00fff : Local APIC
+ff97c000-ff97ffff : PCI Bus 0000:00
+ff980800-ff980bff : PCI Bus 0000:00
+  ff980800-ff980bff : 0000:00:1d.7
+    ff980800-ff980bff : ehci_hcd
+ffb00000-ffffffff : reserved

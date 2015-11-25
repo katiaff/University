@@ -1,0 +1,12 @@
+71727346
+Carla Fernández González
+1. 16;Data;1;Instruction lb r20, v(r10) requires the value for r10 but the instruction xor r10, r10, r10 has not finished all its stages
+18;Data;2;Instruction beqz r20, f requires the value for r20 but the instruction lb r20, v(r10) has not finished all its stages
+22;Data;2;Instruction slt r1, r20, r12 requires the value for r1 but the instruction andi r20, r20, 0x0F has not finished all its stages
+30;Control;1;A jump is executed, so the next instruction is fetched but stage ID and the next ones never happen
+33;Control;1;A jump is executed
+45;Control;1;A branch is executed
+97;Structural;8;A floating point division is carried out so the ALU can not be used until it is finished
+2. 121
+3. 2.017
+4. 2.479

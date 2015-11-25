@@ -1,0 +1,39 @@
+1) 1000h
+2) 2000h
+3) task1
+4) task2
+5) Yes
+6) PC: 1005
+7)	R7 101C
+	R0 8000
+	R1 1031
+	R2 0100
+	R3 0000
+	R4 0000
+	R5 0000
+	R6 0000
+8) 8092
+9) F000
+def1)	
+	user task clear interrupts so OS thinks interrupts are disabled
+	so it is not going to take control anymore
+	solutions: 	restrict access to some instructions of the CPU assigning
+			privilege levels to execute instructions.
+privilege levels
+
+		
+def2)	
+	user task executes instruction that is reading/writing outside the range 
+	of the user task so it can write in the operating system memory range or 
+	other user's memory range.
+	solution: 	before providing access for a memory adress the CPU checks if 
+			the user is allowed to access it.
+memory protection
+	
+def3)	
+	you increment stack pointer so you can't return to a memory address
+	solution: 	same as before, user cannot modify its content and stack pointer
+			should be dedicated register.
+specific registers
+		
+def4)	program is not able to return to the previous pc

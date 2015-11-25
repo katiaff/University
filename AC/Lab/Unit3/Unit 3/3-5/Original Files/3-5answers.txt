@@ -1,0 +1,31 @@
+1. Yes/No, Why?
+2. Yes/No, Why?
+3. XXXXXh
+4. XXXXXXXXh
+5. Yes/No, Why?
+6. XXXh
+7. XXXXXXXXh
+8. XXXh
+9. XXXXXXXXh
+10. Page: XXXXXh
+    Read/Write Why?...
+    User/Supervisor Why?
+    Cache writing write-through/back Why?
+    Can/Cannot be cached Why?
+    Has/Hasn't been accessed Why?
+    Is/Isn't present in main memory Why?
+11. XXX
+12. XXX
+13. XXXX
+14. XX
+15. Page: XXXXXh
+    Read/Write Why?...
+    User/Supervisor Why?
+    Cache writing write-through/back Why?
+    Can/Cannot be cached Why?
+    Has/Hasn't been accessed Why?
+    Is/Isn't present in main memory Why?
+16. XX
+17. XXXX
+18. XXX
+19. XXXX
