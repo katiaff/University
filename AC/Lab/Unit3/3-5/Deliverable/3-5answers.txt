@@ -19,9 +19,9 @@
 	should not be able to modify a task's data.
 	Of course, then it is logical that it can be cached to access it faster.
 11. 380
-12. 400
+12. 48
 13. 28000
-14. XX
+14. 4
 15. Page: F8338h
     Write, read/write bit (1) set to 1
     Supervisor, user/supervisor bit (2) 2 set to 0
