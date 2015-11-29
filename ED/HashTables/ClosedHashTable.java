@@ -25,8 +25,7 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 	public void setProbeSequence(short probe_sequence) {
 		// DON'T CHANGE ANYTHING HERE
 		//
-		if (probe_sequence == LINEAR_PROBING
-				|| probe_sequence == QUADRATIC_PROBING)
+		if (probe_sequence == LINEAR_PROBING || probe_sequence == QUADRATIC_PROBING)
 			PROBE_SEQUENCE = probe_sequence;
 		else
 			PROBE_SEQUENCE = QUADRATIC_PROBING;
@@ -54,15 +53,9 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 		// i iteration
 		// B size of the table
 		// x is the fHash of the element to be stored
+		
 		int x = fHash(elem);
-		int counter = timesSearched;
-		int position = (x + counter) % getSize();
-		HashNode<T> node = table[position];
-		while (node.getState() == HashNode.FULL) {
-			counter++;
-			position = (x + counter) % getSize();
-			node = table[position];
-		}
+		int position = (x + timesSearched) % getSize();
 		return position;
 	}
 
@@ -72,14 +65,7 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 		// See slide 34
 
 		int x = fHash(elem);
-		int counter = timesSearched;
-		int position = (x + counter) % getSize();
-		HashNode<T> node = table[position];
-		while (node.getState() == HashNode.FULL) {
-			counter++;
-			position = (x + counter * counter) % getSize();
-			node = table[position];
-		}
+		int position = (x + timesSearched * timesSearched) % getSize();
 		return position;
 	}
 
@@ -115,20 +101,19 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 		// store the element in that node and assign that node to the position
 		// - Remember to increase the number of elements and to invoke upsize
 		//
+
+		// if element is null or it is already in table
 		if (elem == null || find(elem) != null) {
 			return false;
 		}
 
-		int position = 0;
+		int counter = 0;
+		int position = probing(elem, counter);
 		HashNode<T> node = table[position];
-		if (node != null) {
-			int counter = 0;
-			// change to !isEmpty(position)
-			while (node.getState() == HashNode.FULL) {
-				position = probing(elem, counter);
-				node = table[position];
-				counter++;
-			}
+		while (node != null && node.getState() == HashNode.FULL) {
+			position = probing(elem, counter);
+			node = table[position];
+			counter++;
 		}
 		table[position] = new HashNode<T>();
 		table[position].setInfo(elem);
@@ -162,16 +147,15 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 		do {
 			position = probing(elem, counter);
 			counter++;
+		} while (table[position] != null && table[position].getInfo() != elem);
 
-		} while (table[position] != null || isEmpty(position));
-
-		return null; // You MUST change this
-	}
-
-	private boolean isEmpty(int position) {
-		return table[position] == null
-				|| table[position].getState() == HashNode.EMPTY
-				|| table[position].getState() == HashNode.DELETED;
+		if (table[position] == null) {
+			return null;
+		} else if (table[position].getInfo() == elem && table[position].getState() == HashNode.FULL) {
+			return table[position].getInfo();
+		} else {
+			return null;
+		}
 	}
 
 	@Override
@@ -201,8 +185,9 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 		//
 		// Remember that the load factor is the ratio between the number of
 		// stored elements and the actual size of the array
-
-		return numElements / getSize(); // You MUST change this
+		double num = Double.valueOf(numElements);
+		double size = Double.valueOf(getSize());
+		return num / size;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -228,14 +213,17 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 		if (LF < MAXIMUM_LOAD_FACTOR) {
 			return false;
 		}
-		int newSize = nextBiggerPrime(getSize() * 2);
-		HashNode<T>[] current = table;
-		HashNode<T>[] newTable = new HashNode[newSize];
-		for (int i = 0; i < current.length; i++) {
-			newTable[i] = current[i];
+		// ask Dani about value
+		int newSize = nextBiggerPrime(getSize() + 1);
+		HashNode<T>[] old = table;
+		table = (HashNode<T>[]) new HashNode[newSize];
+		numElements = 0;
+		for (int i = 0; i < old.length; i++) {
+			if (old[i] != null){
+				add(old[i].getInfo());
+			}
 		}
-		table = newTable;
-		return true; // You MUST change this
+		return true;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -253,7 +241,7 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 		// - Return true
 		//
 		// WARNING: be careful with numElements...
-		// invoked from temove
+		// invoked from remove
 
 		return false; // You MUST change this
 	}
