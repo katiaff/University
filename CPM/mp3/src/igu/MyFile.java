@@ -16,9 +16,9 @@ public class MyFile {
 
 	@Override
 	public String toString() {
-		String name = f.getName();
-		return name.replace(".mp3", "");
-
+		return f.getName();
 	}
+	
+	
 
 }

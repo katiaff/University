@@ -13,10 +13,13 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
+import javax.help.HelpBroker;
+import javax.help.HelpSet;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -40,10 +43,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.jtattoo.plaf.hifi.HiFiLookAndFeel;
-
 import player.MusicPlayer;
-import java.awt.FlowLayout;
+
+import com.jtattoo.plaf.hifi.HiFiLookAndFeel;
 
 public class VentanaPrincipal extends JFrame {
 
@@ -103,6 +105,8 @@ public class VentanaPrincipal extends JFrame {
 	private JMenuItem mntmClearLibrary;
 	private JMenuItem mntmClearPlaylist;
 	private JButton btPause;
+	private JMenuItem mntmContents;
+	private JMenuItem mntmAbout;
 
 	/**
 	 * Launch the application.
@@ -144,6 +148,8 @@ public class VentanaPrincipal extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.add(getPnNorte(), BorderLayout.NORTH);
 		contentPane.add(getPanel_1(), BorderLayout.CENTER);
+		
+		cargaAyuda();
 	}
 
 	private JPanel getPnNorte() {
@@ -510,6 +516,8 @@ public class VentanaPrincipal extends JFrame {
 			mnHelp = new JMenu("Help");
 			mnHelp.setForeground(Color.GREEN);
 			mnHelp.setMnemonic('H');
+			mnHelp.add(getMntmContents());
+			mnHelp.add(getMntmAbout());
 		}
 		return mnHelp;
 	}
@@ -665,4 +673,47 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return btPause;
 	}
+	private JMenuItem getMntmContents() {
+		if (mntmContents == null) {
+			mntmContents = new JMenuItem("Contents");
+			mntmContents.setMnemonic('C');
+		}
+		return mntmContents;
+	}
+	private JMenuItem getMntmAbout() {
+		if (mntmAbout == null) {
+			mntmAbout = new JMenuItem("About");
+			mntmAbout.setMnemonic('b');
+		}
+		return mntmAbout;
+	}
+	
+	private void cargaAyuda(){
+
+		   URL hsURL;
+		   HelpSet hs;
+
+		   try {
+			    File fichero = new File("help/Ayuda.hs");
+			    hsURL = fichero.toURI().toURL();
+			    hs = new HelpSet(null, hsURL);
+		}
+
+		    catch (Exception e){
+		      System.out.println("Ayuda no encontrada");
+		     return;
+		   }
+
+		   HelpBroker hb = hs.createHelpBroker();
+		   hb.initPresentation();
+
+		   // content pane: unless you press specific component, 
+		   // it will show intro
+		   hb.enableHelpKey(getRootPane(),"intro", hs);
+		   hb.enableHelpOnButton(mntmContents, "intro", hs);
+		   hb.enableHelp(lista1, "add", hs);
+		   hb.enableHelp(lista2, "play", hs);
+		   hb.enableHelp(slVolumen, "volume", hs);
+		   
+		 }
 }
