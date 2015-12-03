@@ -25,7 +25,8 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 	public void setProbeSequence(short probe_sequence) {
 		// DON'T CHANGE ANYTHING HERE
 		//
-		if (probe_sequence == LINEAR_PROBING || probe_sequence == QUADRATIC_PROBING)
+		if (probe_sequence == LINEAR_PROBING
+				|| probe_sequence == QUADRATIC_PROBING)
 			PROBE_SEQUENCE = probe_sequence;
 		else
 			PROBE_SEQUENCE = QUADRATIC_PROBING;
@@ -53,7 +54,7 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 		// i iteration
 		// B size of the table
 		// x is the fHash of the element to be stored
-		
+
 		int x = fHash(elem);
 		int position = (x + timesSearched) % getSize();
 		return position;
@@ -107,14 +108,24 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 			return false;
 		}
 
+		/*
+		 * PREVIOUSLY REFACTORED CODE int counter = 0; int position =
+		 * probing(elem, counter); HashNode<T> node = table[position]; while
+		 * (node != null && node.getState() == HashNode.FULL) { position =
+		 * probing(elem, counter); node = table[position]; counter++; }
+		 */
+		
+		
+		int position = 0;
 		int counter = 0;
-		int position = probing(elem, counter);
-		HashNode<T> node = table[position];
-		while (node != null && node.getState() == HashNode.FULL) {
+		HashNode<T> node = null;
+		
+		do {
 			position = probing(elem, counter);
 			node = table[position];
 			counter++;
-		}
+		} while (node != null && node.getState() == HashNode.FULL);
+
 		table[position] = new HashNode<T>();
 		table[position].setInfo(elem);
 		numElements++;
@@ -122,6 +133,7 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 
 		return true;
 	}
+	
 
 	@Override
 	public T find(T elem) {
@@ -142,17 +154,21 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 		if (elem == null) {
 			return null;
 		}
+		
 		int counter = 0;
 		int position = 0;
+		HashNode<T> node = null;
+
 		do {
 			position = probing(elem, counter);
+			node = table[position];
 			counter++;
-		} while (table[position] != null && table[position].getInfo() != elem);
+		} while (node != null && node.getInfo() != elem);
 
-		if (table[position] == null) {
+		if (node == null) {
 			return null;
-		} else if (table[position].getInfo() == elem && table[position].getState() == HashNode.FULL) {
-			return table[position].getInfo();
+		} else if (node.getInfo() == elem && node.getState() == HashNode.FULL) {
+			return node.getInfo();
 		} else {
 			return null;
 		}
@@ -177,7 +193,47 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 		// number of elements, invoke downsize and return true
 		// - Otherwise return false
 
-		return false; // You MUST change this
+		if (elem == null || find(elem) == null) {
+			return false;
+		}
+
+		/*
+		 * BEFORE REFACTORING
+		 * 
+		 * int counter = 0;
+		int position = probing(elem, counter);
+		HashNode<T> node = table[position];
+		while (node != null) {
+			if (node.getState() == HashNode.FULL) {
+				if (node.getInfo() == elem) {
+					break;
+				}
+			}
+			position = probing(elem, counter);
+			node = table[position];
+			counter++;
+		}*/
+		
+		int counter = 0;
+		int position = 0;
+		HashNode<T> node = null;
+		
+		do {
+			position = probing(elem, counter);
+			node = table[position];
+			counter++;
+			
+			if (node.getInfo() == elem) {
+				break;
+			}
+			
+		} while (node != null && node.getInfo() != elem);
+
+		table[position].delete();
+		numElements--;
+		downsize();
+
+		return true;
 	}
 
 	protected double getLF() {
@@ -213,13 +269,15 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 		if (LF < MAXIMUM_LOAD_FACTOR) {
 			return false;
 		}
-		// ask Dani about value
-		int newSize = nextBiggerPrime(getSize() + 1);
+
+		// Martin's approach: double the size, not the numElements
+		int newSize = nextBiggerPrime(numElements * 2 + 1);
 		HashNode<T>[] old = table;
 		table = (HashNode<T>[]) new HashNode[newSize];
 		numElements = 0;
 		for (int i = 0; i < old.length; i++) {
-			if (old[i] != null){
+			// only copying full nodes
+			if (old[i] != null && old[i].getState() == HashNode.FULL) {
 				add(old[i].getInfo());
 			}
 		}
@@ -243,7 +301,23 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 		// WARNING: be careful with numElements...
 		// invoked from remove
 
-		return false; // You MUST change this
+		double LF = getLF();
+		if (LF > MINIMUM_LOAD_FACTOR) {
+			return false;
+		}
+
+		// Martin's approach: double the size, not the numElements
+		int newSize = nextSmallerPrime(getSize() / 2 - 1);
+		HashNode<T>[] old = table;
+		table = (HashNode<T>[]) new HashNode[newSize];
+		numElements = 0;
+		for (int i = 0; i < old.length; i++) {
+			// only copying full nodes
+			if (old[i] != null && old[i].getState() == HashNode.FULL) {
+				add(old[i].getInfo());
+			}
+		}
+		return true;
 	}
 
 	@Override
