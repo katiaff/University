@@ -120,12 +120,14 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 		int counter = 0;
 		HashNode<T> node = null;
 		
+		// repeat until we find a null, empty or deleted node
 		do {
 			position = probing(elem, counter);
 			node = table[position];
 			counter++;
 		} while (node != null && node.getState() == HashNode.FULL);
 
+		// set the info for the new node
 		table[position] = new HashNode<T>();
 		table[position].setInfo(elem);
 		numElements++;
@@ -193,6 +195,8 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 		// number of elements, invoke downsize and return true
 		// - Otherwise return false
 
+		
+		// if the element is not in the table
 		if (elem == null || find(elem) == null) {
 			return false;
 		}
@@ -218,6 +222,8 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 		int position = 0;
 		HashNode<T> node = null;
 		
+		
+		// repeat until we find the right node
 		do {
 			position = probing(elem, counter);
 			node = table[position];
@@ -229,6 +235,13 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 			
 		} while (node != null && node.getInfo() != elem);
 
+		// TO ONLY ALLOW DELETION OF FULL NODES
+		/*
+		* if (node.getState() != HashNode.FULL){
+		*	return false;
+		* }
+		*/
+		
 		table[position].delete();
 		numElements--;
 		downsize();
@@ -306,7 +319,6 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 			return false;
 		}
 
-		// Martin's approach: double the size, not the numElements
 		int newSize = nextSmallerPrime(getSize() / 2 - 1);
 		HashNode<T>[] old = table;
 		table = (HashNode<T>[]) new HashNode[newSize];
