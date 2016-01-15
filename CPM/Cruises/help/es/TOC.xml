@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE toc
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp TOC Version 1.0//EN"
+         "http://java.sun.com/products/javahelp/toc_1_0.dtd">
+
+<toc version="1.0">
+  
+  <tocitem text="Bienvenido" target="welcome" />
+  <tocitem text="Buscar un crucero" target="search" />
+  <tocitem text="Elegir un crucero" target="choose" />
+  <tocitem text="Ver información del crucero" target="info" />
+  <tocitem text="Reservar camarotes" target="booking" />
+  <tocitem text="Rellenar sus datos" target="data" />
+
+</toc>
