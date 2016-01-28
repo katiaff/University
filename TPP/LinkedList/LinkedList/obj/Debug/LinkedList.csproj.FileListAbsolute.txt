@@ -1,0 +1,6 @@
+C:\Users\carla\OneDrive\Universidad\Segundo\Segundo Semestre\TPP\Labs\Lab01\LinkedList\LinkedList\LinkedList\bin\Debug\LinkedList.exe.config
+C:\Users\carla\OneDrive\Universidad\Segundo\Segundo Semestre\TPP\Labs\Lab01\LinkedList\LinkedList\LinkedList\bin\Debug\LinkedList.exe
+C:\Users\carla\OneDrive\Universidad\Segundo\Segundo Semestre\TPP\Labs\Lab01\LinkedList\LinkedList\LinkedList\bin\Debug\LinkedList.pdb
+C:\Users\carla\OneDrive\Universidad\Segundo\Segundo Semestre\TPP\Labs\Lab01\LinkedList\LinkedList\LinkedList\obj\Debug\LinkedList.csprojResolveAssemblyReference.cache
+C:\Users\carla\OneDrive\Universidad\Segundo\Segundo Semestre\TPP\Labs\Lab01\LinkedList\LinkedList\LinkedList\obj\Debug\LinkedList.exe
+C:\Users\carla\OneDrive\Universidad\Segundo\Segundo Semestre\TPP\Labs\Lab01\LinkedList\LinkedList\LinkedList\obj\Debug\LinkedList.pdb
