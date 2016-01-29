@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace LinkedList
 {
@@ -35,11 +36,19 @@ namespace LinkedList
         /// <param name="value">New element to be added to the list.</param>
         public void Add(int value)
         {
-            Node newLast = new Node(value, null);
-            Node last;
-            last = GetNodeFromIndex(NumberOfElements - 1);
-            last.Next = newLast;
+            if (NumberOfElements != 0)
+            {
+                Node newLast = new Node(value, null);
+                Node last;
+                last = GetNodeFromIndex(NumberOfElements - 1);
+                last.Next = newLast;            
+            }
+            else
+            {
+                Head = new Node (value, null);
+            }
             NumberOfElements++;
+
         }
 
         /// <summary>
@@ -51,20 +60,23 @@ namespace LinkedList
         public int Remove(int value)
         {
             int ret = -1;
-            Node last = GetNodeFromIndex(NumberOfElements - 1);
-            for (int i = 0; i < NumberOfElements; i++)
+            if (NumberOfElements != 0)
             {
-                Node current = GetNodeFromIndex(i);
-                int val = current.Value;
+                int index = GetIndex(value);
 
-                // if we find the element
-                if (val == value)
+                // if the value exists on the list
+                if (index != -1)
                 {
+                    Node current = GetNodeFromIndex(index);
+                    int val = current.Value;
+
+                    // if we find the element
+
                     ret = val;
-                    // if it is not the last or first element
+                    // if it is not the first element
                     if (current != Head)
                     {
-                        Node previous = GetNodeFromIndex(i - 1);
+                        Node previous = GetNodeFromIndex(index - 1);
                         previous.Next = current.Next;
                     }
                     else
@@ -72,17 +84,32 @@ namespace LinkedList
                         Head = Head.Next;
                     }
                     NumberOfElements--;
-                    break;
+
                 }
             }
+
 
             return ret;
         }
 
-        /*public int GetElement()
+        /// <summary>
+        /// Gets the index of a value on the list
+        /// </summary>
+        /// <param name="value">Value to be found</param>
+        /// <returns>Index of the value. If two values are the same, returns the first found.</returns>
+        private int GetIndex(int value)
         {
-
-        }*/
+            Node ptr = Head;
+            for (int i = 0; i < NumberOfElements; i++)
+            {
+                if (ptr.Value == value)
+                {
+                    return i;
+                }
+                ptr = ptr.Next;
+            }
+            return -1;
+        }
 
         /// <summary>
         /// Returns the node at index i.
