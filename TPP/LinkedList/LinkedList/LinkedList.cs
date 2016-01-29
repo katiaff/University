@@ -4,10 +4,10 @@ using System.Text;
 namespace LinkedList
 {
     /// <summary>
-    /// Provides a LinkedList implementation
+    /// Provides a MyLinkedList implementation
     /// with Add, Remove and GetElement methods.
     /// </summary>
-    class LinkedList
+    public class MyLinkedList
     {
         /// <summary>
         /// First element of the list.
@@ -20,11 +20,11 @@ namespace LinkedList
         public int NumberOfElements { get; private set; }
 
         /// <summary>
-        /// Creates a LinkedList with one element.
+        /// Creates a MyLinkedList with one element.
         /// </summary>
         /// <param name="firstValue">Value for the first
         /// element of the list.</param>
-        public LinkedList(int firstValue)
+        public MyLinkedList(int firstValue)
         {
             Head = new Node(firstValue, new Node(-1, null));
             NumberOfElements = 1;

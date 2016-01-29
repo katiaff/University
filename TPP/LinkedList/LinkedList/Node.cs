@@ -3,7 +3,7 @@
     /// <summary>
     /// Provides a LinkedListNode implementation
     /// </summary>
-    class Node
+    public class Node
     {
         /// <summary>
         /// Value for the node

@@ -5,9 +5,10 @@ namespace LinkedListExample
 {
     class Program
     {
+
         static void Main(string[] args)
         {
-            LinkedList list = new LinkedList(1);
+            MyLinkedList list = new MyLinkedList(1);
 
             // Adding numbers and checking if they are on the list
             Console.WriteLine("Added 1, list: " + list.ToString());
@@ -39,18 +40,18 @@ namespace LinkedListExample
 
             Console.WriteLine("Creating new list... \n");
 
-            list = new LinkedList(1);
+            list = new MyLinkedList(1);
 
             // Adding 5 "1"
             int num = 5;
-            for ( int i = 0; i< num; i++)
+            for (int i = 0; i < num; i++)
             {
                 list.Add(1);
             }
             Console.WriteLine("Added {0} ones, list: " + list.ToString() + "\n", num);
 
             // Removing each "1"
-            for (int i = 0; i< num + 1; i++)
+            for (int i = 0; i < num + 1; i++)
             {
                 list.Remove(1);
                 Console.WriteLine("Removed one 1, list: " + list.ToString() + "\n");
@@ -75,10 +76,19 @@ namespace LinkedListExample
                 Console.WriteLine("Removed {0}, list: " + list.ToString() + "\n", i);
             }
 
-
-
-
-
+            // Getting elements
+            for (int i = 0; i < num + 1; i++)
+            {
+                Console.WriteLine("Getting element {0}: " + list.GetElement(i) + "\n", i);
+            }
+            for (int i = num; i < num + num; i++)
+            {
+                Console.WriteLine("Getting element {0}: " + list.GetElement(i) + "\n", i);
+            }
         }
+
+
+
+
     }
 }
