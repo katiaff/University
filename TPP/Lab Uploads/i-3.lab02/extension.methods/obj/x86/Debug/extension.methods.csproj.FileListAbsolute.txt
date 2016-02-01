@@ -1,0 +1,4 @@
+C:\Users\UO244965\Downloads\i-3.lab02\i-3.lab02\extension.methods\bin\Debug\extension.methods.exe
+C:\Users\UO244965\Downloads\i-3.lab02\i-3.lab02\extension.methods\bin\Debug\extension.methods.pdb
+C:\Users\UO244965\Downloads\i-3.lab02\i-3.lab02\extension.methods\obj\x86\Debug\extension.methods.exe
+C:\Users\UO244965\Downloads\i-3.lab02\i-3.lab02\extension.methods\obj\x86\Debug\extension.methods.pdb

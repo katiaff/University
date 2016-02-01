@@ -1,0 +1,7 @@
+C:\Users\UO244965\Downloads\i-3.lab02\i-3.lab02\vector.test\obj\Debug\vector.test.csprojResolveAssemblyReference.cache
+C:\Users\UO244965\Downloads\i-3.lab02\i-3.lab02\vector.test\bin\Debug\vector.test.dll
+C:\Users\UO244965\Downloads\i-3.lab02\i-3.lab02\vector.test\bin\Debug\vector.test.pdb
+C:\Users\UO244965\Downloads\i-3.lab02\i-3.lab02\vector.test\bin\Debug\vector.dll
+C:\Users\UO244965\Downloads\i-3.lab02\i-3.lab02\vector.test\bin\Debug\vector.pdb
+C:\Users\UO244965\Downloads\i-3.lab02\i-3.lab02\vector.test\obj\Debug\vector.test.dll
+C:\Users\UO244965\Downloads\i-3.lab02\i-3.lab02\vector.test\obj\Debug\vector.test.pdb

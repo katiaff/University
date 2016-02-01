@@ -1,0 +1,4 @@
+C:\Users\UO244965\Downloads\i-3.lab02\i-3.lab02\default.argument.values\bin\Debug\@default.argument.values.exe
+C:\Users\UO244965\Downloads\i-3.lab02\i-3.lab02\default.argument.values\bin\Debug\@default.argument.values.pdb
+C:\Users\UO244965\Downloads\i-3.lab02\i-3.lab02\default.argument.values\obj\x86\Debug\@default.argument.values.exe
+C:\Users\UO244965\Downloads\i-3.lab02\i-3.lab02\default.argument.values\obj\x86\Debug\@default.argument.values.pdb
