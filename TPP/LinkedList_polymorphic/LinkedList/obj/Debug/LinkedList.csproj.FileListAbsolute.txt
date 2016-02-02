@@ -4,3 +4,9 @@ C:\Users\carla\OneDrive\Universidad\Segundo\Segundo Semestre\TPP\Labs\Lab01\Link
 C:\Users\carla\OneDrive\Universidad\Segundo\Segundo Semestre\TPP\Labs\Lab01\LinkedList\LinkedList\LinkedList\bin\Debug\LinkedList.dll.config
 C:\Users\carla\OneDrive\Universidad\Segundo\Segundo Semestre\TPP\Labs\Lab01\LinkedList\LinkedList\LinkedList\bin\Debug\LinkedList.dll
 C:\Users\carla\OneDrive\Universidad\Segundo\Segundo Semestre\TPP\Labs\Lab01\LinkedList\LinkedList\LinkedList\obj\Debug\LinkedList.dll
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\LinkedList\bin\Debug\LinkedList.dll.config
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\LinkedList\bin\Debug\LinkedList.dll
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\LinkedList\bin\Debug\LinkedList.pdb
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\LinkedList\obj\Debug\LinkedList.csprojResolveAssemblyReference.cache
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\LinkedList\obj\Debug\LinkedList.dll
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\LinkedList\obj\Debug\LinkedList.pdb

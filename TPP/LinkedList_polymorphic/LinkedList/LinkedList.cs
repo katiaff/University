@@ -41,11 +41,11 @@ namespace LinkedList
                 Node newLast = new Node(value, null);
                 Node last;
                 last = GetNodeFromIndex(NumberOfElements - 1);
-                last.Next = newLast;            
+                last.Next = newLast;
             }
             else
             {
-                Head = new Node (value, null);
+                Head = new Node(value, null);
             }
             NumberOfElements++;
 
@@ -124,6 +124,17 @@ namespace LinkedList
                 newHead = newHead.Next;
             }
             return newHead;
+        }
+
+        /// <summary>
+        /// Checks if a specific T is in the list
+        /// </summary>
+        /// <param name="value">True if it is in the list; false, otherwise.</param>
+        /// <returns></returns>
+        public Boolean Contains(int value)
+        {
+            return GetElement(value) != -1;
+
         }
 
         /// <summary>

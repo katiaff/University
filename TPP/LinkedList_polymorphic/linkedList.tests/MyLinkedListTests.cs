@@ -6,39 +6,111 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkedList.tests
+namespace LinkedList
 {
     [TestClass()]
     public class MyLinkedListTests
     {
-        [TestMethod()]
-        public void MyLinkedListTest()
+        MyLinkedList l;
+
+        [TestInitialize()]
+        public void CreateList()
         {
-            Assert.Fail();
+            l = new MyLinkedList(0);
         }
 
         [TestMethod()]
-        public void AddTest()
+        public void ThenItShouldHaveOneElement()
         {
-            Assert.Fail();
+            Assert.AreEqual(1, l.NumberOfElements);
         }
 
         [TestMethod()]
-        public void RemoveTest()
+        public void BeforeAddingElementsDontExist()
         {
-            Assert.Fail();
+            for (int i = 1; i < 6; i++)
+            {
+                Assert.AreEqual(-1, l.GetElement(i));
+            }
+        }
+
+        [TestMethod()]
+        public void ThenAddAndSizeGrows()
+        {
+            for (int i = 1; i < 6; i++)
+            {
+                l.Add(i);
+                Assert.AreEqual(i + 1, l.NumberOfElements);
+            }
+            Assert.AreEqual("0 1 2 3 4 5", l.ToString());
+        }
+
+        [TestMethod()]
+        public void AfterAddingElementsExist()
+        {
+            ThenAddAndSizeGrows();
+            for (int i = 0; i < 6; i++)
+            {
+                Assert.AreEqual(i, l.GetElement(i));
+            }
+        }
+
+        [TestMethod()]
+        public void AfterAddingListContainsTheElements()
+        {
+            ThenAddAndSizeGrows();
+            for (int i = 0; i < 6; i++)
+            {
+                Assert.IsTrue(l.Contains(i));
+                Assert.IsFalse(l.Contains(i+6));
+            }
+        }
+
+        [TestMethod()]
+        public void ThenRemoveAndSizeDecreases()
+        {
+            ThenAddAndSizeGrows();
+            int currentSize;
+            for (int i = 0; i < 6; i++)
+            {
+                currentSize = l.NumberOfElements;
+                l.Remove(i);
+                Assert.AreEqual(currentSize - 1, l.NumberOfElements);
+            }
+            Assert.AreEqual("", l.ToString());
+        }
+
+        [TestMethod()]
+        public void AfterRemovingElementsDontExist()
+        {
+            ThenRemoveAndSizeDecreases();
+            for (int i = 0; i < 6; i++)
+            {
+                Assert.AreEqual(-1, l.GetElement(i));
+            }
+        }
+
+        [TestMethod()]
+        public void ButCantRemoveUnexistingItems()
+        {
+            for (int i = 1; i < 6; i++)
+            {
+                Assert.AreEqual(-1, l.Remove(i));
+                Assert.AreEqual(1, l.NumberOfElements);
+            }
         }
 
         [TestMethod()]
         public void GetElementTest()
         {
-            Assert.Fail();
+            for (int i = 1; i < 30; i++)
+            {
+                l.Add(i);
+                Assert.AreEqual(i, l.GetElement(i));
+                Assert.AreEqual(-1, l.GetElement(i + 30));
+            }
         }
 
-        [TestMethod()]
-        public void ToStringTest()
-        {
-            Assert.Fail();
-        }
+
     }
 }
