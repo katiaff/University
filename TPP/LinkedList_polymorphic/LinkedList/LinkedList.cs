@@ -118,12 +118,19 @@ namespace LinkedList
         /// <returns></returns>
         private Node GetNodeFromIndex(int i)
         {
-            Node newHead = Head;
-            for (int n = 0; n < i; n++)
+            if (isRightIndex(i))
             {
-                newHead = newHead.Next;
+                Node newHead = Head;
+                for (int n = 0; n < i; n++)
+                {
+                    newHead = newHead.Next;
+                }
+                return newHead;
             }
-            return newHead;
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -157,6 +164,24 @@ namespace LinkedList
                 }
             }
             return null;
+        }
+
+        public Object GetElementByIndex(int i)
+        {
+            if (isRightIndex(i))
+            {
+                Node node = GetNodeFromIndex(i);
+                return node.Value;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private bool isRightIndex(int i)
+        {
+            return i >= 0 && i < NumberOfElements;
         }
 
         /// <summary>

@@ -51,6 +51,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="LinkedListTest_double.cs" />
     <Compile Include="LinkedListTest_int.cs" />
     <Compile Include="LinkedListTest_String.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

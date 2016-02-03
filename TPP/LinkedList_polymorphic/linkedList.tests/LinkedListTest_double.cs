@@ -9,36 +9,36 @@ using System.Threading.Tasks;
 namespace LinkedList
 {
     [TestClass()]
-    public class LinkedListTest_int
+    public class LinkedListTest_double
     {
         MyLinkedList l;
 
         [TestInitialize()]
         public void CreateList()
         {
-            l = new MyLinkedList(0);
+            l = new MyLinkedList(0.0);
         }
 
         [TestMethod()]
-        public void ThenItShouldHaveOneElement_int()
+        public void ThenItShouldHaveOneElement_double()
         {
             Assert.AreEqual(1, l.NumberOfElements);
         }
 
         [TestMethod()]
-        public void BeforeAddingElementsDontExist_int()
+        public void BeforeAddingElementsDontExist_double()
         {
-            for (int i = 1; i < 6; i++)
+            for (double i = 1.0; i < 6.0; i++)
             {
                 Assert.AreEqual(null, l.GetElement(i));
             }
-            Assert.AreEqual(0, l.GetElement(0));
+            Assert.AreEqual(0.0, l.GetElementByIndex(0));
         }
 
         [TestMethod()]
-        public void ThenAddAndSizeGrows_int()
+        public void ThenAddAndSizeGrows_double()
         {
-            for (int i = 1; i < 6; i++)
+            for (double i = 1.0; i < 6.0; i++)
             {
                 l.Add(i);
                 Assert.AreEqual(i + 1, l.NumberOfElements);
@@ -47,21 +47,21 @@ namespace LinkedList
         }
 
         [TestMethod()]
-        public void AfterAddingElementsExist_int()
+        public void AfterAddingElementsExist_double()
         {
-            ThenAddAndSizeGrows_int();
-            for (int i = 0; i < 6; i++)
+            ThenAddAndSizeGrows_double();
+            for (double i = 0.0; i < 6.0; i++)
             {
                 Assert.AreEqual(i, l.GetElement(i));
-                Assert.AreEqual(i, l.GetElementByIndex(i));
+                Assert.AreEqual(i, l.GetElementByIndex(Convert.ToInt32(i)));
             }
         }
 
         [TestMethod()]
-        public void AfterAddingListContainsTheElements_int()
+        public void AfterAddingListContainsTheElements_double()
         {
-            ThenAddAndSizeGrows_int();
-            for (int i = 0; i < 6; i++)
+            ThenAddAndSizeGrows_double();
+            for (double i = 0.0; i < 6.0; i++)
             {
                 Assert.IsTrue(l.Contains(i));
                 Assert.IsFalse(l.Contains(i+6));
@@ -69,11 +69,11 @@ namespace LinkedList
         }
 
         [TestMethod()]
-        public void ThenRemoveAndSizeDecreases_int()
+        public void ThenRemoveAndSizeDecreases_double()
         {
-            ThenAddAndSizeGrows_int();
+            ThenAddAndSizeGrows_double();
             int currentSize;
-            for (int i = 0; i < 6; i++)
+            for (double i = 0.0; i < 6.0; i++)
             {
                 currentSize = l.NumberOfElements;
                 l.Remove(i);
@@ -83,19 +83,19 @@ namespace LinkedList
         }
 
         [TestMethod()]
-        public void AfterRemovingElementsDontExist_int()
+        public void AfterRemovingElementsDontExist_double()
         {
-            ThenRemoveAndSizeDecreases_int();
-            for (int i = 0; i < 6; i++)
+            ThenRemoveAndSizeDecreases_double();
+            for (double i = 0.0; i < 6.0; i++)
             {
                 Assert.AreEqual(null, l.GetElement(i));
             }
         }
 
         [TestMethod()]
-        public void ButCantRemoveUnexistingItems_int()
+        public void ButCantRemoveUnexistingItems_double()
         {
-            for (int i = 1; i < 6; i++)
+            for (double i = 1.0; i < 6.0; i++)
             {
                 Assert.AreEqual(null, l.Remove(i));
                 Assert.AreEqual(1, l.NumberOfElements);
@@ -103,9 +103,9 @@ namespace LinkedList
         }
 
         [TestMethod()]
-        public void GetElementTest_int()
+        public void GetElementTest_double()
         {
-            for (int i = 1; i < 30; i++)
+            for (double i = 1.0; i < 30.0; i++)
             {
                 l.Add(i);
                 Assert.AreEqual(i, l.GetElement(i));
