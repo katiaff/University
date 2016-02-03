@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 namespace LinkedList
 {
     [TestClass()]
-    public class MyLinkedListTests
+    public class LinkedListTest_String
     {
         MyLinkedList l;
 
         [TestInitialize()]
         public void CreateList()
         {
-            l = new MyLinkedList(0);
+            l = new MyLinkedList("a");
         }
 
         [TestMethod()]
@@ -28,21 +28,26 @@ namespace LinkedList
         [TestMethod()]
         public void BeforeAddingElementsDontExist()
         {
-            for (int i = 1; i < 6; i++)
-            {
-                Assert.AreEqual(-1, l.GetElement(i));
-            }
+            Assert.AreEqual(-1, l.GetElement("b"));
+            Assert.AreEqual(-1, l.GetElement("c"));
+            Assert.AreEqual(-1, l.GetElement("d"));
+            Assert.AreEqual(-1, l.GetElement("e"));
         }
 
         [TestMethod()]
         public void ThenAddAndSizeGrows()
         {
-            for (int i = 1; i < 6; i++)
-            {
-                l.Add(i);
-                Assert.AreEqual(i + 1, l.NumberOfElements);
-            }
-            Assert.AreEqual("0 1 2 3 4 5", l.ToString());
+            int num = l.NumberOfElements;
+            l.Add("b");
+            Assert.AreEqual(num + 1, l.NumberOfElements);
+            l.Add("c");
+            Assert.AreEqual(num + 2, l.NumberOfElements);
+            l.Add("d");
+            Assert.AreEqual(num + 3, l.NumberOfElements);
+            l.Add("e");
+            Assert.AreEqual(num + 4, l.NumberOfElements);
+
+            Assert.AreEqual("a b c d e", l.ToString());
         }
 
         [TestMethod()]
@@ -62,7 +67,7 @@ namespace LinkedList
             for (int i = 0; i < 6; i++)
             {
                 Assert.IsTrue(l.Contains(i));
-                Assert.IsFalse(l.Contains(i+6));
+                Assert.IsFalse(l.Contains(i + 6));
             }
         }
 

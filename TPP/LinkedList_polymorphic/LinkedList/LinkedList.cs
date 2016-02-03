@@ -24,9 +24,9 @@ namespace LinkedList
         /// </summary>
         /// <param name="firstValue">Value for the first
         /// element of the list.</param>
-        public MyLinkedList(int firstValue)
+        public MyLinkedList(Object firstValue)
         {
-            Head = new Node(firstValue, new Node(-1, null));
+            Head = new Node(firstValue, new Node(null, null));
             NumberOfElements = 1;
         }
 
@@ -34,7 +34,7 @@ namespace LinkedList
         /// Adds a new element at the end of the list.
         /// </summary>
         /// <param name="value">New element to be added to the list.</param>
-        public void Add(int value)
+        public void Add(Object value)
         {
             if (NumberOfElements != 0)
             {
@@ -57,9 +57,10 @@ namespace LinkedList
         /// <param name="value">Element to be removed.</param>
         /// <returns>Removed element or -1 
         /// if element was not found.</returns>
-        public int Remove(int value)
+        public Object Remove(Object value)
         {
-            int ret = -1;
+            Object ret = null;
+
             if (NumberOfElements != 0)
             {
                 int index = GetIndex(value);
@@ -68,7 +69,7 @@ namespace LinkedList
                 if (index != -1)
                 {
                     Node current = GetNodeFromIndex(index);
-                    int val = current.Value;
+                    Object val = current.Value;
 
                     // if we find the element
 
@@ -88,7 +89,6 @@ namespace LinkedList
                 }
             }
 
-
             return ret;
         }
 
@@ -97,12 +97,12 @@ namespace LinkedList
         /// </summary>
         /// <param name="value">Value to be found</param>
         /// <returns>Index of the value. If two values are the same, returns the first found.</returns>
-        private int GetIndex(int value)
+        private int GetIndex(Object value)
         {
             Node ptr = Head;
             for (int i = 0; i < NumberOfElements; i++)
             {
-                if (ptr.Value == value)
+                if (ptr.Value.Equals(value))
                 {
                     return i;
                 }
@@ -131,9 +131,9 @@ namespace LinkedList
         /// </summary>
         /// <param name="value">True if it is in the list; false, otherwise.</param>
         /// <returns></returns>
-        public Boolean Contains(int value)
+        public Boolean Contains(Object value)
         {
-            return GetElement(value) != -1;
+            return GetElement(value) != null;
 
         }
 
@@ -143,20 +143,20 @@ namespace LinkedList
         /// <param name="value"></param>
         /// <returns>The element if it is on the list,
         /// -1 if it is not on the list.</returns>
-        public int GetElement(int value)
+        public Object GetElement(Object value)
         {
             for (int i = 0; i < NumberOfElements; i++)
             {
                 Node current = GetNodeFromIndex(i);
-                int val = current.Value;
+                Object val = current.Value;
 
                 // if we find the element
-                if (val == value)
+                if (val.Equals(value))
                 {
                     return val;
                 }
             }
-            return -1;
+            return null;
         }
 
         /// <summary>

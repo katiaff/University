@@ -1,4 +1,7 @@
-﻿namespace LinkedList
+﻿using System;
+using System.Collections.Generic;
+
+namespace LinkedList
 {
     /// <summary>
     /// Provides a LinkedListNode implementation
@@ -8,7 +11,7 @@
         /// <summary>
         /// Value for the node
         /// </summary>
-        public int Value { get; protected internal set; }
+        public Object Value { get; protected internal set; }
 
         /// <summary>
         /// Pointer to the next node
@@ -20,7 +23,7 @@
         /// </summary>
         /// <param name="value">Value for the node</param>
         /// <param name="next">Link to the following node</param>
-        public Node(int value, Node next)
+        public Node(Object value, Node next)
         {
             this.Value = value;
             this.Next = next;
