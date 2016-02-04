@@ -55,6 +55,7 @@
     <Compile Include="LinkedListTest_int.cs" />
     <Compile Include="LinkedListTest_Person.cs" />
     <Compile Include="LinkedListTest_String.cs" />
+    <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

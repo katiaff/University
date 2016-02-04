@@ -12,11 +12,13 @@ namespace LinkedList
     public class LinkedListTest_Person
     {
         MyLinkedList l;
+        Person[] people;
 
         [TestInitialize()]
         public void CreateList()
         {
-            l = new MyLinkedList("a");
+            people = GeneratePersons();
+            l = new MyLinkedList(people[0]);
         }
 
         [TestMethod()]
@@ -28,57 +30,46 @@ namespace LinkedList
         [TestMethod()]
         public void BeforeAddingElementsDontExist_Person()
         {
-            Assert.AreEqual(null, l.GetElement("b"));
-            Assert.AreEqual(null, l.GetElement("c"));
-            Assert.AreEqual(null, l.GetElement("d"));
-            Assert.AreEqual(null, l.GetElement("e"));
+            for (int i = 1; i < people.Length; i++)
+            {
+                Assert.AreEqual(null, l.GetElement(people[i]));
+                Assert.AreEqual(null, l.GetElementByIndex(i));
+            }
+
         }
 
         [TestMethod()]
         public void ThenAddAndSizeGrows_Person()
         {
             int num = l.NumberOfElements;
-            l.Add("b");
-            Assert.AreEqual(num + 1, l.NumberOfElements);
-            l.Add("c");
-            Assert.AreEqual(num + 2, l.NumberOfElements);
-            l.Add("d");
-            Assert.AreEqual(num + 3, l.NumberOfElements);
-            l.Add("e");
-            Assert.AreEqual(num + 4, l.NumberOfElements);
-
-            Assert.AreEqual("a b c d e", l.ToString());
+            for (int i = 1; i < people.Length; i++)
+            {
+                l.Add(people[i]);
+                Assert.AreEqual(num + 1, l.NumberOfElements);
+                num = l.NumberOfElements;
+                Assert.AreEqual(people[i], l.GetElement(people[i]));
+            }
         }
 
         [TestMethod()]
         public void AfterAddingElementsExist_Person()
         {
             ThenAddAndSizeGrows_Person();
-            Assert.AreEqual("a", l.GetElement("a"));
-            Assert.AreEqual("b", l.GetElement("b"));
-            Assert.AreEqual("c", l.GetElement("c"));
-            Assert.AreEqual("d", l.GetElement("d"));
-            Assert.AreEqual("e", l.GetElement("e"));
-            Assert.AreEqual("a", l.GetElementByIndex(0));
-            Assert.AreEqual("b", l.GetElementByIndex(1));
-            Assert.AreEqual("c", l.GetElementByIndex(2));
-            Assert.AreEqual("d", l.GetElementByIndex(3));
-            Assert.AreEqual("e", l.GetElementByIndex(4));
+            for (int i = 1; i < people.Length; i++)
+            {
+                Assert.AreEqual(people[i], l.GetElement(people[i]));
+                Assert.AreEqual(people[i], l.GetElementByIndex(i));
+            }
         }
 
         [TestMethod()]
         public void AfterAddingListContainsTheElements_Person()
         {
             ThenAddAndSizeGrows_Person();
-            Assert.IsTrue(l.Contains("a"));
-            Assert.IsTrue(l.Contains("b"));
-            Assert.IsTrue(l.Contains("c"));
-            Assert.IsTrue(l.Contains("d"));
-            Assert.IsTrue(l.Contains("e"));
-            Assert.IsFalse(l.Contains("f"));
-            Assert.IsFalse(l.Contains("g"));
-            Assert.IsFalse(l.Contains("h"));
-            Assert.IsFalse(l.Contains("i"));
+            for (int i = 1; i < people.Length; i++)
+            {
+                Assert.IsTrue(l.Contains(people[i]));
+            }
 
         }
 
@@ -87,16 +78,12 @@ namespace LinkedList
         {
             ThenAddAndSizeGrows_Person();
             int num = l.NumberOfElements;
-            l.Remove("a");
-            Assert.AreEqual(num - 1, l.NumberOfElements);
-            l.Remove("b");
-            Assert.AreEqual(num - 2, l.NumberOfElements);
-            l.Remove("c");
-            Assert.AreEqual(num - 3, l.NumberOfElements);
-            l.Remove("d");
-            Assert.AreEqual(num - 4, l.NumberOfElements);
-            l.Remove("e");
-            Assert.AreEqual(num - 5, l.NumberOfElements);
+            for (int i = 0; i < people.Length; i++)
+            {
+                l.Remove(people[i]);
+                Assert.AreEqual(num - 1, l.NumberOfElements);
+                num = l.NumberOfElements;
+            }
 
             Assert.AreEqual("", l.ToString());
         }
@@ -105,33 +92,45 @@ namespace LinkedList
         public void AfterRemovingElementsDontExist_Person()
         {
             ThenRemoveAndSizeDecreases_Person();
-            Assert.AreEqual(null, l.GetElement("a"));
-            Assert.AreEqual(null, l.GetElement("b"));
-            Assert.AreEqual(null, l.GetElement("c"));
-            Assert.AreEqual(null, l.GetElement("d"));
-            Assert.AreEqual(null, l.GetElement("e"));
+            Assert.AreEqual(null, l.GetElement(people[0]));
+            Assert.AreEqual(null, l.GetElement(people[1]));
+            Assert.AreEqual(null, l.GetElement(people[2]));
+            Assert.AreEqual(null, l.GetElement(people[3]));
+            Assert.AreEqual(null, l.GetElement(people[4]));
 
         }
 
         [TestMethod()]
         public void ButCantRemoveUnexistingItems_Person()
         {
-            for (int i = 1; i < 6; i++)
-            {
-                Assert.AreEqual(null, l.Remove(i));
-                Assert.AreEqual(1, l.NumberOfElements);
-            }
+            Assert.AreEqual(null, l.Remove(new Person("blabla", "blabla", "123")));
+            Assert.AreEqual(null, l.Remove(new Person("blabla2", "blabla", "123")));
+            Assert.AreEqual(null, l.Remove(new Person("blabla3", "blabla", "123")));
+            Assert.AreEqual(null, l.Remove(new Person("blabla4", "blabla", "123")));
+            Assert.AreEqual(1, l.NumberOfElements);
         }
 
         [TestMethod()]
         public void GetElementTest_Person()
         {
-            for (int i = 1; i < 30; i++)
+            for (int i = 1; i < people.Length; i++)
             {
-                l.Add(i);
-                Assert.AreEqual(i, l.GetElement(i));
-                Assert.AreEqual(null, l.GetElement(i + 30));
+                l.Add(people[i]);
+                Assert.AreEqual(people[i], l.GetElementByIndex(i));
+                Assert.AreEqual(null, l.GetElementByIndex(i + 30));
             }
+        }
+
+        Person[] GeneratePersons()
+        {
+            Person[] p = new Person[5];
+            p[0] = new Person("Carla", "Fernandez", idNumber: null);
+            p[1] = new Person("Carlos", "Fernandez", "123456789");
+            p[2] = new Person("Marisa", "Gonzalez", "123456789A");
+            p[3] = new Person("Diego", "Freijo", "234567890");
+            p[4] = new Person("Julio", "Gonzalez", "111111111");
+
+            return p;
         }
 
 
