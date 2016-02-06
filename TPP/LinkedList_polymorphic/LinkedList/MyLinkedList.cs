@@ -5,7 +5,7 @@ namespace LinkedList
 {
     /// <summary>
     /// Provides a MyLinkedList implementation
-    /// with Add, Remove and GetElement methods.
+    /// with Add, Remove, GetElement and Contains methods.
     /// </summary>
     public class MyLinkedList
     {
@@ -34,7 +34,7 @@ namespace LinkedList
         /// Adds a new element at the end of the list.
         /// </summary>
         /// <param name="value">New element to be added to the list.</param>
-        public void Add(Object value)
+        public virtual void Add(Object value)
         {
             if (NumberOfElements != 0)
             {
@@ -165,7 +165,11 @@ namespace LinkedList
             }
             return null;
         }
-
+        /// <summary>
+        /// Gets the element from a specific index
+        /// </summary>
+        /// <param name="i">The index</param>
+        /// <returns></returns>
         public Object GetElementByIndex(int i)
         {
             if (isRightIndex(i))
@@ -179,6 +183,11 @@ namespace LinkedList
             }
         }
 
+        /// <summary>
+        /// Checks if it is a valid index
+        /// </summary>
+        /// <param name="i">The index</param>
+        /// <returns>True if it is valid; False, otherwise</returns>
         private bool isRightIndex(int i)
         {
             return i >= 0 && i < NumberOfElements;

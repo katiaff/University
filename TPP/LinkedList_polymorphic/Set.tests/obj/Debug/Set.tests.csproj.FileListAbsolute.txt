@@ -1,0 +1,12 @@
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Set.tests\bin\Debug\Set.tests.dll
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Set.tests\bin\Debug\Set.tests.pdb
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Set.tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Set.tests\bin\Debug\Set.dll
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Set.tests\bin\Debug\LinkedList.dll
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Set.tests\bin\Debug\Set.pdb
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Set.tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Set.tests\bin\Debug\LinkedList.pdb
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Set.tests\bin\Debug\es\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Set.tests\obj\Debug\Set.tests.csprojResolveAssemblyReference.cache
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Set.tests\obj\Debug\Set.tests.dll
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Set.tests\obj\Debug\Set.tests.pdb
