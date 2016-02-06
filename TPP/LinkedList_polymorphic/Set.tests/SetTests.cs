@@ -6,22 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkedList
-{
+namespace LinkedList {
     [TestClass()]
-    public class SetTests
-    {
+    public class SetTests {
         Set<int> s;
 
         [TestInitialize]
-        public void createSet()
-        {
+        public void createSet() {
             s = new Set<int>(0);
         }
 
         [TestMethod()]
-        public void AddRepeatedNumbers()
-        {
+        public void AddRepeatedNumbers() {
             s.Add(0);
             Assert.AreEqual(1, s.NumberOfElements);
             s.Add(1);
@@ -37,8 +33,7 @@ namespace LinkedList
         }
 
         [TestMethod()]
-        public void PlusOperatorTest()
-        {
+        public void PlusOperatorTest() {
             s = s + 1;
             Assert.AreEqual(2, s.NumberOfElements);
             s = s + 1;
@@ -54,12 +49,11 @@ namespace LinkedList
         }
 
         [TestMethod()]
-        public void MinusOperatorTest()
-        {
+        public void MinusOperatorTest() {
             PlusOperatorTest();
-            s = s-0;
+            s = s - 0;
             Assert.AreEqual(3, s.NumberOfElements);
-            s = s-0;
+            s = s - 0;
             Assert.AreEqual(3, s.NumberOfElements);
             s = s - 1;
             Assert.AreEqual(2, s.NumberOfElements);
@@ -79,8 +73,7 @@ namespace LinkedList
         }
 
         [TestMethod()]
-        public void BracketOperatorTest()
-        {
+        public void BracketOperatorTest() {
             PlusOperatorTest();
             Assert.AreEqual(0, s[0]);
             Assert.AreEqual(1, s[1]);
@@ -89,8 +82,7 @@ namespace LinkedList
         }
 
         [TestMethod()]
-        public void UnionOperatorTest()
-        {
+        public void UnionOperatorTest() {
             s.Add(1);
             s.Add(2);
             s.Add(3);
@@ -117,8 +109,7 @@ namespace LinkedList
         }
 
         [TestMethod()]
-        public void IntersectionOperatorTest()
-        {
+        public void IntersectionOperatorTest() {
             s.Add(1);
             s.Add(2);
             s.Add(3);
@@ -146,13 +137,12 @@ namespace LinkedList
         }
 
         [TestMethod]
-        public void ContainsOperatorTest()
-        {
+        public void ContainsOperatorTest() {
             s.Add(1);
             s.Add(2);
             s.Add(3);
 
-            Assert.IsTrue(s^0);
+            Assert.IsTrue(s ^ 0);
             Assert.IsTrue(s ^ 1);
             Assert.IsTrue(s ^ 2);
             Assert.IsTrue(s ^ 3);
@@ -163,8 +153,7 @@ namespace LinkedList
         }
 
         [TestMethod]
-        public void DifferenceOperatorTest()
-        {
+        public void DifferenceOperatorTest() {
             s.Add(1);
             s.Add(2);
             s.Add(3);
@@ -198,8 +187,6 @@ namespace LinkedList
 
             s = s - s2;
             Assert.AreEqual("0 1 2", s.ToString());
-
-
 
         }
 

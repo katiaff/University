@@ -1,13 +1,10 @@
 ﻿using System;
 using LinkedList;
 
-namespace LinkedListExample
-{
-    class Program
-    {
+namespace LinkedListExample {
+    class Program {
 
-        static void Main(string[] args)
-        {
+        static void Main(string[] args) {
             MyLinkedList<int> list = new MyLinkedList<int>(1);
 
             // Adding numbers and checking if they are on the list
@@ -58,15 +55,13 @@ namespace LinkedListExample
             // Adding 5 "1"
             Console.WriteLine("Adding 5 '1' and removing each one \n");
             int num = 5;
-            for (int i = 0; i < num; i++)
-            {
+            for (int i = 0; i < num; i++) {
                 list.Add(1);
             }
             Console.WriteLine("Added {0} ones, list: " + list.ToString() + "\n", num);
 
             // Removing each "1"
-            for (int i = 0; i < num + 1; i++)
-            {
+            for (int i = 0; i < num + 1; i++) {
                 list.Remove(1);
                 Console.WriteLine("Removed one 1, list: " + list.ToString() + "\n");
             }
@@ -74,21 +69,18 @@ namespace LinkedListExample
 
             // Adding 0-1-2-3-4-0-1-2-3-4
             Console.WriteLine("Adding different repeated numbers and deleting them \n");
-            for (int i = 0; i < num; i++)
-            {
+            for (int i = 0; i < num; i++) {
                 list.Add(i);
 
             }
-            for (int i = 0; i < num; i++)
-            {
+            for (int i = 0; i < num; i++) {
                 list.Add(i);
 
             }
             Console.WriteLine("Added 0 1 2 3 4 0 1 2 3 4, list: " + list.ToString() + "\n");
 
             // Removing only one number (repeated)
-            for (int i = 0; i < num + 1; i++)
-            {
+            for (int i = 0; i < num + 1; i++) {
                 list.Remove(i);
                 Console.WriteLine("Removed {0}, list: " + list.ToString() + "\n", i);
             }
@@ -96,12 +88,10 @@ namespace LinkedListExample
 
             // Getting elements
             Console.WriteLine("Getting some more elements \n");
-            for (int i = 0; i < num + 1; i++)
-            {
+            for (int i = 0; i < num + 1; i++) {
                 Console.WriteLine("Getting element {0}: " + list.GetElement(i) + "\n", i);
             }
-            for (int i = num; i < num + num; i++)
-            {
+            for (int i = num; i < num + num; i++) {
                 Console.WriteLine("Getting element {0}: " + list.GetElement(i) + "\n", i);
             }
             Console.WriteLine("------------------------------- \n");

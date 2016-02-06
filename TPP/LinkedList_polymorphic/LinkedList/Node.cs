@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LinkedList
-{
+namespace LinkedList {
     /// <summary>
     /// Provides a LinkedListNode implementation
     /// </summary>
-    public class Node<T>
-    {
+    public class Node<T> {
         /// <summary>
         /// Value for the node
         /// </summary>
@@ -23,8 +21,7 @@ namespace LinkedList
         /// </summary>
         /// <param name="value">Value for the node</param>
         /// <param name="next">Link to the following node</param>
-        public Node(T value, Node<T> next)
-        {
+        public Node(T value, Node<T> next) {
             this.Value = value;
             this.Next = next;
         }
@@ -33,8 +30,7 @@ namespace LinkedList
         /// Returns the value of the Value property
         /// </summary>
         /// <returns>Value</returns>
-        public override string ToString()
-        {
+        public override string ToString() {
             return Value.ToString();
         }
 
