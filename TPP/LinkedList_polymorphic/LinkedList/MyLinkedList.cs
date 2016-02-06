@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Collections.Generic;
 
 namespace LinkedList
 {
@@ -7,12 +8,12 @@ namespace LinkedList
     /// Provides a MyLinkedList implementation
     /// with Add, Remove, GetElement and Contains methods.
     /// </summary>
-    public class MyLinkedList
+    public class MyLinkedList<T>
     {
         /// <summary>
         /// First element of the list.
         /// </summary>
-        public Node Head { get; private set; }
+        public Node<T> Head { get; private set; }
 
         /// <summary>
         /// Number of elements on the list.
@@ -24,9 +25,9 @@ namespace LinkedList
         /// </summary>
         /// <param name="firstValue">Value for the first
         /// element of the list.</param>
-        public MyLinkedList(Object firstValue)
+        public MyLinkedList(T firstValue)
         {
-            Head = new Node(firstValue, new Node(null, null));
+            Head = new Node<T>(firstValue, new Node<T>(default(T), null));
             NumberOfElements = 1;
         }
 
@@ -34,18 +35,18 @@ namespace LinkedList
         /// Adds a new element at the end of the list.
         /// </summary>
         /// <param name="value">New element to be added to the list.</param>
-        public virtual void Add(Object value)
+        public virtual void Add(T value)
         {
             if (NumberOfElements != 0)
             {
-                Node newLast = new Node(value, null);
-                Node last;
+                Node<T> newLast = new Node<T>(value, null);
+                Node<T> last;
                 last = GetNodeFromIndex(NumberOfElements - 1);
                 last.Next = newLast;
             }
             else
             {
-                Head = new Node(value, null);
+                Head = new Node<T>(value, null);
             }
             NumberOfElements++;
 
@@ -57,9 +58,9 @@ namespace LinkedList
         /// <param name="value">Element to be removed.</param>
         /// <returns>Removed element or -1 
         /// if element was not found.</returns>
-        public Object Remove(Object value)
+        public T Remove(T value)
         {
-            Object ret = null;
+            T ret = default(T);
 
             if (NumberOfElements != 0)
             {
@@ -68,8 +69,8 @@ namespace LinkedList
                 // if the value exists on the list
                 if (index != -1)
                 {
-                    Node current = GetNodeFromIndex(index);
-                    Object val = current.Value;
+                    Node<T> current = GetNodeFromIndex(index);
+                    T val = current.Value;
 
                     // if we find the element
 
@@ -77,7 +78,7 @@ namespace LinkedList
                     // if it is not the first element
                     if (current != Head)
                     {
-                        Node previous = GetNodeFromIndex(index - 1);
+                        Node<T> previous = GetNodeFromIndex(index - 1);
                         previous.Next = current.Next;
                     }
                     else
@@ -97,9 +98,9 @@ namespace LinkedList
         /// </summary>
         /// <param name="value">Value to be found</param>
         /// <returns>Index of the value. If two values are the same, returns the first found.</returns>
-        private int GetIndex(Object value)
+        private int GetIndex(T value)
         {
-            Node ptr = Head;
+            Node<T> ptr = Head;
             for (int i = 0; i < NumberOfElements; i++)
             {
                 if (ptr.Value.Equals(value))
@@ -116,11 +117,11 @@ namespace LinkedList
         /// </summary>
         /// <param name="index">Index of the node.</param>
         /// <returns></returns>
-        private Node GetNodeFromIndex(int i)
+        private Node<T> GetNodeFromIndex(int i)
         {
             if (isRightIndex(i))
             {
-                Node newHead = Head;
+                Node<T> newHead = Head;
                 for (int n = 0; n < i; n++)
                 {
                     newHead = newHead.Next;
@@ -138,9 +139,9 @@ namespace LinkedList
         /// </summary>
         /// <param name="value">True if it is in the list; false, otherwise.</param>
         /// <returns></returns>
-        public Boolean Contains(Object value)
+        public bool Contains(T value)
         {
-            return GetElement(value) != null;
+            return GetIndex(value) != -1;
 
         }
 
@@ -150,12 +151,12 @@ namespace LinkedList
         /// <param name="value"></param>
         /// <returns>The element if it is on the list,
         /// -1 if it is not on the list.</returns>
-        public Object GetElement(Object value)
+        public T GetElement(T value)
         {
             for (int i = 0; i < NumberOfElements; i++)
             {
-                Node current = GetNodeFromIndex(i);
-                Object val = current.Value;
+                Node<T> current = GetNodeFromIndex(i);
+                T val = current.Value;
 
                 // if we find the element
                 if (val.Equals(value))
@@ -163,23 +164,23 @@ namespace LinkedList
                     return val;
                 }
             }
-            return null;
+            return default(T);
         }
         /// <summary>
         /// Gets the element from a specific index
         /// </summary>
         /// <param name="i">The index</param>
         /// <returns></returns>
-        public Object GetElementByIndex(int i)
+        public T GetElementByIndex(int i)
         {
             if (isRightIndex(i))
             {
-                Node node = GetNodeFromIndex(i);
+                Node<T> node = GetNodeFromIndex(i);
                 return node.Value;
             }
             else
             {
-                return null;
+                return default(T);
             }
         }
 
@@ -201,7 +202,7 @@ namespace LinkedList
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            Node ptr = Head;
+            Node<T> ptr = Head;
             for (int i = 0; i < NumberOfElements; i++)
             {
                 sb.Append(ptr + " ");

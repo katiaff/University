@@ -11,12 +11,12 @@ namespace LinkedList
     [TestClass()]
     public class SetTests
     {
-        Set s;
+        Set<int> s;
 
         [TestInitialize]
         public void createSet()
         {
-            s = new Set(0);
+            s = new Set<int>(0);
         }
 
         [TestMethod()]
@@ -95,19 +95,19 @@ namespace LinkedList
             s.Add(2);
             s.Add(3);
 
-            Set s2 = new Set(4);
+            Set<int> s2 = new Set<int>(4);
             s2.Add(5);
             s2.Add(6);
 
             s = s | s2;
             Assert.AreEqual("0 1 2 3 4 5 6", s.ToString());
 
-            s = new Set(0);
+            s = new Set<int>(0);
             s.Add(1);
             s.Add(2);
             s.Add(3);
 
-            s2 = new Set(3);
+            s2 = new Set<int>(3);
             s2.Add(2);
             s2.Add(1);
 
@@ -123,19 +123,19 @@ namespace LinkedList
             s.Add(2);
             s.Add(3);
 
-            Set s2 = new Set(4);
+            Set<int> s2 = new Set<int>(4);
             s2.Add(5);
             s2.Add(6);
 
             s = s & s2;
             Assert.AreEqual("", s.ToString());
 
-            s = new Set(0);
+            s = new Set<int>(0);
             s.Add(1);
             s.Add(2);
             s.Add(3);
 
-            s2 = new Set(3);
+            s2 = new Set<int>(3);
             s2.Add(2);
             s2.Add(1);
             s2.Add(4);
@@ -170,29 +170,29 @@ namespace LinkedList
             s.Add(3);
             s.Add(4);
 
-            Set s2 = new Set(1);
+            Set<int> s2 = new Set<int>(1);
             s2.Add(2);
             s2.Add(3);
 
             s = s - s2;
             Assert.AreEqual("0 4", s.ToString());
 
-            s = new Set(0);
+            s = new Set<int>(0);
             s.Add(1);
             s.Add(2);
 
-            s2 = new Set(0);
+            s2 = new Set<int>(0);
             s2.Add(1);
             s2.Add(2);
 
             s = s - s2;
             Assert.AreEqual("", s.ToString());
 
-            s = new Set(0);
+            s = new Set<int>(0);
             s.Add(1);
             s.Add(2);
 
-            s2 = new Set(3);
+            s2 = new Set<int>(3);
             s2.Add(4);
             s2.Add(5);
 

@@ -11,14 +11,14 @@ namespace LinkedList
     [TestClass()]
     public class LinkedListTest_Person
     {
-        MyLinkedList l;
+        MyLinkedList<Person> l;
         Person[] people;
 
         [TestInitialize()]
         public void CreateList()
         {
             people = GeneratePersons();
-            l = new MyLinkedList(people[0]);
+            l = new MyLinkedList<Person>(people[0]);
         }
 
         [TestMethod()]

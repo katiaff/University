@@ -8,7 +8,7 @@ namespace LinkedListExample
 
         static void Main(string[] args)
         {
-            MyLinkedList list = new MyLinkedList(1);
+            MyLinkedList<int> list = new MyLinkedList<int>(1);
 
             // Adding numbers and checking if they are on the list
             Console.WriteLine("Adding numbers and checking if they are on the list \n");

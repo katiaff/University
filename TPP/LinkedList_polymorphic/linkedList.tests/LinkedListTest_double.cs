@@ -11,12 +11,12 @@ namespace LinkedList
     [TestClass()]
     public class LinkedListTest_double
     {
-        MyLinkedList l;
+        MyLinkedList<double> l;
 
         [TestInitialize()]
         public void CreateList()
         {
-            l = new MyLinkedList(0.0);
+            l = new MyLinkedList<double>(0.0);
         }
 
         [TestMethod()]
@@ -30,7 +30,7 @@ namespace LinkedList
         {
             for (double i = 1.0; i < 6.0; i++)
             {
-                Assert.AreEqual(null, l.GetElement(i));
+                Assert.AreEqual(default(double), l.GetElement(i));
             }
             Assert.AreEqual(0.0, l.GetElementByIndex(0));
         }
@@ -88,7 +88,7 @@ namespace LinkedList
             ThenRemoveAndSizeDecreases_double();
             for (double i = 0.0; i < 6.0; i++)
             {
-                Assert.AreEqual(null, l.GetElement(i));
+                Assert.AreEqual(default(double), l.GetElement(i));
             }
         }
 
@@ -97,7 +97,7 @@ namespace LinkedList
         {
             for (double i = 1.0; i < 6.0; i++)
             {
-                Assert.AreEqual(null, l.Remove(i));
+                Assert.AreEqual(default(double), l.Remove(i));
                 Assert.AreEqual(1, l.NumberOfElements);
             }
         }
@@ -109,7 +109,7 @@ namespace LinkedList
             {
                 l.Add(i);
                 Assert.AreEqual(i, l.GetElement(i));
-                Assert.AreEqual(null, l.GetElement(i + 30));
+                Assert.AreEqual(default(double), l.GetElement(i + 30));
             }
         }
 

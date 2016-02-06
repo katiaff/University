@@ -11,12 +11,12 @@ namespace LinkedList
     [TestClass()]
     public class LinkedListTest_String
     {
-        MyLinkedList l;
+        MyLinkedList<String> l;
 
         [TestInitialize()]
         public void CreateList()
         {
-            l = new MyLinkedList("a");
+            l = new MyLinkedList<String>("a");
         }
 
         [TestMethod()]
@@ -116,22 +116,24 @@ namespace LinkedList
         [TestMethod()]
         public void ButCantRemoveUnexistingItems_String()
         {
-            for (int i = 1; i < 6; i++)
-            {
-                Assert.AreEqual(null, l.Remove(i));
-                Assert.AreEqual(1, l.NumberOfElements);
-            }
+            Assert.AreEqual(default(string), l.Remove("blabla"));
+            Assert.AreEqual(default(string), l.GetElement("blabla2"));
+            Assert.AreEqual(default(string), l.GetElement("blabla3"));
+            Assert.AreEqual(default(string), l.GetElement("blabla4"));
+            Assert.AreEqual(default(string), l.GetElement("blabla5"));
+            Assert.AreEqual(default(string), l.GetElement("blabla6"));
+            Assert.AreEqual(1, l.NumberOfElements);
         }
 
         [TestMethod()]
         public void GetElementTest_String()
         {
-            for (int i = 1; i < 30; i++)
-            {
-                l.Add(i);
-                Assert.AreEqual(i, l.GetElement(i));
-                Assert.AreEqual(null, l.GetElement(i + 30));
-            }
+            Assert.AreEqual(default(string), l.GetElement("blabla"));
+            Assert.AreEqual(default(string), l.GetElement("blabla2"));
+            Assert.AreEqual(default(string), l.GetElement("blabla3"));
+            Assert.AreEqual(default(string), l.GetElement("blabla4"));
+            Assert.AreEqual(default(string), l.GetElement("blabla5"));
+            Assert.AreEqual(default(string), l.GetElement("blabla6"));
         }
 
 
