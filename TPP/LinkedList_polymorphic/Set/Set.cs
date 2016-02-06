@@ -78,7 +78,7 @@ namespace LinkedList
         /// <returns>Union of s1 and s2</returns>
         public static Set operator |(Set s1, Set s2)
         {
-            Set ret = s1;
+            Set ret = copySetElements(s1);
             for (int i = 0; i<s2.NumberOfElements; i++)
             {
                 Object currentS2 = s2.GetElementByIndex(i);
@@ -86,6 +86,16 @@ namespace LinkedList
                 {
                     ret.Add(currentS2);
                 }
+            }
+            return ret;
+        }
+
+        private static Set copySetElements(Set toCopy)
+        {
+            Set ret = new Set(toCopy.GetElementByIndex(0));
+            for (int i = 1; i < toCopy.NumberOfElements; i++)
+            {
+                ret.Add (toCopy.GetElementByIndex(i));
             }
             return ret;
         }
@@ -110,6 +120,38 @@ namespace LinkedList
                 }
             }
             return ret;
+        }
+
+        /// <summary>
+        /// - operator overloading, computes the difference between two sets
+        /// </summary>
+        /// <param name="s1">Set 1</param>
+        /// <param name="s2">Set 2</param>
+        /// <returns>Elements in s1 that are not in s2, s1 \ s2</returns>
+        public static Set operator -(Set s1, Set s2)
+        {
+            Set ret = copySetElements(s1);
+
+            for (int i = 0; i < s1.NumberOfElements; i++)
+            {
+                Object currentS1 = s1.GetElementByIndex(i);
+                if (s2.Contains(currentS1))
+                {
+                    ret.Remove(currentS1);
+                }
+            }
+            return ret;
+        }
+
+        /// <summary>
+        /// ^ operator overloading, checks if an element is in a set
+        /// </summary>
+        /// <param name="set">Set</param>
+        /// /// <param name="element">Element to be checked</param>
+        /// <returns>True if it is, false otherwise</returns>
+        public static bool operator ^(Set set, Object element)
+        {
+            return set.Contains(element);
         }
 
     }

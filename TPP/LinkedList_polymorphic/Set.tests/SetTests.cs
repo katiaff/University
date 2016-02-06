@@ -145,6 +145,64 @@ namespace LinkedList
 
         }
 
+        [TestMethod]
+        public void ContainsOperatorTest()
+        {
+            s.Add(1);
+            s.Add(2);
+            s.Add(3);
+
+            Assert.IsTrue(s^0);
+            Assert.IsTrue(s ^ 1);
+            Assert.IsTrue(s ^ 2);
+            Assert.IsTrue(s ^ 3);
+            Assert.IsFalse(s ^ 4);
+            Assert.IsFalse(s ^ 5);
+            Assert.IsFalse(s ^ 6);
+            Assert.IsFalse(s ^ 7);
+        }
+
+        [TestMethod]
+        public void DifferenceOperatorTest()
+        {
+            s.Add(1);
+            s.Add(2);
+            s.Add(3);
+            s.Add(4);
+
+            Set s2 = new Set(1);
+            s2.Add(2);
+            s2.Add(3);
+
+            s = s - s2;
+            Assert.AreEqual("0 4", s.ToString());
+
+            s = new Set(0);
+            s.Add(1);
+            s.Add(2);
+
+            s2 = new Set(0);
+            s2.Add(1);
+            s2.Add(2);
+
+            s = s - s2;
+            Assert.AreEqual("", s.ToString());
+
+            s = new Set(0);
+            s.Add(1);
+            s.Add(2);
+
+            s2 = new Set(3);
+            s2.Add(4);
+            s2.Add(5);
+
+            s = s - s2;
+            Assert.AreEqual("0 1 2", s.ToString());
+
+
+
+        }
+
 
     }
 }
