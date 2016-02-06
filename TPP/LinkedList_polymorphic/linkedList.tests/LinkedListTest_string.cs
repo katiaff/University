@@ -8,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace LinkedList {
     [TestClass()]
-    public class LinkedListTest_String {
-        MyLinkedList<String> l;
+    public class LinkedListTest_string {
+        MyLinkedList<string> l;
 
         [TestInitialize()]
         public void CreateList() {
-            l = new MyLinkedList<String>("a");
+            l = new MyLinkedList<string>("a");
         }
 
         [TestMethod()]
-        public void ThenItShouldHaveOneElement_String() {
+        public void ThenItShouldHaveOneElement_string() {
             Assert.AreEqual(1, l.NumberOfElements);
         }
 
         [TestMethod()]
-        public void BeforeAddingElementsDontExist_String() {
+        public void BeforeAddingElementsDontExist_string() {
             Assert.AreEqual(null, l.GetElement("b"));
             Assert.AreEqual(null, l.GetElement("c"));
             Assert.AreEqual(null, l.GetElement("d"));
@@ -30,7 +30,7 @@ namespace LinkedList {
         }
 
         [TestMethod()]
-        public void ThenAddAndSizeGrows_String() {
+        public void ThenAddAndSizeGrows_string() {
             int num = l.NumberOfElements;
             l.Add("b");
             Assert.AreEqual(num + 1, l.NumberOfElements);
@@ -45,8 +45,8 @@ namespace LinkedList {
         }
 
         [TestMethod()]
-        public void AfterAddingElementsExist_String() {
-            ThenAddAndSizeGrows_String();
+        public void AfterAddingElementsExist_string() {
+            ThenAddAndSizeGrows_string();
             Assert.AreEqual("a", l.GetElement("a"));
             Assert.AreEqual("b", l.GetElement("b"));
             Assert.AreEqual("c", l.GetElement("c"));
@@ -60,8 +60,8 @@ namespace LinkedList {
         }
 
         [TestMethod()]
-        public void AfterAddingListContainsTheElements_String() {
-            ThenAddAndSizeGrows_String();
+        public void AfterAddingListContainsTheElements_string() {
+            ThenAddAndSizeGrows_string();
             Assert.IsTrue(l.Contains("a"));
             Assert.IsTrue(l.Contains("b"));
             Assert.IsTrue(l.Contains("c"));
@@ -75,8 +75,8 @@ namespace LinkedList {
         }
 
         [TestMethod()]
-        public void ThenRemoveAndSizeDecreases_String() {
-            ThenAddAndSizeGrows_String();
+        public void ThenRemoveAndSizeDecreases_string() {
+            ThenAddAndSizeGrows_string();
             int num = l.NumberOfElements;
             l.Remove("a");
             Assert.AreEqual(num - 1, l.NumberOfElements);
@@ -93,8 +93,8 @@ namespace LinkedList {
         }
 
         [TestMethod()]
-        public void AfterRemovingElementsDontExist_String() {
-            ThenRemoveAndSizeDecreases_String();
+        public void AfterRemovingElementsDontExist_string() {
+            ThenRemoveAndSizeDecreases_string();
             Assert.AreEqual(null, l.GetElement("a"));
             Assert.AreEqual(null, l.GetElement("b"));
             Assert.AreEqual(null, l.GetElement("c"));
@@ -104,7 +104,7 @@ namespace LinkedList {
         }
 
         [TestMethod()]
-        public void ButCantRemoveUnexistingItems_String() {
+        public void ButCantRemoveUnexistingItems_string() {
             Assert.AreEqual(null, l.Remove("blabla"));
             Assert.AreEqual(null, l.GetElement("blabla2"));
             Assert.AreEqual(null, l.GetElement("blabla3"));
@@ -115,7 +115,7 @@ namespace LinkedList {
         }
 
         [TestMethod()]
-        public void GetElementTest_String() {
+        public void GetElementTest_string() {
             Assert.AreEqual(null, l.GetElement("blabla"));
             Assert.AreEqual(null, l.GetElement("blabla2"));
             Assert.AreEqual(null, l.GetElement("blabla3"));
