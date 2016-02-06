@@ -116,24 +116,24 @@ namespace LinkedList
         [TestMethod()]
         public void ButCantRemoveUnexistingItems_String()
         {
-            Assert.AreEqual(default(string), l.Remove("blabla"));
-            Assert.AreEqual(default(string), l.GetElement("blabla2"));
-            Assert.AreEqual(default(string), l.GetElement("blabla3"));
-            Assert.AreEqual(default(string), l.GetElement("blabla4"));
-            Assert.AreEqual(default(string), l.GetElement("blabla5"));
-            Assert.AreEqual(default(string), l.GetElement("blabla6"));
+            Assert.AreEqual(null, l.Remove("blabla"));
+            Assert.AreEqual(null, l.GetElement("blabla2"));
+            Assert.AreEqual(null, l.GetElement("blabla3"));
+            Assert.AreEqual(null, l.GetElement("blabla4"));
+            Assert.AreEqual(null, l.GetElement("blabla5"));
+            Assert.AreEqual(null, l.GetElement("blabla6"));
             Assert.AreEqual(1, l.NumberOfElements);
         }
 
         [TestMethod()]
         public void GetElementTest_String()
         {
-            Assert.AreEqual(default(string), l.GetElement("blabla"));
-            Assert.AreEqual(default(string), l.GetElement("blabla2"));
-            Assert.AreEqual(default(string), l.GetElement("blabla3"));
-            Assert.AreEqual(default(string), l.GetElement("blabla4"));
-            Assert.AreEqual(default(string), l.GetElement("blabla5"));
-            Assert.AreEqual(default(string), l.GetElement("blabla6"));
+            Assert.AreEqual(null, l.GetElement("blabla"));
+            Assert.AreEqual(null, l.GetElement("blabla2"));
+            Assert.AreEqual(null, l.GetElement("blabla3"));
+            Assert.AreEqual(null, l.GetElement("blabla4"));
+            Assert.AreEqual(null, l.GetElement("blabla5"));
+            Assert.AreEqual(null, l.GetElement("blabla6"));
         }
 
 
