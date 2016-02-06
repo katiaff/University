@@ -55,9 +55,9 @@
     <Compile Include="SetTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LinkedList\linkedList.csproj">
+    <ProjectReference Include="..\LinkedList\LinkedList.csproj">
       <Project>{59dbdfdd-6f40-4bd3-9526-b73fe6dbe85f}</Project>
-      <Name>linkedList</Name>
+      <Name>LinkedList</Name>
     </ProjectReference>
     <ProjectReference Include="..\Set\Set.csproj">
       <Project>{47285A24-A9E5-402F-83A4-474A67761C16}</Project>
