@@ -70,5 +70,47 @@ namespace LinkedList
            
         }
 
+        /// <summary>
+        /// | operator overloading, provides union of two sets
+        /// </summary>
+        /// <param name="s1">First set</param>
+        /// <param name="s2">Second set</param>
+        /// <returns>Union of s1 and s2</returns>
+        public static Set operator |(Set s1, Set s2)
+        {
+            Set ret = s1;
+            for (int i = 0; i<s2.NumberOfElements; i++)
+            {
+                Object currentS2 = s2.GetElementByIndex(i);
+                if (!s1.Contains(currentS2))
+                {
+                    ret.Add(currentS2);
+                }
+            }
+            return ret;
+        }
+
+        /// <summary>
+        /// & operator overloading, provides intersection of two sets
+        /// </summary>
+        /// <param name="s1">First set</param>
+        /// <param name="s2">Second set</param>
+        /// <returns>Intersection of s1 and s2</returns>
+        public static Set operator &(Set s1, Set s2)
+        {
+            Set ret = new Set(0);
+            ret.Remove(0);
+
+            for (int i = 0; i < s1.NumberOfElements; i++)
+            {
+                Object currentS1 = s1.GetElementByIndex(i);
+                if (s2.Contains(currentS1))
+                {
+                    ret.Add(currentS1);
+                }
+            }
+            return ret;
+        }
+
     }
 }

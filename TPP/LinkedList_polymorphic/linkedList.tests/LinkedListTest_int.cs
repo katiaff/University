@@ -47,6 +47,17 @@ namespace LinkedList
         }
 
         [TestMethod()]
+        public void ThenAddRepeatedAndSizeGrows_int()
+        {
+            for (int i = 1; i < 6; i++)
+            {
+                l.Add(0);
+                Assert.AreEqual(i + 1, l.NumberOfElements);
+            }
+            Assert.AreEqual("0 0 0 0 0 0", l.ToString());
+        }
+
+        [TestMethod()]
         public void AfterAddingElementsExist_int()
         {
             ThenAddAndSizeGrows_int();
