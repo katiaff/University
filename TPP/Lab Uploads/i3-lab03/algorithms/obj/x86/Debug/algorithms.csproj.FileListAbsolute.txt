@@ -1,0 +1,5 @@
+C:\Users\UO244965\Downloads\University\TPP\Lab Uploads\i3-lab03\algorithms\bin\Debug\algorithms.exe
+C:\Users\UO244965\Downloads\University\TPP\Lab Uploads\i3-lab03\algorithms\bin\Debug\algorithms.pdb
+C:\Users\UO244965\Downloads\University\TPP\Lab Uploads\i3-lab03\algorithms\obj\x86\Debug\algorithms.csprojResolveAssemblyReference.cache
+C:\Users\UO244965\Downloads\University\TPP\Lab Uploads\i3-lab03\algorithms\obj\x86\Debug\algorithms.exe
+C:\Users\UO244965\Downloads\University\TPP\Lab Uploads\i3-lab03\algorithms\obj\x86\Debug\algorithms.pdb
