@@ -70,20 +70,20 @@ namespace TPP.Laboratory.ObjectOrientation.Lab03
         {
             Person[] people = CreatePeople();
             Person person = new Person("Carla", "Fernandez", "1234");
-            /*
+            
             var res = IndexOf(people, person);
             if (res == null)
-                Console.WriteLine("Carla not found");
+                Console.WriteLine("First version: Carla not found");
             else
-                Console.WriteLine("Carla's index: {0}", res);*/
+                Console.WriteLine("First version: Carla's index: {0}", res);
 
 
-            PersonWithSameName compare = new PersonWithSameName();
-            var res2 = IndexOf_v2(people, person, compare);
+            PersonWithSameName comparator = new PersonWithSameName();
+            var res2 = IndexOf_v2(people, person, comparator);
             if (res2 == null)
-                Console.WriteLine("Carla not found");
+                Console.WriteLine("Second version: Carla not found");
             else
-                Console.WriteLine("Carla's index: {0}", res2);
+                Console.WriteLine("Second version: Carla's index: {0}", res2);
 
         }
 
