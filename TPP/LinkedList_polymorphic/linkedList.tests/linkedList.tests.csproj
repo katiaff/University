@@ -51,13 +51,17 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="MyLinkedListTests.cs" />
+    <Compile Include="LinkedListTest_double.cs" />
+    <Compile Include="LinkedListTest_int.cs" />
+    <Compile Include="LinkedListTest_Person.cs" />
+    <Compile Include="LinkedListTest_string.cs" />
+    <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LinkedList\linkedList.csproj">
+    <ProjectReference Include="..\LinkedList\LinkedList.csproj">
       <Project>{59DBDFDD-6F40-4BD3-9526-B73FE6DBE85F}</Project>
-      <Name>linkedList</Name>
+      <Name>LinkedList</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
