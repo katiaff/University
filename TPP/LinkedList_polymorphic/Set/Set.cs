@@ -10,6 +10,14 @@ namespace LinkedList {
     /// repeated elements
     /// </summary>
     public class Set<T> : MyLinkedList<T> {
+        
+        
+        /// <summary>
+        /// Constructs a new empty Set
+        /// </summary>
+        public Set() : base() {
+
+        }
         /// <summary>
         /// Constructs a new Set with a specific first value
         /// </summary>
@@ -94,8 +102,7 @@ namespace LinkedList {
         /// <param name="s2">Second set</param>
         /// <returns>Intersection of s1 and s2</returns>
         public static Set<T> operator &(Set<T> s1, Set<T> s2) {
-            Set<T> ret = new Set<T>(default(T));
-            ret.Remove(default(T));
+            Set<T> ret = new Set<T>();
 
             for (int i = 0; i < s1.NumberOfElements; i++) {
                 T currentS1 = s1.GetElementByIndex(i);

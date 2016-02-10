@@ -7,6 +7,7 @@ namespace LinkedList {
     /// Provides a MyLinkedList implementation
     /// with Add, Remove, GetElement and Contains methods.
     /// </summary>
+    /// 
     public class MyLinkedList<T> {
         /// <summary>
         /// First element of the list.
@@ -19,13 +20,34 @@ namespace LinkedList {
         public int NumberOfElements { get; private set; }
 
         /// <summary>
-        /// Creates a MyLinkedList with one element.
+        /// Constructs a new empty list
         /// </summary>
-        /// <param name="firstValue">Value for the first
-        /// element of the list.</param>
+        public MyLinkedList() {
+            Head = null;
+            NumberOfElements = 0;
+        }
+
+        /// <summary>
+        /// Constructs a new list with a first value
+        /// </summary>
+        /// <param name="firstValue">First value</param>
         public MyLinkedList(T firstValue) {
             Head = new Node<T>(firstValue, new Node<T>(default(T), null));
             NumberOfElements = 1;
+        }
+
+        /// <summary>
+        /// Adds an element to the beginning of the list
+        /// </summary>
+        /// <param name="value">Element to add</param>
+        public void AddBeginning(T value) {
+            if (NumberOfElements != 0) {
+                Node<T> newFirst = new Node<T>(value, Head);
+                Head = newFirst;
+            } else {
+                Head = new Node<T>(value, null);
+            }
+            NumberOfElements++;
         }
 
         /// <summary>
@@ -78,6 +100,16 @@ namespace LinkedList {
             }
 
             return ret;
+        }
+
+        /// <summary>
+        /// Removes and returns the first element of the list
+        /// </summary>
+        /// <returns></returns>
+        public T RemoveFirst() {
+            T value = Head.Value;
+            Remove(value);
+            return value;
         }
 
         /// <summary>

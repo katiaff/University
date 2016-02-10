@@ -1,0 +1,8 @@
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Stack\obj\Debug\Stack.csprojResolveAssemblyReference.cache
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Stack\bin\Debug\Stack.dll.config
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Stack\bin\Debug\Stack.dll
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Stack\bin\Debug\Stack.pdb
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Stack\bin\Debug\LinkedList.dll
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Stack\bin\Debug\LinkedList.pdb
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Stack\obj\Debug\Stack.dll
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Stack\obj\Debug\Stack.pdb
