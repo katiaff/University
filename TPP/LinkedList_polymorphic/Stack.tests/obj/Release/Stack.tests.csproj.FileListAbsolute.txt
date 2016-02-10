@@ -1,0 +1,12 @@
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Stack.tests\bin\Release\Stack.tests.dll
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Stack.tests\bin\Release\Stack.tests.pdb
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Stack.tests\bin\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Stack.tests\bin\Release\Stack.dll
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Stack.tests\bin\Release\LinkedList.dll
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Stack.tests\bin\Release\Stack.pdb
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Stack.tests\bin\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Stack.tests\bin\Release\LinkedList.pdb
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Stack.tests\bin\Release\es\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Stack.tests\obj\Release\Stack.tests.csprojResolveAssemblyReference.cache
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Stack.tests\obj\Release\Stack.tests.dll
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Stack.tests\obj\Release\Stack.tests.pdb

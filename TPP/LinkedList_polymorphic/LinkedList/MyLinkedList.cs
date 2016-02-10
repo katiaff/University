@@ -160,7 +160,7 @@ namespace LinkedList {
         /// </summary>
         /// <param name="value"></param>
         /// <returns>The element if it is on the list,
-        /// -1 if it is not on the list.</returns>
+        /// default(T) if it is not on the list.</returns>
         public T GetElement(T value) {
             for (int i = 0; i < NumberOfElements; i++) {
                 Node<T> current = GetNodeFromIndex(i);
@@ -176,8 +176,9 @@ namespace LinkedList {
         /// <summary>
         /// Gets the element from a specific index
         /// </summary>
-        /// <param name="i">The index</param>
-        /// <returns></returns>
+        /// <param name="i">index >= 0 && index < NumberOfElements</param>
+        /// <returns>The element if the index is valid;
+        /// default(T) otherwise</returns>
         public T GetElementByIndex(int i) {
             if (isRightIndex(i)) {
                 Node<T> node = GetNodeFromIndex(i);

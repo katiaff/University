@@ -66,17 +66,53 @@ namespace LinkedList {
         /// </summary>
         /// <param name="element">Element to be pushed</param>
         public void Push(T element) {
-            Debug.Assert(Elems.NumberOfElements != MaxNumberOfElements);
-            Elems.AddBeginning(element);
-            Debug.Assert(!IsEmpty);
-        }
+            Debug.Assert(!IsFull);
+            if (!IsFull) {
+                Elems.AddBeginning(element);
+                Debug.Assert(!IsEmpty);
+            }
 
+        }
         /// <summary>
         /// Pops the top element from the stack
         /// </summary>
-        public void Pop() {
+        /// <returns>The element on top if the stack was not empty;
+        /// default(T) otherwise</returns>
+        public T Pop() {
             Debug.Assert(!IsEmpty);
-            Elems.RemoveFirst();
+            if (!IsEmpty) {
+                T removed = Elems.RemoveFirst();
+                Debug.Assert(!IsFull);
+                return removed;
+            } else {
+                return default(T);
+            }
+
+
+        }
+
+        /// <summary>
+        /// Checks if the stack contains an element
+        /// </summary>
+        /// <param name="elem">Element</param>
+        /// <returns>True if it contains the element;
+        /// False, otherwise</returns>
+        public bool Contains(T elem) {
+            return Elems.Contains(elem);
+        }
+
+        /// <summary>
+        /// Gets an element from the stack
+        /// </summary>
+        /// <param name="elem">Element to get</param>
+        /// <returns>Element if it is contained in the stack;
+        /// Default(T) otherwise</returns>
+        public T GetElement(T elem) {
+            return Elems.GetElement(elem);
+        }
+
+        public T GetElementByIndex(int index) {
+            return Elems.GetElementByIndex(index);
         }
     }
 }
