@@ -16,10 +16,21 @@ namespace LinkedList {
         /// </summary>
         private MyLinkedList<T> Elems { get; }
 
+        private uint maxNumberOfElements;
+
         /// <summary>
         /// Maximum number of elements in the stack
         /// </summary>
-        public uint MaxNumberOfElements { get; set; }
+        public uint MaxNumberOfElements {
+            get {
+                return maxNumberOfElements;
+            }
+            set {
+                if (value >= Elems.NumberOfElements) {
+                    maxNumberOfElements = value;
+                }
+            }
+        }
 
         public int NumElements { get { return Elems.NumberOfElements; } }
 
@@ -49,6 +60,7 @@ namespace LinkedList {
         public Stack(uint maxNumberOfElements) {
             Elems = new MyLinkedList<T>();
             this.MaxNumberOfElements = maxNumberOfElements;
+            Debug.Assert(IsEmpty);
         }
 
         /// <summary>
@@ -59,6 +71,8 @@ namespace LinkedList {
         public Stack(uint maxNumberOfElements, T firstValue) {
             Elems = new MyLinkedList<T>(firstValue);
             this.MaxNumberOfElements = maxNumberOfElements;
+            Debug.Assert(!IsEmpty);
+            Debug.Assert(Elems.NumberOfElements == 1);
         }
 
         /// <summary>
@@ -69,8 +83,8 @@ namespace LinkedList {
             Debug.Assert(!IsFull);
             if (!IsFull) {
                 Elems.AddBeginning(element);
-                Debug.Assert(!IsEmpty);
             }
+            Debug.Assert(!IsEmpty);
 
         }
         /// <summary>

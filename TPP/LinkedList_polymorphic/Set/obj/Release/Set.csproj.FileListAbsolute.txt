@@ -1,0 +1,6 @@
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Set\bin\Release\Set.dll
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Set\bin\Release\Set.pdb
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Set\bin\Release\LinkedList.dll
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Set\bin\Release\LinkedList.pdb
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Set\obj\Release\Set.dll
+C:\Users\carla\Documents\Git\University\TPP\LinkedList_polymorphic\Set\obj\Release\Set.pdb

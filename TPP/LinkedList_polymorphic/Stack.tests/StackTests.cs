@@ -23,7 +23,8 @@ namespace LinkedList.tests {
         }
 
         [TestMethod()]
-        public void PlayWithMaxNumElems() {
+        public void PlayWithMaxNumElemsOnEmptyStack() {
+            // MaxNumberOfElements changes
             Assert.AreEqual(5, (int) stack.MaxNumberOfElements);
             stack.MaxNumberOfElements = 10;
             Assert.AreEqual(10, (int) stack.MaxNumberOfElements);
@@ -56,6 +57,34 @@ namespace LinkedList.tests {
             Assert.AreEqual(2, stack.GetElementByIndex(2));
             Assert.AreEqual(1, stack.GetElementByIndex(3));
             Assert.AreEqual(0, stack.GetElementByIndex(4));
+        }
+
+        [TestMethod()]
+        public void PlayWithMaxNumElemsOnFullStack() {
+            PushElementsAndSizeGrows();
+            stack.MaxNumberOfElements = 0;
+            // MaxNumberOfElements does not change because stack contains
+            // more elements than specified
+            Assert.AreEqual(5, (int)stack.MaxNumberOfElements);
+            Assert.AreEqual(5, stack.NumElements);
+            stack.MaxNumberOfElements = 3;
+            // MaxNumberOfElements does not change because stack contains
+            // more elements than specified
+            Assert.AreEqual(5, (int) stack.MaxNumberOfElements);
+            Assert.AreEqual(5, stack.NumElements);
+            stack.MaxNumberOfElements = 10;
+            // MaxNumberOfElements changes because stack contains
+            // less elements than specified
+            Assert.AreEqual(10, (int) stack.MaxNumberOfElements);
+            Assert.AreEqual(5, stack.NumElements);
+            // MaxNumberOfElements changes because stack contains
+            // exactly the same number of elements as specified
+            stack.MaxNumberOfElements = 5;
+            Assert.AreEqual(5, (int) stack.MaxNumberOfElements);
+            Assert.AreEqual(5, stack.NumElements);
+
+
+
         }
 
         [TestMethod()]
