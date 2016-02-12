@@ -8,6 +8,7 @@ Game Of Life implementation
 from __future__ import division
 import numpy as np
 import matplotlib.pyplot as plt
+import time
 
 rows = 30
 cols = 40
@@ -30,27 +31,30 @@ def life_step_1(X):
                 revive(X, i, j)
             elif (is_stasis(X, i, j)):
                 revive(X, i, j)
-            elif(is_underpopulated(X, i, j)): # <------------ MISTAKE
+            elif(is_underpopulated(X, i, j)):
                 die(X, i, j)
-            
-           
+          
     return X
 
 
 def is_overpopulated(X, i, j):
     counter = count_surrounding_cells(X, i, j)
+    print("i:",i,"j:",j,"over")
     return counter > 3
     
 def is_reproduction(X, i, j):
     counter = count_surrounding_cells(X, i, j)
+    print("i:",i,"j:",j,"rep")
     return counter == 3
 
 def is_stasis(X, i, j):
     counter = count_surrounding_cells(X, i, j)
+    print("i:",i,"j:",j,"stasis")
     return counter == 2
 
 def is_underpopulated(X, i, j):
     counter = count_surrounding_cells(X, i, j)
+    print("i:",i,"j:",j,"under")
     return counter < 2
 
 def die(X, i, j):
@@ -62,18 +66,26 @@ def revive(X, i, j):
 def count_surrounding_cells(X, i, j):
     counter = 0
     for row in range(i-1,i+2):
-        for col in range(j-1, j+2): 3 # <----------- MISTAKE
-            if X[row][col]:
-                counter+=1
+        for col in range(j-1, j+2):
+                if X[row][col]:
+                    counter+=1
+            
     return counter
 
 
 #----------------------------------------------------------------------
 #PROGRAM
-
 X = create_matrix()
-plt.imshow(X, cmap=plt.cm.binary, interpolation='nearest');
+plt.figure()
+plot = plt.imshow(X, cmap=plt.cm.binary, interpolation='nearest')
 X = life_step_1(X)
-plt.imshow(X, cmap=plt.cm.binary, interpolation='nearest');
+plot.set_data(X)
+plt.draw()
 
+
+#while True:
+#    X = life_step_1(X)
+#    plot.set_data(X)
+#    plt.draw()
+#    time.sleep(0.01)
 
