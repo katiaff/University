@@ -22,22 +22,31 @@ public class Diagonal2 {
 			a = new int[n][n];
 			t1 = System.currentTimeMillis();
 			if (option == 0) { // fill in the matrix
-				Diagonal1.fillIn(a);
+				for (int i = 0; i < nTimes; i++) {
+					Diagonal1.fillIn(a);
+				}
 			} // if
 			else if (option == 1) { // sum of the diagonal (one way)
-				sum = Diagonal1.sum1Diagonal(a);
+				for (int i = 0; i < nTimes; i++) {
+					sum = Diagonal1.sum1Diagonal(a);
+				}
 			} // else if
 			else if (option == 2) { // sum of the diagonal (another way)
-				sum = Diagonal1.sum2Diagonal(a);
+				for (int i = 0; i < nTimes; i++) {
+					sum = Diagonal1.sum2Diagonal(a);
+				}
 			} // else if
 			else
 				System.out.println("INCORRECT OPTION");
-				System.out.println(sum);
+			System.out.println(sum);
 			t2 = System.currentTimeMillis();
-			System.out.println("SIZE = " + n + " ** " + "TIME = " + (t2 - t1)
-					+ "ms ** " + "SUM: " + sum + " ** nTimes = " + nTimes);
+			System.out.println("SIZE = " + n + " ** " + "TIME = " + (t2 - t1) + "ms ** " + "SUM: " + sum
+					+ " ** nTimes = " + nTimes);
 
 			n *= 2;
+			if (t2 - t1 > 3000) {
+				nTimes /= 100;
+			}
 		}
 	} // main
 } // class

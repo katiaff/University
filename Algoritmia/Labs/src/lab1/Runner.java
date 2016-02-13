@@ -1,18 +1,15 @@
 package lab1;
 
 /**
- * This program serves to measure times automatically increasing the size of the
- * problem. In addition, we use a repetition value determined by nTimes, an
- * argument of the program
- * 
- * @author viceg
- */
-public class Vector4 {
+ * Class that changes automatically the nTimes variable based on the number of
+ * ms the last iteration took
+ **/
+public class Runner {
 	static int[] v;
 
 	public static void main(String arg[]) {
-		int nTimes = Integer.parseInt(arg[0]);
-		long t1, t2;
+		int nTimes = 1000000000;
+		long t1 = 0, t2 = 0;
 		int sum = 0;
 
 		for (int n = 10; n <= 100000000; n *= 5) { // n is increased *5
@@ -27,8 +24,12 @@ public class Vector4 {
 			t2 = System.currentTimeMillis();
 			System.out.println("SIZE = " + n + " ** " + "TIME = " + (t2 - t1) + "ms ** " + " SUM = " + sum
 					+ " ** nTimes = " + nTimes);
-		} // for
 
-	}// main
+			if (t2 - t1 > 2000) {
+				nTimes /= 100;
+			}
 
+		}
+
+	}
 }

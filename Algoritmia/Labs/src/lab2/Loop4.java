@@ -27,8 +27,7 @@ public class Loop4 {
 			}
 
 			t2 = System.currentTimeMillis();
-			System.out.println("n=" + n + "**TIME=" + (t2 - t1) + "**nTimes="
-					+ nTimes);
+			System.out.println("n=" + n + "**TIME=" + (t2 - t1) + "**nTimes=" + nTimes);
 		} // for
 
 	}// main

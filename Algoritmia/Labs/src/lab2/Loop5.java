@@ -11,7 +11,7 @@ public class Loop5 {
 		for (int i = 1; i <= n; i++)
 			for (int j = 1; j <= n; j++)
 				for (int k = 1; k <= n; k++)
-					for (int l = 1; l <= n; l*=2)
+					for (int l = 1; l <= n; l *= 2)
 						cont += rn.nextInt();
 	}
 
@@ -27,8 +27,7 @@ public class Loop5 {
 			}
 
 			t2 = System.currentTimeMillis();
-			System.out.println("n=" + n + "**TIME=" + (t2 - t1) + "**nTimes="
-					+ nTimes);
+			System.out.println("n=" + n + "**TIME=" + (t2 - t1) + "**nTimes=" + nTimes);
 		} // for
 
 	}// main
