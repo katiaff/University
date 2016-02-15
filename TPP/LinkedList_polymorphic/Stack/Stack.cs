@@ -14,7 +14,7 @@ namespace LinkedList {
         /// <summary>
         /// Stack implemented via MyLinkedList
         /// </summary>
-        private MyLinkedList<T> Elems { get; }
+        private MyLinkedList<T> Elems { get; set; }
 
         private uint maxNumberOfElements;
 
