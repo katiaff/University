@@ -8,7 +8,7 @@ namespace LinkedList {
     /// with Add, Remove, GetElement and Contains methods.
     /// </summary>
     /// 
-    public class MyLinkedList<T> {
+    public class MyLinkedList<T> : IEnumerable<T>{
         /// <summary>
         /// First element of the list.
         /// </summary>
@@ -210,6 +210,16 @@ namespace LinkedList {
                 ptr = ptr.Next;
             }
             return sb.ToString().TrimEnd();
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return new ListEnumerator<T>(this);
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return new ListEnumerator<T>(this);
         }
     }
 }
