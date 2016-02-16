@@ -34,7 +34,8 @@ public class Selection1 {
 
 	public static void selection(int[] elements) {
 		for (int i = 0; i < elements.length; i++) {
-
+			int minPos = Util.findPosMin(elements, i);
+			Util.interchange(elements, i, minPos);
 		}
 	}
 }
