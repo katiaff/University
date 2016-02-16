@@ -10,7 +10,7 @@ It also writes the contents of the vector
 public class Vector {
 
 public static void sorted(int[]a)
-/* 	This method fills with values ​​sorted in ascending order
+/* 	This method fills with values sorted in ascending order
 */
 {
     int n= a.length;
@@ -19,7 +19,7 @@ public static void sorted(int[]a)
 }
 
 public static void inverselySorted(int[]a)
-/* 	This method fills with values ​​sorted in descending order
+/* 	This method fills with values sorted in descending order
 */
 {
     int n= a.length;
@@ -28,7 +28,7 @@ public static void inverselySorted(int[]a)
 }     
 
 public static void random(int[]a, int maxRandom)
-/* 	This method gives random values ​​to a vector of integers.
+/* 	This method gives random values to a vector of integers.
  * It uses the Random class from the java.util package  */
 {
     Random r= new Random();
