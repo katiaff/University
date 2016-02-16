@@ -13,6 +13,12 @@ public class Selection1Test {
 		Selection1.selection(elements);
 
 		assertCorrectOrder(elements);
+		
+		elements = new int[] { 1, 0, 3, 2, 5, 4, 8, 7, 9, 6 };
+		
+		Selection1.selection(elements);
+
+		assertCorrectOrder(elements);
 
 	}
 

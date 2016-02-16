@@ -1,22 +1,22 @@
 package lab3;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class Bubble1Test {
+public class Insertion1Test {
 
 	@Test
 	public void test() {
 		int[] elements = new int[] { 0, 4, 2, 1, 3, 9, 5, 7, 8, 6 };
 
-		Bubble1.bubble(elements);
-		
+		Insertion1.insertion(elements);
+
 		assertCorrectOrder(elements);
 		
 		elements = new int[] { 1, 0, 3, 2, 5, 4, 8, 7, 9, 6 };
 		
-		Bubble1.bubble(elements);
+		Insertion1.insertion(elements);
 
 		assertCorrectOrder(elements);
 
