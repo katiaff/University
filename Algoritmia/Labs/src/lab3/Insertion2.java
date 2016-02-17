@@ -2,14 +2,16 @@ package lab3;
 
 public class Insertion2 {
 
-    private final static int MIN_SIZE = 512;
-    private final static int MAX_SIZE = 128000;
-    private final static int TIME_LIMIT = 3000;
-
     private static int nTimes;
+    private static int minSize;
+    private static int maxSize;
+    private static int timeLimit;
 
     public static void main(String[] args) {
         int times = Integer.parseInt(args[0]);
+        minSize = Integer.parseInt(args[1]);
+        maxSize = Integer.parseInt(args[2]);
+        timeLimit = Integer.parseInt(args[3]);
         nTimes = times;
         timeSorted();
         nTimes = times;
@@ -19,9 +21,9 @@ public class Insertion2 {
     }
 
     private static void timeRandom() {
-        int[] vector = new int[MIN_SIZE];
+        int[] vector = new int[minSize];
 
-        while (vector.length <= MAX_SIZE) {
+        while (vector.length <= maxSize) {
             Vector.random(vector, 100);
 
             long t1 = System.currentTimeMillis();
@@ -38,7 +40,7 @@ public class Insertion2 {
 
             vector = new int[vector.length * 2];
 
-            if (time > TIME_LIMIT) {
+            if (time > timeLimit) {
                 nTimes /= 100;
             }
         }
@@ -46,9 +48,9 @@ public class Insertion2 {
     }
 
     private static void timeInverse() {
-        int[] vector = new int[MIN_SIZE];
+        int[] vector = new int[minSize];
 
-        while (vector.length <= MAX_SIZE) {
+        while (vector.length <= maxSize) {
             Vector.inverselySorted(vector);
 
             long t1 = System.currentTimeMillis();
@@ -66,7 +68,7 @@ public class Insertion2 {
 
             vector = new int[vector.length * 2];
 
-            if (time > TIME_LIMIT) {
+            if (time > timeLimit) {
                 nTimes /= 100;
             }
         }
@@ -74,9 +76,9 @@ public class Insertion2 {
     }
 
     private static void timeSorted() {
-        int[] vector = new int[MIN_SIZE];
+        int[] vector = new int[minSize];
 
-        while (vector.length <= MAX_SIZE) {
+        while (vector.length <= maxSize) {
             Vector.sorted(vector);
             long t1 = System.currentTimeMillis();
 
@@ -92,7 +94,7 @@ public class Insertion2 {
 
             vector = new int[vector.length * 2];
 
-            if (time > TIME_LIMIT) {
+            if (time > timeLimit) {
                 nTimes /= 100;
             }
         }
