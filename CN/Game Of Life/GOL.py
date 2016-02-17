@@ -83,6 +83,7 @@ def count_surrounding_cells(X, i, j):
         
                     
     return counter-1
+           
 
 
 def life_step_2(X):
@@ -95,13 +96,12 @@ def life_step_2(X):
 
 
 #----------------------------------------------------------------------
-#PROGRAM
+
 #Exercise1
 X = create_matrix()
 plt.figure()
 plot = plt.imshow(X, cmap=plt.cm.binary, interpolation='nearest')
 plt.draw()
-
 
 #Exercise2
 steps = 40
