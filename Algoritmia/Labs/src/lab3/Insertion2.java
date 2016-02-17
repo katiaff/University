@@ -43,7 +43,7 @@ public class Insertion2 {
             long time = t2 - t1;
 
             ret.append("random;" + vector.length + ";" +
-                    +time + ";" + nTimes + ";" + (((double) time / (double) nTimes) * 1000) + "\n");
+                    +time + ";" + nTimes + "\n");
 
             vector = new int[vector.length * 2];
 
@@ -76,7 +76,7 @@ public class Insertion2 {
             long time = t2 - t1;
 
             ret.append("inverse;" + vector.length + ";" +
-                    +time + ";" + nTimes + ";" + (((double) time / (double) nTimes) * 1000) + "\n");
+                    +time + ";" + nTimes + "\n");
 
             vector = new int[vector.length * 2];
 
@@ -109,7 +109,7 @@ public class Insertion2 {
             long time = t2 - t1;
 
             ret.append("sorted;" + vector.length + ";" +
-                    +time + ";" + nTimes + ";" + (((double) time / (double) nTimes) * 1000) + "\n");
+                    +time + ";" + nTimes + "\n");
 
             vector = new int[vector.length * 2];
 
@@ -128,7 +128,7 @@ public class Insertion2 {
     private static void createFiles(int times) {
         try {
             FileWriter file = new FileWriter("insertion.csv");
-            file.append("Sorting;Size;Total time(ms);NTimes;Time(micros)\n");
+            file.append("Sorting;Size;Total time(ms);NTimes;\n");
 
             System.out.println("Logging SORTED time");
             file.append(timeSorted());
