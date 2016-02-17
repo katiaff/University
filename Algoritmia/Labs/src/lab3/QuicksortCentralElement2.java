@@ -1,5 +1,9 @@
 package lab3;
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * Created by carla on 17/02/2016.
  */
@@ -15,15 +19,18 @@ public class QuicksortCentralElement2 {
         maxSize = Integer.parseInt(args[2]);
         timeLimit = Integer.parseInt(args[3]);
         nTimes = times;
+        createFiles(times);
+        /*
         timeSorted();
         nTimes = times;
         timeInverse();
         nTimes = times;
-        timeRandom();
+        timeRandom();*/
     }
 
-    private static void timeRandom() {
+    private static String timeRandom() {
         int[] vector = new int[minSize];
+        StringBuilder ret = new StringBuilder();
 
         while (vector.length <= maxSize) {
             Vector.random(vector, 100);
@@ -37,21 +44,26 @@ public class QuicksortCentralElement2 {
 
             long time = t2 - t1;
 
-            System.out.println("QUICKSORT RANDOM -- size: " + vector.length
-                    + " -- time: " + time + " ms -- nTimes: " + nTimes);
+            ret.append("random;" + vector.length + ";" +
+                    +time + ";" + nTimes + ";" + (double) time / (double) nTimes + "\n");
 
             vector = new int[vector.length * 2];
 
             if (time > timeLimit) {
-                nTimes /= 100;
+                if (nTimes != 1) {
+                    nTimes /= 100;
+                } else {
+                    break;
+                }
             }
         }
         System.out.println("\n------------------------------------------------------------------\n");
-
+        return ret.toString();
     }
 
-    private static void timeInverse() {
+    private static String timeInverse() {
         int[] vector = new int[minSize];
+        StringBuilder ret = new StringBuilder();
 
         while (vector.length <= maxSize) {
             Vector.inverselySorted(vector);
@@ -61,48 +73,82 @@ public class QuicksortCentralElement2 {
             for (int i = 0; i < nTimes; i++) {
                 QuicksortCentralElement.quicksort(vector);
             }
-
             long t2 = System.currentTimeMillis();
 
             long time = t2 - t1;
 
-            System.out.println("QUICKSORT INVERSE -- size: " + vector.length
-                    + " -- time: " + time + " ms -- nTimes: " + nTimes);
+            ret.append("random;" + vector.length + ";" +
+                    +time + ";" + nTimes + ";" + (double) time / (double) nTimes + "\n");
 
             vector = new int[vector.length * 2];
 
             if (time > timeLimit) {
-                nTimes /= 100;
+                if (nTimes != 1) {
+                    nTimes /= 100;
+                } else {
+                    break;
+                }
             }
         }
         System.out.println("\n------------------------------------------------------------------\n");
-
+        return ret.toString();
     }
 
-    private static void timeSorted() {
+    private static String timeSorted() {
         int[] vector = new int[minSize];
+        StringBuilder ret = new StringBuilder();
 
         while (vector.length <= maxSize) {
             Vector.sorted(vector);
+
             long t1 = System.currentTimeMillis();
 
             for (int i = 0; i < nTimes; i++) {
                 QuicksortCentralElement.quicksort(vector);
             }
-
             long t2 = System.currentTimeMillis();
+
             long time = t2 - t1;
 
-            System.out.println("QUICKSORT SORTED -- size: " + vector.length
-                    + " -- time: " + time + " ms -- nTimes: " + nTimes);
+            ret.append("random;" + vector.length + ";" +
+                    +time + ";" + nTimes + ";" + (double) time / (double) nTimes + "\n");
 
             vector = new int[vector.length * 2];
 
             if (time > timeLimit) {
-                nTimes /= 100;
+                if (nTimes != 1) {
+                    nTimes /= 100;
+                } else {
+                    break;
+                }
             }
         }
         System.out.println("\n------------------------------------------------------------------\n");
+        return ret.toString();
+    }
 
+    private static void createFiles(int times) {
+        try {
+            FileWriter file = new FileWriter("insertion.csv");
+            file.append("Sorting;Size;Total time(ms);NTimes;Time(ms)\n");
+
+            System.out.println("Logging SORTED time");
+            file.append(timeSorted());
+
+            System.out.println("Logging INVERSE time");
+            nTimes = times;
+            file.append(timeInverse());
+
+            System.out.println("Logging RANDOM time");
+            nTimes = times;
+            file.append(timeRandom());
+
+            file.flush();
+            file.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
