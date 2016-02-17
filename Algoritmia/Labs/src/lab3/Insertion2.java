@@ -2,80 +2,101 @@ package lab3;
 
 public class Insertion2 {
 
-	private final static int MIN_SIZE = 10000;
-	private final static int MAX_SIZE = 1280000;
+    private final static int MIN_SIZE = 512;
+    private final static int MAX_SIZE = 128000;
+    private final static int N_TIMES = 1000000;
+    private final static int TIME_LIMIT = 3000;
 
-	public static void main(String[] args) {
-		timeSorted();
-		timeInverse();
-		timeRandom();
-	}
+    private static int nTimes = N_TIMES;
 
-	private static void timeRandom() {
-		int[] vector = new int[MIN_SIZE];
+    public static void main(String[] args) {
+        timeSorted();
+        timeInverse();
+        timeRandom();
+    }
 
-		while (vector.length <= MAX_SIZE) {
-			Vector.random(vector, 100);
+    private static void timeRandom() {
+        int[] vector = new int[MIN_SIZE];
 
-			long t1 = System.currentTimeMillis();
-			Insertion1.insertion(vector);
-			long t2 = System.currentTimeMillis();
+        while (vector.length <= MAX_SIZE) {
+            Vector.random(vector, 100);
 
-			long time = t2 - t1;
+            long t1 = System.currentTimeMillis();
 
-			System.out.println("INSERTION RANDOM -- size: " + vector.length
-					+ " -- time: " + time + " ms");
+            for (int i = 0; i < nTimes; i++) {
+                Insertion1.insertion(vector);
+            }
+            long t2 = System.currentTimeMillis();
 
-			vector = new int[vector.length * 2];
-		}
+            long time = t2 - t1;
 
-	}
+            System.out.println("INSERTION RANDOM -- size: " + vector.length
+                    + " -- time: " + time + " ms -- nTimes: " + nTimes);
 
-	private static void timeInverse() {
-		int[] vector = new int[MIN_SIZE];
+            vector = new int[vector.length * 2];
 
-		while (vector.length <= MAX_SIZE) {
-			Vector.inverselySorted(vector);
+            if (time > TIME_LIMIT) {
+                nTimes /= 100;
+            }
+        }
+        System.out.println("\n------------------------------------------------------------------\n");
+        nTimes = N_TIMES;
+    }
 
-			long t1 = System.currentTimeMillis();
-			Insertion1.insertion(vector);
-			long t2 = System.currentTimeMillis();
+    private static void timeInverse() {
+        int[] vector = new int[MIN_SIZE];
 
-			long time = t2 - t1;
+        while (vector.length <= MAX_SIZE) {
+            Vector.inverselySorted(vector);
 
-			System.out.println("INSERTION INVERSE -- size: " + vector.length
-					+ " -- time: " + time + " ms");
+            long t1 = System.currentTimeMillis();
 
-			vector = new int[vector.length * 2];
-		}
+            for (int i = 0; i < nTimes; i++) {
+                Insertion1.insertion(vector);
+            }
 
-	}
+            long t2 = System.currentTimeMillis();
 
-	private static void timeSorted() {
-		int[] vector = new int[MIN_SIZE];
-		int nTimes = 1000000000;
+            long time = t2 - t1;
 
-		while (vector.length <= MAX_SIZE) {
-			Vector.sorted(vector);
-			long t1 = System.currentTimeMillis();
+            System.out.println("INSERTION INVERSE -- size: " + vector.length
+                    + " -- time: " + time + " ms -- nTimes: " + nTimes);
 
-			for (int i = 0; i < nTimes; i++) {
-				Insertion1.insertion(vector);
-			}
+            vector = new int[vector.length * 2];
 
-			long t2 = System.currentTimeMillis();
-			long time = t2 - t1;
+            if (time > TIME_LIMIT) {
+                nTimes /= 100;
+            }
+        }
+        System.out.println("\n------------------------------------------------------------------\n");
+        nTimes = N_TIMES;
+    }
 
-			System.out.println("INSERTION SORTED -- size: " + vector.length
-					+ " -- time: " + time + " ms");
+    private static void timeSorted() {
+        int[] vector = new int[MIN_SIZE];
 
-			vector = new int[vector.length * 2];
-			
-			if (time > 3000) {
-				nTimes /= 100;
-			}
-		}
+        while (vector.length <= MAX_SIZE) {
+            Vector.sorted(vector);
+            long t1 = System.currentTimeMillis();
 
-	}
+            for (int i = 0; i < nTimes; i++) {
+                Insertion1.insertion(vector);
+            }
+
+            long t2 = System.currentTimeMillis();
+            long time = t2 - t1;
+
+            System.out.println("INSERTION SORTED -- size: " + vector.length
+                    + " -- time: " + time + " ms -- nTimes: " + nTimes);
+
+            vector = new int[vector.length * 2];
+
+            if (time > TIME_LIMIT) {
+                nTimes /= 100;
+            }
+        }
+        System.out.println("\n------------------------------------------------------------------\n");
+        nTimes = N_TIMES;
+    }
 
 }
