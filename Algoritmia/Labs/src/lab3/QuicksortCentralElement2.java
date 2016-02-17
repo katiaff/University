@@ -6,14 +6,17 @@ package lab3;
 public class QuicksortCentralElement2 {
     private final static int MIN_SIZE = 512;
     private final static int MAX_SIZE = 128000;
-    private final static int N_TIMES = 1000000;
     private final static int TIME_LIMIT = 3000;
 
-    private static int nTimes = N_TIMES;
+    private static int nTimes;
 
     public static void main(String[] args) {
+        int times = Integer.parseInt(args[0]);
+        nTimes = times;
         timeSorted();
+        nTimes = times;
         timeInverse();
+        nTimes = times;
         timeRandom();
     }
 
@@ -42,7 +45,7 @@ public class QuicksortCentralElement2 {
             }
         }
         System.out.println("\n------------------------------------------------------------------\n");
-        nTimes = N_TIMES;
+
     }
 
     private static void timeInverse() {
@@ -71,7 +74,7 @@ public class QuicksortCentralElement2 {
             }
         }
         System.out.println("\n------------------------------------------------------------------\n");
-        nTimes = N_TIMES;
+
     }
 
     private static void timeSorted() {
@@ -98,6 +101,6 @@ public class QuicksortCentralElement2 {
             }
         }
         System.out.println("\n------------------------------------------------------------------\n");
-        nTimes = N_TIMES;
+
     }
 }

@@ -4,17 +4,20 @@ public class Bubble2 {
 
     private final static int MIN_SIZE = 512;
     private final static int MAX_SIZE = 128000;
-    private final static int N_TIMES = 1000;
     private final static int TIME_LIMIT = 3000;
 
 
-    private static int nTimes = N_TIMES;
+    private static int nTimes;
 
 	public static void main(String[] args) {
-		timeSorted();
-		timeInverse();
-		timeRandom();
-	}
+        int times = Integer.parseInt(args[0]);
+        nTimes = times;
+        timeSorted();
+        nTimes = times;
+        timeInverse();
+        nTimes = times;
+        timeRandom();
+    }
 
 	private static void timeRandom() {
 		int[] vector = new int[MIN_SIZE];
@@ -41,7 +44,6 @@ public class Bubble2 {
             }
         }
         System.out.println("\n------------------------------------------------------------------\n");
-        nTimes = N_TIMES;
     }
 
 	private static void timeInverse() {
@@ -70,7 +72,6 @@ public class Bubble2 {
             }
         }
         System.out.println("\n------------------------------------------------------------------\n");
-        nTimes = N_TIMES;
     }
 
 	private static void timeSorted() {
@@ -97,6 +98,5 @@ public class Bubble2 {
             }
         }
         System.out.println("\n------------------------------------------------------------------\n");
-        nTimes = N_TIMES;
     }
 }
