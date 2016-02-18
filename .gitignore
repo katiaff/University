@@ -3,6 +3,7 @@
 .gradle
 bin/
 tmp/
+.iml
 .idea/
 *.class
 *.tmp
