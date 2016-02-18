@@ -131,7 +131,7 @@ public class Selection2 {
         try {
             FileWriter file = new FileWriter("selection.csv");
             file.append("Sorting;Size;Total time(ms);NTimes;\n");
-
+            System.out.println("\n----------------------SELECTION ALGORITHM---------------------------\n");
             System.out.println("Logging SORTED time");
             file.append(timeSorted());
 

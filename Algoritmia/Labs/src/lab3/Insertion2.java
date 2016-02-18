@@ -130,6 +130,7 @@ public class Insertion2 {
             FileWriter file = new FileWriter("insertion.csv");
             file.append("Sorting;Size;Total time(ms);NTimes;\n");
 
+            System.out.println("\n----------------------INSERTION ALGORITHM---------------------------\n");
             System.out.println("Logging SORTED time");
             file.append(timeSorted());
 

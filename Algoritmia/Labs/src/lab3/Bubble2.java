@@ -131,6 +131,7 @@ public class Bubble2 {
             FileWriter file = new FileWriter("bubble.csv");
             file.append("Sorting;Size;Total time(ms);NTimes;\n");
 
+            System.out.println("\n----------------------BUBBLE ALGORITHM---------------------------\n");
             System.out.println("Logging SORTED time");
             file.append(timeSorted());
 

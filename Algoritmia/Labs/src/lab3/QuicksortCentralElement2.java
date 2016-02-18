@@ -132,6 +132,7 @@ public class QuicksortCentralElement2 {
             FileWriter file = new FileWriter("quicksort.csv");
             file.append("Sorting;Size;Total time(ms);NTimes\n");
 
+            System.out.println("\n----------------------QUICKSORT ALGORITHM---------------------------\n");
             System.out.println("Logging SORTED time");
             file.append(timeSorted());
 
