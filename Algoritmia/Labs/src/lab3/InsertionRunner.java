@@ -4,10 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-/**
- * Created by carla on 17/02/2016.
- */
-public class Selection2 {
+public class InsertionRunner {
+
     private static int nTimes;
     private static int minSize;
     private static int maxSize;
@@ -38,7 +36,7 @@ public class Selection2 {
             long t1 = System.currentTimeMillis();
 
             for (int i = 0; i < nTimes; i++) {
-                Selection1.selection(vector);
+                Insertion1.insertion(vector);
             }
             long t2 = System.currentTimeMillis();
 
@@ -71,7 +69,7 @@ public class Selection2 {
             long t1 = System.currentTimeMillis();
 
             for (int i = 0; i < nTimes; i++) {
-                Selection1.selection(vector);
+                Insertion1.insertion(vector);
             }
             long t2 = System.currentTimeMillis();
 
@@ -104,7 +102,7 @@ public class Selection2 {
             long t1 = System.currentTimeMillis();
 
             for (int i = 0; i < nTimes; i++) {
-                Selection1.selection(vector);
+                Insertion1.insertion(vector);
             }
             long t2 = System.currentTimeMillis();
 
@@ -129,9 +127,10 @@ public class Selection2 {
 
     private static void createFiles(int times) {
         try {
-            FileWriter file = new FileWriter("selection.csv");
+            FileWriter file = new FileWriter("insertion.csv");
             file.append("Sorting;Size;Total time(ms);NTimes;\n");
-            System.out.println("\n----------------------SELECTION ALGORITHM---------------------------\n");
+
+            System.out.println("\n----------------------INSERTION ALGORITHM---------------------------\n");
             System.out.println("Logging SORTED time");
             file.append(timeSorted());
 
@@ -151,4 +150,5 @@ public class Selection2 {
             e.printStackTrace();
         }
     }
+
 }

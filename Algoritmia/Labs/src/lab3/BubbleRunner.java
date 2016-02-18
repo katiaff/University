@@ -4,10 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-/**
- * Created by carla on 17/02/2016.
- */
-public class QuicksortCentralElement2 {
+public class BubbleRunner {
+
     private static int nTimes;
     private static int minSize;
     private static int maxSize;
@@ -38,14 +36,14 @@ public class QuicksortCentralElement2 {
             long t1 = System.currentTimeMillis();
 
             for (int i = 0; i < nTimes; i++) {
-                QuicksortCentralElement.quicksort(vector);
+                Bubble1.bubble(vector);
             }
             long t2 = System.currentTimeMillis();
 
             long time = t2 - t1;
 
             ret.append("random;" + vector.length + ";" +
-                    +time + ";" + nTimes + "\n");
+                    +time + ";" + nTimes + ";" + "\n");
 
             vector = new int[vector.length * 2];
 
@@ -71,14 +69,15 @@ public class QuicksortCentralElement2 {
             long t1 = System.currentTimeMillis();
 
             for (int i = 0; i < nTimes; i++) {
-                QuicksortCentralElement.quicksort(vector);
+                Bubble1.bubble(vector);
             }
+
             long t2 = System.currentTimeMillis();
 
             long time = t2 - t1;
 
             ret.append("inverse;" + vector.length + ";" +
-                    +time + ";" + nTimes + "\n");
+                    +time + ";" + nTimes + ";" + "\n");
 
             vector = new int[vector.length * 2];
 
@@ -100,18 +99,17 @@ public class QuicksortCentralElement2 {
 
         while (vector.length <= maxSize) {
             Vector.sorted(vector);
-
             long t1 = System.currentTimeMillis();
 
             for (int i = 0; i < nTimes; i++) {
-                QuicksortCentralElement.quicksort(vector);
+                Bubble1.bubble(vector);
             }
-            long t2 = System.currentTimeMillis();
 
+            long t2 = System.currentTimeMillis();
             long time = t2 - t1;
 
             ret.append("sorted;" + vector.length + ";" +
-                    +time + ";" + nTimes + "\n");
+                    +time + ";" + nTimes + ";" + "\n");
 
             vector = new int[vector.length * 2];
 
@@ -122,6 +120,7 @@ public class QuicksortCentralElement2 {
                     break;
                 }
             }
+
         }
         System.out.println("\n------------------------------------------------------------------\n");
         return ret.toString();
@@ -129,10 +128,10 @@ public class QuicksortCentralElement2 {
 
     private static void createFiles(int times) {
         try {
-            FileWriter file = new FileWriter("quicksort.csv");
-            file.append("Sorting;Size;Total time(ms);NTimes\n");
+            FileWriter file = new FileWriter("bubble.csv");
+            file.append("Sorting;Size;Total time(ms);NTimes;\n");
 
-            System.out.println("\n----------------------QUICKSORT ALGORITHM---------------------------\n");
+            System.out.println("\n----------------------BUBBLE ALGORITHM---------------------------\n");
             System.out.println("Logging SORTED time");
             file.append(timeSorted());
 

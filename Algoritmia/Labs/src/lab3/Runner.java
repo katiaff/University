@@ -7,16 +7,16 @@ public class Runner {
 
     public static void main(String[] args) {
         System.out.println("BUBBLE ALGORITHM: \n");
-        Bubble2.main(args);
+        BubbleRunner.main(args);
         System.out.println("END OF BUBBLE \n");
         System.out.println("INSERTION ALGORITHM: \n");
-        Insertion2.main(args);
+        InsertionRunner.main(args);
         System.out.println("END OF INSERTION \n");
         System.out.println("QUICKSORT ALGORITHM: \n");
-        QuicksortCentralElement2.main(args);
+        QuicksortCentralElementRunner.main(args);
         System.out.println("END OF QUICKSORT \n");
         System.out.println("SELECTION ALGORITHM: \n");
-        Selection2.main(args);
+        SelectionRunner.main(args);
         System.out.println("END OF SELECTION \n");
 
     }
