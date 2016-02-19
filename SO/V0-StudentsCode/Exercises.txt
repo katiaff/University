@@ -1,0 +1,17 @@
+2)
+    1. Break "case 'j'"
+    2. Run a
+    3. a) If no JUMP, execution never stops, 0 JUMP
+       b) Continue......... (N times)
+    4. N times 
+
+3)
+    1. Watch register_Accumulator_CPU
+       (I want to be informed of each modification of this variable)
+    2. 
+
+
+6) MEMADD ------
+   ZJUMP 2
+   JUMP ______
+   HALT
