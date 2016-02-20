@@ -8,7 +8,7 @@ namespace LinkedList {
     /// with Add, Remove, GetElement and Contains methods.
     /// </summary>
     /// 
-    public class MyLinkedList<T> : IEnumerable<T>{
+    public class MyLinkedList<T> : IEnumerable<T> {
         /// <summary>
         /// First element of the list.
         /// </summary>
