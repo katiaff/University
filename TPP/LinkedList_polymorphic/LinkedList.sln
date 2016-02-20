@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedList", "LinkedList\LinkedList.csproj", "{59DBDFDD-6F40-4BD3-9526-B73FE6DBE85F}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stack.tests", "Stack.tests\Stack.tests.csproj", "{B5998DC1-4C94-49E9-A611-455A0ADCA8C4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vector.test", "Vector.test\Vector.test.csproj", "{37B5A288-F5F5-4048-B011-37682F7E950A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dictionary.tests", "Dictionary.tests\Dictionary.tests.csproj", "{5C023262-5555-445C-AE45-CA91340C2BDD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{37B5A288-F5F5-4048-B011-37682F7E950A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37B5A288-F5F5-4048-B011-37682F7E950A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37B5A288-F5F5-4048-B011-37682F7E950A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C023262-5555-445C-AE45-CA91340C2BDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C023262-5555-445C-AE45-CA91340C2BDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C023262-5555-445C-AE45-CA91340C2BDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C023262-5555-445C-AE45-CA91340C2BDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
