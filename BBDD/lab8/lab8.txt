@@ -16,6 +16,14 @@ domiciliop VARCHAR(300),
 CONSTRAINT profesor_pk PRIMARY KEY (dnip)
 );
 
+CREATE TABLE carrera(
+codcarr VARCHAR(100),
+nombrec VARCHAR(100),
+duracion DECIMAL,
+CONSTRAINT carrera_pk PRIMARY KEY(codcarr)
+);
+
+
 CREATE TABLE asignatura(
 codasig VARCHAR(100),
 codcarr VARCHAR(100),
@@ -23,7 +31,7 @@ nomasig VARCHAR(100),
 curso VARCHAR(100),
 creditos DECIMAL,
 tipo VARCHAR(100),
-CONSTRAINT asignatura_pk PRIMARY KEY (codasig)
+CONSTRAINT asignatura_pk PRIMARY KEY (codasig),
 CONSTRAINT pertenece FOREIGN KEY (codcarr) REFERENCES carrera(codcarr)
 );
 
@@ -45,22 +53,20 @@ CONSTRAINT califica1_pk PRIMARY KEY (codasig, dnia),
 CONSTRAINT califica1_dnia_fk FOREIGN KEY(dnia) REFERENCES alumno(dnia),
 CONSTRAINT califica1_codasig_fk FOREIGN KEY(codasig) REFERENCES asignatura(codasig),
 CONSTRAINT califica1_dnip_fk FOREIGN KEY(dnip) REFERENCES profesor(dnip),
-CONSTRAINT nota_ck CHECK (nota between 0 and 10)
+CONSTRAINT nota1_ck CHECK (nota between 0 and 10)
 );
 
 CREATE TABLE califica2(
 dnia VARCHAR(100),
-dnip VARCHAR(100),
+cal_imparte VARCHAR(100),
 nota DECIMAL,
 fecha_calificacion DATE,
-CONSTRAINT califica2_pk PRIMARY KEY (dnia, codasig),
-
+CONSTRAINT califica2_pk PRIMARY KEY (dnia, cal_imparte),
+CONSTRAINT califica2_dnia_fk FOREIGN KEY(dnia) REFERENCES alumno(dnia),
+CONSTRAINT califica2_imparte_fk FOREIGN KEY(cal_imparte) REFERENCES imparte(imparte_pk)
+--CONSTRAINT califica2_prof_fk FOREIGN KEY (dnip) REFERENCES profesor(dnip),
+--CONSTRAINT nota2_ck CHECK (nota between 0 and 10)
 );
 
-CREATE TABLE carrera(
-codcarr VARCHAR(100),
-nombrec VARCHAR(100),
-duracion DECIMAL,
-CONSTRAINT carrera_pk PRIMARY KEY(codcarr)
-);
+DROP TABLE califica2;
 
