@@ -126,8 +126,10 @@ namespace LinkedList {
 
         [TestMethod]
         public void ForEachTest() {
+            int index = 0;
             foreach (string s in l) {
-                
+                Assert.AreEqual(s, l.GetElementByIndex(index));
+                index++;
             }
         }
 
