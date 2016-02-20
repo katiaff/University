@@ -124,6 +124,13 @@ namespace LinkedList {
             Assert.AreEqual(null, l.GetElement("blabla6"));
         }
 
+        [TestMethod]
+        public void ForEachTest() {
+            foreach (string s in l) {
+                
+            }
+        }
+
 
     }
 }

@@ -23,7 +23,7 @@ namespace LinkedList
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            
         }
 
         object System.Collections.IEnumerator.Current
@@ -34,7 +34,7 @@ namespace LinkedList
         public bool MoveNext()
         {
             
-            if (!myLinkedList.GetElementByIndex(pos+1).Equals(default(T))){
+            if (pos != myLinkedList.NumberOfElements-1){
                 pos++;
                 return true;
             }

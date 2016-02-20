@@ -214,12 +214,14 @@ namespace LinkedList {
 
         public IEnumerator<T> GetEnumerator()
         {
-            return new ListEnumerator<T>(this);
+            for (int i = 0; i<NumberOfElements; i++) {
+                yield return GetElementByIndex(i);
+            }
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            return new ListEnumerator<T>(this);
+            return GetEnumerator();
         }
     }
 }
