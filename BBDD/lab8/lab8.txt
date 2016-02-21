@@ -58,15 +58,16 @@ CONSTRAINT nota1_ck CHECK (nota between 0 and 10)
 
 CREATE TABLE califica2(
 dnia VARCHAR(100),
-cal_imparte VARCHAR(100),
+dnip VARCHAR(100),
+codasig VARCHAR(100),
 nota DECIMAL,
 fecha_calificacion DATE,
-CONSTRAINT califica2_pk PRIMARY KEY (dnia, cal_imparte),
+CONSTRAINT califica2_pk PRIMARY KEY (dnia, codasig),
 CONSTRAINT califica2_dnia_fk FOREIGN KEY(dnia) REFERENCES alumno(dnia),
-CONSTRAINT califica2_imparte_fk FOREIGN KEY(cal_imparte) REFERENCES imparte(imparte_pk)
---CONSTRAINT califica2_prof_fk FOREIGN KEY (dnip) REFERENCES profesor(dnip),
---CONSTRAINT nota2_ck CHECK (nota between 0 and 10)
+CONSTRAINT califica2_imparte_fk FOREIGN KEY(codasig, dnip) REFERENCES imparte(codasig, dnip),
+CONSTRAINT nota2_ck CHECK (nota between 0 and 10)
 );
 
 DROP TABLE califica2;
+
 

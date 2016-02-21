@@ -1,0 +1,47 @@
+CREATE TABLE entrada(
+    codentrada VARCHAR(25),
+    precio DECIMAL,
+    sesion DECIMAL,
+    fecha DATE,
+    CONSTRAINT entrada_pk PRIMARY KEY (codentrada),
+    CONSTRAINT entrada_vendida_fk FOREIGN KEY (sesion, fecha) REFERENCES proyecta(sesion, fecha)
+);
+
+CREATE TABLE sala(
+    codsala VARCHAR(25),
+    aforo DECIMAL,
+    codcine VARCHAR(25),
+    CONSTRAINT sala_pk PRIMARY KEY (codsala),
+    CONSTRAINT sala_esta_dividido_fk FOREIGN KEY codcine REFERENCES cine(codcine)
+);
+
+DROP TABLE sala;
+
+CREATE TABLE proyecta (
+    sesion DECIMAL,
+    fecha DATE,
+    codsala VARCHAR(25),
+    codpelicula VARCHAR(25),
+    entradas_vendidas DECIMAL,
+    CONSTRAINT proyecta_pk PRIMARY KEY (sesion, fecha),
+    CONSTRAINT proyecta_sala_fk FOREIGN KEY codsala REFERENCES sala(codsala),
+    CONSTRAINT proyecta_pelicula_fk FOREIGN KEY codpelicula REFERENCES pelicula(codpelicula)
+);
+
+CREATE TABLE pelicula(
+    codpelicula VARCHAR(25),
+    titulo VARCHAR(100),
+    duracion DECIMAL,
+    tipo VARCHAR(50),
+    es_secuela DECIMAL,
+    CONSTRAINT pelicula_pk PRIMARY KEY (codpelicula),
+    CONSTRAINT es_secuela = 0 OR es_secuela = 1
+);
+
+CREATE TABLE cine (
+    codcine VARCHAR(25),
+    localidad VARCHAR(100),
+    numsalas DECIMAL,
+    CONSTRAINT cine_pk PRIMARY KEY (codcine)
+);
+
