@@ -29,11 +29,11 @@ namespace Delegates
         [ExpectedException(typeof(Exception))]
         public void TestNameNotFound() 
         {
-            Assert.AreEqual(people[0], people.Find<Person>(person => person.FirstName.Equals("María")));
-            Assert.AreEqual(people[1], people.Find<Person>(person => person.FirstName.Equals("Juan")));
-            Assert.AreEqual(people[2], people.Find<Person>(person => person.FirstName.Equals("Pepe")));
-            Assert.AreEqual(people[3], people.Find<Person>(person => person.FirstName.Equals("Luis")));
-            Assert.AreEqual(people[4], people.Find<Person>(person => person.FirstName.Equals("Carlos")));
+            people.Find<Person>(person => person.FirstName.Equals("1111"));
+            people.Find<Person>(person => person.FirstName.Equals("2222"));
+            people.Find<Person>(person => person.FirstName.Equals("3333"));
+            people.Find<Person>(person => person.FirstName.Equals("4444"));
+            people.Find<Person>(person => person.FirstName.Equals("5555"));
         }
 
         [TestMethod]
