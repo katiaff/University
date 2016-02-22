@@ -18,5 +18,19 @@ namespace Delegates
             throw new Exception();
 
         }
+
+        public static T[] Filter<T>(this IEnumerable<T> items, Predicate<T> pred) {
+            List<T> ret = new List<T>();
+            foreach(T item in items) {
+                if (pred(item)) {
+                    ret.Add(item);
+                }
+            }
+            if (ret.Count != 0) {
+                return ret.ToArray<T>();
+            } else {
+                throw new Exception();
+            }
+        }
     }
 }

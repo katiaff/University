@@ -1,24 +1,20 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Delegates
-{
+namespace Delegates {
     [TestClass]
-    public class PersonTest
-    {
+    public class PersonTest {
         Person[] people;
 
         [TestInitialize]
-        public void Init()
-        {
+        public void Init() {
             people = Factory.CreatePeople();
         }
 
         // ------------------------Find tests------------------------
 
         [TestMethod]
-        public void TestFindByName()
-        {
+        public void TestFindByName() {
             Assert.AreEqual(people[0], people.Find<Person>(person => person.FirstName.Equals("María")));
             Assert.AreEqual(people[1], people.Find<Person>(person => person.FirstName.Equals("Juan")));
             Assert.AreEqual(people[2], people.Find<Person>(person => person.FirstName.Equals("Pepe")));
@@ -37,8 +33,7 @@ namespace Delegates
 
         [TestMethod]
         [ExpectedException(typeof(Exception))]
-        public void TestFindNameNotFound() 
-        {
+        public void TestFindNameNotFound() {
             people.Find<Person>(person => person.FirstName.Equals("1111"));
             people.Find<Person>(person => person.FirstName.Equals("2222"));
             people.Find<Person>(person => person.FirstName.Equals("3333"));
@@ -47,8 +42,7 @@ namespace Delegates
         }
 
         [TestMethod]
-        public void TestFindBySurname()
-        {
+        public void TestFindBySurname() {
             Assert.AreEqual(people[0], people.Find<Person>(person => person.Surname.Equals("Díaz")));
             Assert.AreEqual(people[1], people.Find<Person>(person => person.Surname.Equals("Pérez")));
             Assert.AreEqual(people[2], people.Find<Person>(person => person.Surname.Equals("Hevia")));
@@ -67,8 +61,7 @@ namespace Delegates
         }
 
         [TestMethod]
-        public void TestFindByID()
-        {
+        public void TestFindByID() {
             Assert.AreEqual(people[0], people.Find<Person>(person => person.IDNumber.Equals("9876384A")));
             Assert.AreEqual(people[1], people.Find<Person>(person => person.IDNumber.Equals("103478387F")));
             Assert.AreEqual(people[2], people.Find<Person>(person => person.IDNumber.Equals("23476293R")));
@@ -94,6 +87,85 @@ namespace Delegates
             people.Find<Person>(person => person.IDNumber.Equals("3333"));
             people.Find<Person>(person => person.IDNumber.Equals("4444"));
             people.Find<Person>(person => person.IDNumber.Equals("5555"));
+        }
+
+        // ------------------------Filter tests------------------------
+
+        [TestMethod]
+        public void TestFilterByEndingLetterName() {
+            Person[] endsA = new Person[] { people[0], people[6], people[7] };
+            Person[] filteredA = people.Filter<Person>(person => person.FirstName.EndsWith("a"));
+            for (int i = 0; i < filteredA.Length; i++) {
+                Assert.AreEqual(endsA[i], filteredA[i]);
+            }
+
+            Person[] endsN = new Person[] { people[1], people[8], };
+            Person[] filteredN = people.Filter<Person>(person => person.FirstName.EndsWith("n"));
+            for (int i = 0; i < filteredN.Length; i++) {
+                Assert.AreEqual(endsN[i], filteredN[i]);
+            }
+
+            Person[] endsE = new Person[] { people[2] };
+            Person[] filteredE = people.Filter<Person>(person => person.FirstName.EndsWith("pe"));
+            for (int i = 0; i < filteredE.Length; i++) {
+                Assert.AreEqual(endsE[i], filteredE[i]);
+            }
+
+            Person[] endsS = new Person[] { people[3], people[4] };
+            Person[] filteredS = people.Filter<Person>(person => person.FirstName.EndsWith("uis"));
+            for (int i = 0; i < filteredS.Length; i++) {
+                Assert.AreEqual(endsS[i], filteredS[i]);
+            }
+
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestFilterByEndingLetterNameNotFound() {
+            Person[] filtered = people.Filter<Person>(person => person.FirstName.EndsWith("z"));
+            filtered = people.Filter<Person>(person => person.FirstName.EndsWith("j"));
+            filtered = people.Filter<Person>(person => person.FirstName.EndsWith("p"));
+            filtered = people.Filter<Person>(person => person.FirstName.EndsWith("w"));
+
+        }
+
+        [TestMethod]
+        public void TestFilterByEndingLetterID() {
+
+            Person[] endsA = new Person[] { people[0], people[3] };
+            Person[] filteredA = people.Filter<Person>(person => person.IDNumber.EndsWith("A"));
+            for (int i = 0; i < filteredA.Length; i++) {
+                Assert.AreEqual(endsA[i], filteredA[i]);
+            }
+
+            Person[] endsF = new Person[] { people[1], people[6], };
+            Person[] filteredF = people.Filter<Person>(person => person.IDNumber.EndsWith("F"));
+            for (int i = 0; i < filteredF.Length; i++) {
+                Assert.AreEqual(endsF[i], filteredF[i]);
+            }
+
+            Person[] endsR = new Person[] { people[2] };
+            Person[] filteredR = people.Filter<Person>(person => person.IDNumber.EndsWith("R"));
+            for (int i = 0; i < filteredR.Length; i++) {
+                Assert.AreEqual(endsR[i], filteredR[i]);
+            }
+
+            Person[] endsB = new Person[] { people[4] };
+            Person[] filteredB = people.Filter<Person>(person => person.IDNumber.EndsWith("B"));
+            for (int i = 0; i < filteredB.Length; i++) {
+                Assert.AreEqual(endsB[i], filteredB[i]);
+            }
+
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestFilterByEndingLetterIDNotFound() {
+            Person[] filtered = people.Filter<Person>(person => person.IDNumber.EndsWith("z"));
+            filtered = people.Filter<Person>(person => person.IDNumber.EndsWith("j"));
+            filtered = people.Filter<Person>(person => person.IDNumber.EndsWith("p"));
+            filtered = people.Filter<Person>(person => person.IDNumber.EndsWith("w"));
+
         }
     }
 }

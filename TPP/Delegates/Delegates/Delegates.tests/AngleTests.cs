@@ -47,6 +47,8 @@ namespace Delegates {
             Assert.AreNotEqual(angles[181], angles.Find<Angle>(angle => angle.Quadrant == 4));
         }
 
+        // ------------------------Filter tests------------------------
+
     }
 }
 
