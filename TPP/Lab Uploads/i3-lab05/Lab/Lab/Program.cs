@@ -26,6 +26,7 @@ namespace Delegates
             {
                 Console.WriteLine(num);
             }
+            Console.WriteLine();
         }
     }
 
@@ -68,10 +69,27 @@ namespace Delegates
             Console.WriteLine("\nCurrent list: \n");
             newList.Show();
             Console.WriteLine("\nApplying Square...\n");
-            var sqrtList = newList.Map(sqrtFunc);
+
+            // var sqrtList = newList.Map(sqrtFunc);
+            var sqrtList = newList.Map(input => SquareRoot(input));
+
             Console.WriteLine("New list: \n");
             sqrtList.Show<double>();
             Console.WriteLine();
+
+            // -----------------------------------------
+
+            List<string> stringList = new List<string>();
+            stringList.Add("1");
+            stringList.Add("22");
+            stringList.Add("333");
+            stringList.Add("4444");
+            stringList.Add("55555");
+            stringList.Add("666666");
+
+            var newStringList = stringList.Map(input => input.Length);
+            Console.WriteLine("Length of each string: \n");
+            newStringList.Show<int>();
             
         }
 
