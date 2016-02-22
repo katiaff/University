@@ -10,19 +10,19 @@ namespace Delegates
     {
 
         public delegate double Function(double x);
-        public static IEnumerable<double> Map(this IEnumerable<double> items, Function function)
+        public static IEnumerable<T2> Map<T1,T2>(this IEnumerable<T1> items, Func<T1,T2> function)
         {
-            List<double> ret = new List<double>(items.Count());
-            foreach (double num in items)
+            List<T2> ret = new List<T2>(items.Count());
+            foreach (T1 num in items)
             {
                 ret.Add(function(num));
             }
             return ret;
         }
 
-        public static void Show(this IEnumerable<double> items)
+        public static void Show<T>(this IEnumerable<T> items)
         {
-            foreach (double num in items)
+            foreach (T num in items)
             {
                 Console.WriteLine(num);
             }
@@ -34,7 +34,11 @@ namespace Delegates
 
         static void Main(string[] args)
         {
-            ExtensionClass.Function myFunction = DoubleTimes2;
+            // 1: argument of function
+            // 2: return type of function
+            Func<double, double> myFunction = DoubleTimes2;
+
+            //Predicate<int> = Func<int,bool>
 
             double a = myFunction(3);
             Console.WriteLine("a = {0}",a);
@@ -42,17 +46,20 @@ namespace Delegates
             a = myFunction(1);
             Console.WriteLine("a = {0}", a);
 
-            // myFunction = Sum;    compilation error
-
+            // ---------------------------------------------
             List<double> myList = new List<double>();
             myList.Add(10);
             myList.Add(0.5);
             myList.Add(-16);
 
+            var returnVal = myList.Map(input => Math.Pow(input,2));
+
             var result = myList.Map(myFunction);
             result.Show();
 
-            ExtensionClass.Function sqrtFunc = SquareRoot;
+            // ---------------------------------------------
+
+            Func<double, double> sqrtFunc = SquareRoot;
             List<double> newList = new List<double>();
             for (double i = 1; i <= 5; i++)
             {
@@ -63,7 +70,7 @@ namespace Delegates
             Console.WriteLine("\nApplying Square...\n");
             var sqrtList = newList.Map(sqrtFunc);
             Console.WriteLine("New list: \n");
-            sqrtList.Show();
+            sqrtList.Show<double>();
             Console.WriteLine();
             
         }
