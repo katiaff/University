@@ -40,5 +40,12 @@ namespace Delegates {
             return angles;
         }
 
+        public static Angle[] CreateAngles(int upperLimit) {
+            Angle[] angles = new Angle[upperLimit + 1];
+            for (int angle = 0; angle <= upperLimit; angle++)
+                angles[angle] = new Angle(angle / 180.0 * Math.PI);
+            return angles;
+        }
+
     }
 }

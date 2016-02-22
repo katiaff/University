@@ -20,6 +20,18 @@ namespace Delegates {
             this.IDNumber = idNumber;
         }
 
+        public override bool Equals(object obj) {
+            Person person = obj as Person;
+            if (person != null) {
+                return this.GetHashCode().Equals(person.GetHashCode());
+            }
+            return false;
+        }
+
+        public override int GetHashCode() {
+            return IDNumber.ToLower().GetHashCode();
+        }
+
 
     }
 }

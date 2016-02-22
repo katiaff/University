@@ -8,7 +8,7 @@ namespace Delegates {
         public double Radians { get; private set; }
 
         public float Degrees {
-            get { return (float)(this.Radians / Math.PI * 180); }
+            get { return (float) (this.Radians / Math.PI * 180); }
         }
 
         public Angle(double radians) {
@@ -42,6 +42,22 @@ namespace Delegates {
                     return 3;
                 return 4;
             }
+        }
+
+        public override string ToString() {
+            return "Angle: " + Degrees;
+        }
+
+        public override bool Equals(object obj) {
+            Angle angle = obj as Angle;
+            if (angle != null) {
+                return this.GetHashCode().Equals(angle.GetHashCode());
+            }
+            return false;
+        }
+
+        public override int GetHashCode() {
+            return this.Degrees.GetHashCode();
         }
 
     }
