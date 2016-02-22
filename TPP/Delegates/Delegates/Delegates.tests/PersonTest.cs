@@ -26,10 +26,18 @@ namespace Delegates
             Assert.AreEqual(people[4], people.Find<Person>(person => person.FirstName.Equals("Carlos")));
         }
 
-        
+        [TestMethod]
+        public void TestFindByEndingLetterName() {
+            Assert.AreEqual(people[0], people.Find<Person>(person => person.FirstName.EndsWith("a")));
+            Assert.AreEqual(people[1], people.Find<Person>(person => person.FirstName.EndsWith("n")));
+            Assert.AreEqual(people[2], people.Find<Person>(person => person.FirstName.EndsWith("e")));
+            Assert.AreEqual(people[3], people.Find<Person>(person => person.FirstName.EndsWith("s")));
+        }
+
+
         [TestMethod]
         [ExpectedException(typeof(Exception))]
-        public void TestNameNotFound() 
+        public void TestFindNameNotFound() 
         {
             people.Find<Person>(person => person.FirstName.Equals("1111"));
             people.Find<Person>(person => person.FirstName.Equals("2222"));
@@ -50,7 +58,7 @@ namespace Delegates
 
         [TestMethod]
         [ExpectedException(typeof(Exception))]
-        public void TestSurnameNotFound() {
+        public void TestFindSurnameNotFound() {
             people.Find<Person>(person => person.Surname.Equals("1111"));
             people.Find<Person>(person => person.Surname.Equals("2222"));
             people.Find<Person>(person => person.Surname.Equals("3333"));
@@ -70,8 +78,17 @@ namespace Delegates
         }
 
         [TestMethod]
+        public void TestFindByEndingLetterID() {
+            Assert.AreEqual(people[0], people.Find<Person>(person => person.IDNumber.EndsWith("A")));
+            Assert.AreEqual(people[1], people.Find<Person>(person => person.IDNumber.EndsWith("F")));
+            Assert.AreEqual(people[2], people.Find<Person>(person => person.IDNumber.EndsWith("R")));
+            Assert.AreEqual(people[4], people.Find<Person>(person => person.IDNumber.EndsWith("B")));
+
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(Exception))]
-        public void TestIDNotFound() {
+        public void TestFindIDNotFound() {
             people.Find<Person>(person => person.IDNumber.Equals("1111"));
             people.Find<Person>(person => person.IDNumber.Equals("2222"));
             people.Find<Person>(person => person.IDNumber.Equals("3333"));
