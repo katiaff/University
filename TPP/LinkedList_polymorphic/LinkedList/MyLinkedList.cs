@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace LinkedList {
     /// <summary>
@@ -212,16 +213,24 @@ namespace LinkedList {
             return sb.ToString().TrimEnd();
         }
 
-        public IEnumerator<T> GetEnumerator()
-        {
-            for (int i = 0; i<NumberOfElements; i++) {
-                yield return GetElementByIndex(i);
-            }
+        public IEnumerator<T> GetEnumerator() {
+            return new ListEnumerator<T>(this);
         }
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
+        IEnumerator IEnumerable.GetEnumerator() {
             return GetEnumerator();
         }
+
+        /*        public IEnumerator<T> GetEnumerator()
+                {
+                    for (int i = 0; i<NumberOfElements; i++) {
+                        yield return GetElementByIndex(i);
+                    }
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }*/
     }
 }
