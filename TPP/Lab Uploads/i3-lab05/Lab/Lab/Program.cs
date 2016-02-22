@@ -6,13 +6,35 @@ using System.Threading.Tasks;
 
 namespace Delegates
 {
+    public static class ExtensionClass
+    {
+
+        public delegate double Function(double x);
+        public static IEnumerable<double> Map(this IEnumerable<double> items, Function function)
+        {
+            List<double> ret = new List<double>(items.Count());
+            foreach (double num in items)
+            {
+                ret.Add(function(num));
+            }
+            return ret;
+        }
+
+        public static void Show(this IEnumerable<double> items)
+        {
+            foreach (double num in items)
+            {
+                Console.WriteLine(num);
+            }
+        }
+    }
+
     class Program
     {
-        public delegate double Function(double x);
 
         static void Main(string[] args)
         {
-            Function myFunction = DoubleTimes2;
+            ExtensionClass.Function myFunction = DoubleTimes2;
 
             double a = myFunction(3);
             Console.WriteLine("a = {0}",a);
@@ -27,21 +49,23 @@ namespace Delegates
             myList.Add(0.5);
             myList.Add(-16);
 
-            var result = Map(myList, myFunction);
-            foreach (var num in result)
-            {
-                Console.WriteLine(num);
-            }
-            
-        }
+            var result = myList.Map(myFunction);
+            result.Show();
 
-        public static List<double> Map(List<double> items, Function function){
-            List<double> ret = new List<double>();
-            foreach (double num in items)
+            ExtensionClass.Function sqrtFunc = SquareRoot;
+            List<double> newList = new List<double>();
+            for (double i = 1; i <= 5; i++)
             {
-                ret.Add(function(num));
+                newList.Add(i);
             }
-            return ret;
+            Console.WriteLine("\nCurrent list: \n");
+            newList.Show();
+            Console.WriteLine("\nApplying Square...\n");
+            var sqrtList = newList.Map(sqrtFunc);
+            Console.WriteLine("New list: \n");
+            sqrtList.Show();
+            Console.WriteLine();
+            
         }
 
         static double DoubleTimes2(double x)
@@ -52,6 +76,11 @@ namespace Delegates
         static int Sum(int a, int b)
         {
             return a + b;
+        }
+
+        static double SquareRoot(double x)
+        {
+            return Math.Sqrt(x);
         }
 
     }
