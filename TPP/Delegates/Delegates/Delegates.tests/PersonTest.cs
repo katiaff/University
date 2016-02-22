@@ -14,6 +14,8 @@ namespace Delegates
             people = Factory.CreatePeople();
         }
 
+        // ------------------------Find tests------------------------
+
         [TestMethod]
         public void TestFindByName()
         {
@@ -47,6 +49,16 @@ namespace Delegates
         }
 
         [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestSurnameNotFound() {
+            people.Find<Person>(person => person.Surname.Equals("1111"));
+            people.Find<Person>(person => person.Surname.Equals("2222"));
+            people.Find<Person>(person => person.Surname.Equals("3333"));
+            people.Find<Person>(person => person.Surname.Equals("4444"));
+            people.Find<Person>(person => person.Surname.Equals("5555"));
+        }
+
+        [TestMethod]
         public void TestFindByID()
         {
             Assert.AreEqual(people[0], people.Find<Person>(person => person.IDNumber.Equals("9876384A")));
@@ -55,6 +67,16 @@ namespace Delegates
             Assert.AreEqual(people[3], people.Find<Person>(person => person.IDNumber.Equals("4837649A")));
             Assert.AreEqual(people[4], people.Find<Person>(person => person.IDNumber.Equals("67365498B")));
 
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestIDNotFound() {
+            people.Find<Person>(person => person.IDNumber.Equals("1111"));
+            people.Find<Person>(person => person.IDNumber.Equals("2222"));
+            people.Find<Person>(person => person.IDNumber.Equals("3333"));
+            people.Find<Person>(person => person.IDNumber.Equals("4444"));
+            people.Find<Person>(person => person.IDNumber.Equals("5555"));
         }
     }
 }
