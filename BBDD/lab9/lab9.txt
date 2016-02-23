@@ -1,47 +1,58 @@
 CREATE TABLE entrada(
-    codentrada VARCHAR(25),
+    codentrada VARCHAR(25) NOT NULL,
     precio DECIMAL,
-    sesion DECIMAL,
-    fecha DATE,
+    sesion DECIMAL NOT NULL,
+    fecha DATE NOT NULL,
+	codsala VARCHAR(25) NOT NULL,
+	codpelicula VARCHAR(25) NOT NULL,
     CONSTRAINT entrada_pk PRIMARY KEY (codentrada),
-    CONSTRAINT entrada_vendida_fk FOREIGN KEY (sesion, fecha) REFERENCES proyecta(sesion, fecha)
+    CONSTRAINT entrada_proyecta_fk FOREIGN KEY (sesion, fecha, codsala, codpelicula) 
+	  REFERENCES proyecta(sesion, fecha, codsala, codpelicula)
 );
 
 CREATE TABLE sala(
-    codsala VARCHAR(25),
+    codsala VARCHAR(25) NOT NULL,
     aforo DECIMAL,
-    codcine VARCHAR(25),
+    codcine VARCHAR(25) NOT NULL,
     CONSTRAINT sala_pk PRIMARY KEY (codsala),
-    CONSTRAINT sala_esta_dividido_fk FOREIGN KEY codcine REFERENCES cine(codcine)
+    CONSTRAINT sala_cine_fk FOREIGN KEY codcine REFERENCES cine(codcine)
 );
 
-DROP TABLE sala;
 
 CREATE TABLE proyecta (
-    sesion DECIMAL,
-    fecha DATE,
-    codsala VARCHAR(25),
-    codpelicula VARCHAR(25),
+    sesion DECIMAL NOT NULL,
+    fecha DATE NOT NULL,
+    codsala VARCHAR(25) NOT NULL,
+    codpelicula VARCHAR(25) NOT NULL,
     entradas_vendidas DECIMAL,
-    CONSTRAINT proyecta_pk PRIMARY KEY (sesion, fecha),
+    CONSTRAINT proyecta_pk PRIMARY KEY (sesion, fecha, codsala, codpelicula),
     CONSTRAINT proyecta_sala_fk FOREIGN KEY codsala REFERENCES sala(codsala),
-    CONSTRAINT proyecta_pelicula_fk FOREIGN KEY codpelicula REFERENCES pelicula(codpelicula)
+    CONSTRAINT proyecta_pelicula_fk FOREIGN KEY codpelicula REFERENCES pelicula(codpelicula),
+	CONSTRAINT proyecta_sesion_ck CHECK (sesion IN (5,7,10))
 );
 
 CREATE TABLE pelicula(
-    codpelicula VARCHAR(25),
+    codpelicula VARCHAR(25) NOT NULL,
     titulo VARCHAR(100),
     duracion DECIMAL,
     tipo VARCHAR(50),
-    es_secuela DECIMAL,
+    es_secuela VARCHAR(10),
     CONSTRAINT pelicula_pk PRIMARY KEY (codpelicula),
-    CONSTRAINT es_secuela = 0 OR es_secuela = 1
+	CONSTRAINT pelicula_es_secuela_fk FOREIGN KEY es_secuela REFERENCES pelicula (codpelicula),
+	CONSTRAINT pelicula_titulo_uk UNIQUE titulo
+    CONSTRAINT pelicula_tipo_ck CHECK (titulo IN ('ficcion', 'aventuras', 'terror))
 );
 
 CREATE TABLE cine (
-    codcine VARCHAR(25),
+    codcine VARCHAR(25) NOT NULL,
     localidad VARCHAR(100),
-    numsalas DECIMAL,
     CONSTRAINT cine_pk PRIMARY KEY (codcine)
+);
+
+CREATE TABLE cine_3D (
+	codcine VARCHAR(25) NOT NULL,
+	numsalas DECIMAL,
+	CONSTRAINT cine_3D_pk PRIMARY KEY (codcine),
+	CONSTRAINT cine_3D_cine_fk FOREIGN KEY codcine REFERENCES cine(codcine)
 );
 
