@@ -1,8 +1,8 @@
 package lab4.recursive;
 
 /* Params: a=4;b=3;k=2
- * The time complexity is O(n) 
- * and the waste of stack is O(log n)
+ * Or params: a=4; b=2; k= 0
+ * The time complexity is O(n^2) 
  * Regardless the growth of n => the stack does not overflow 
  */
 public class Division4 {
@@ -12,10 +12,10 @@ public class Division4 {
 	 if (n<=0) cont++;
 	 else
 	  { cont++ ; // O(1)    
-	    rec4(n/3);
-	    rec4(n/3);
-	    rec4(n/3);
-	    rec4(n/3);
+	    rec4(n/2);
+	    rec4(n/2);
+	    rec4(n/2);
+	    rec4(n/2);
 	  }
 	 return cont;   
 	}

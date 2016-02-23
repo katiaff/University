@@ -1,9 +1,8 @@
 package lab4.recursive;
 
-/* Class that models T(n)=??
+/* 
  * Params: a=3;b=2;k=3^(n/2)
  * The time complexity is quadratic O(3^(n/2))
- * and the waste of stack is O(?)
  * In this case => the stack does not overflow because 
  * long before the execution time is untreatable 
  */
