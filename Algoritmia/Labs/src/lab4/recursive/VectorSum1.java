@@ -1,4 +1,4 @@
-package labs.course15_16.lab3dandc.recursive;
+package lab4.recursive;
 
 import java.util.Random; 
 

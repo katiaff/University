@@ -1,4 +1,4 @@
-package labs.course15_16.lab3dandc.recursive;
+package lab4.recursive;
 
 /* Class that models T(n)=??
  * Params: a=3;b=2;k=3^(n/2)

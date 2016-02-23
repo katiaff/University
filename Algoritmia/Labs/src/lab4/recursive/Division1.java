@@ -1,4 +1,4 @@
-package labs.course15_16.lab3dandc.recursive;
+package lab4.recursive;
 
 /* Params: a=1;b=3;k=1
  * The time complexity is O(n) 

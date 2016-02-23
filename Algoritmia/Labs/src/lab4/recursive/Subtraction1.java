@@ -1,4 +1,4 @@
-package labs.course15_16.lab3dandc.recursive;
+package lab4.recursive;
 
 /* Class that models T(n)=T(n-1)+O(1)
  * The time complexity is O(n) 

@@ -1,4 +1,4 @@
-package labs.course15_16.lab3dandc.fakeCoins;
+package lab4.coins;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;

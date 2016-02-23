@@ -1,4 +1,4 @@
-package labs.course15_16.lab3dandc.recursive;
+package lab4.recursive;
 
 /* This program serves to measure times automatically increasing the size of 
  * the problem (n) and also using a time scale determined by nTimes, 

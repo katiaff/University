@@ -1,4 +1,4 @@
-package labs.course15_16.lab3dandc.recursive;
+package lab4.recursive;
 
 /* Class that models T(n)=2 T(n-1)+O(1)
  * Params: a=2;b=1;k=0
