@@ -118,26 +118,33 @@ namespace Delegates {
         [TestMethod]
         public void TestReduceComputeMaximumSine() {
             Angle[] angles10 = Factory.CreateAngles(10);
-            double result10 = angles10.Reduce<Angle, double>((angle, res) => res += angle.Degrees);
-            Assert.AreEqual(55, (int) result10);
+            double result10 = angles10.Reduce<Angle, double>((angle, res) => res = angle.Sine() > res ? angle.Sine() : res);
+            Assert.AreEqual(0.17364817766693, Math.Round(result10, 14));
 
             Angle[] angles90 = Factory.CreateAngles(90);
-            double result90 = angles90.Reduce<Angle, double>((angle, res) => res += angle.Degrees);
-            Assert.AreEqual(4095, (int) result90);
+            double result90 = angles90.Reduce<Angle, double>((angle, res) => res = angle.Sine() > res? angle.Sine() : res);
+            Assert.AreEqual(1, result90);
 
             Angle[] angles180 = Factory.CreateAngles(180);
-            double result180 = angles180.Reduce<Angle, double>((angle, res) => res += angle.Degrees);
-            Assert.AreEqual(16290, (int) result180);
+            double result180 = angles180.Reduce<Angle, double>((angle, res) => res = angle.Sine() > res ? angle.Sine() : res);
+            Assert.AreEqual(1, result180);
 
             Angle[] angles270 = Factory.CreateAngles(270);
-            double result270 = angles270.Reduce<Angle, double>((angle, res) => res += angle.Degrees);
-            Assert.AreEqual(36585, (int) result270);
+            double result270 = angles270.Reduce<Angle, double>((angle, res) => res = angle.Sine() > res ? angle.Sine() : res);
+            Assert.AreEqual(1, result270);
 
             Angle[] angles360 = Factory.CreateAngles(360);
-            double result360 = angles360.Reduce<Angle, double>((angle, res) => res += angle.Degrees);
-            Assert.AreEqual(64980, (int) result360);
+            double result360 = angles360.Reduce<Angle, double>((angle, res) => res = angle.Sine() > res ? angle.Sine() : res);
+            Assert.AreEqual(1, result360);
+
+            Angle[] angles70 = Factory.CreateAngles(70);
+            double result70 = angles70.Reduce<Angle, double>((angle, res) => res = angle.Sine() > res ? angle.Sine() : res);
+            Assert.AreEqual(0.939692620785908, Math.Round(result70, 15));
+
+
 
         }
+
 
 
 
