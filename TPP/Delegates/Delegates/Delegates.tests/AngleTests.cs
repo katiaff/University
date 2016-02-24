@@ -51,7 +51,6 @@ namespace Delegates {
 
         [TestMethod]
         public void TestFilterRightAngles() {
-
             Angle[] right = new Angle[] { angles[90] };
             Angle[] filtered = angles.Filter<Angle>(angle => angle.Degrees == 90);
             for (int i = 0; i < filtered.Length; i++) {
@@ -89,6 +88,58 @@ namespace Delegates {
             }
 
         }
+
+        // ------------------------Reduce tests------------------------
+
+        [TestMethod]
+        public void TestReduceSumAllDegrees() {
+            Angle[] angles10 = Factory.CreateAngles(10);
+            double result10 = angles10.Reduce<Angle, double>((angle, res) => res += angle.Degrees);
+            Assert.AreEqual(55, (int)result10);
+
+            Angle[] angles90 = Factory.CreateAngles(90);
+            double result90 = angles90.Reduce<Angle, double>((angle, res) => res += angle.Degrees);
+            Assert.AreEqual(4095, (int) result90);
+
+            Angle[] angles180 = Factory.CreateAngles(180);
+            double result180 = angles180.Reduce<Angle, double>((angle, res) => res += angle.Degrees);
+            Assert.AreEqual(16290, (int) result180);
+
+            Angle[] angles270 = Factory.CreateAngles(270);
+            double result270 = angles270.Reduce<Angle, double>((angle, res) => res += angle.Degrees);
+            Assert.AreEqual(36585, (int) result270);
+
+            Angle[] angles360 = Factory.CreateAngles(360);
+            double result360 = angles360.Reduce<Angle, double>((angle, res) => res += angle.Degrees);
+            Assert.AreEqual(64980, (int) result360);
+
+        }
+
+        [TestMethod]
+        public void TestReduceComputeMaximumSine() {
+            Angle[] angles10 = Factory.CreateAngles(10);
+            double result10 = angles10.Reduce<Angle, double>((angle, res) => res += angle.Degrees);
+            Assert.AreEqual(55, (int) result10);
+
+            Angle[] angles90 = Factory.CreateAngles(90);
+            double result90 = angles90.Reduce<Angle, double>((angle, res) => res += angle.Degrees);
+            Assert.AreEqual(4095, (int) result90);
+
+            Angle[] angles180 = Factory.CreateAngles(180);
+            double result180 = angles180.Reduce<Angle, double>((angle, res) => res += angle.Degrees);
+            Assert.AreEqual(16290, (int) result180);
+
+            Angle[] angles270 = Factory.CreateAngles(270);
+            double result270 = angles270.Reduce<Angle, double>((angle, res) => res += angle.Degrees);
+            Assert.AreEqual(36585, (int) result270);
+
+            Angle[] angles360 = Factory.CreateAngles(360);
+            double result360 = angles360.Reduce<Angle, double>((angle, res) => res += angle.Degrees);
+            Assert.AreEqual(64980, (int) result360);
+
+        }
+
+
 
     }
 }
