@@ -37,7 +37,16 @@ namespace Delegates {
             }
 
             return result;
-        }   
+        }
+
+        public static TRet Reduce<T, T2 , TRet>(this IEnumerable<T> items, Func<T, T2, TRet, TRet> function, T2 comparison) {
+            TRet result = default(TRet);
+            foreach (T item in items) {
+                result = function(item, comparison, result);
+            }
+
+            return result;
+        }
 
     }
 }
