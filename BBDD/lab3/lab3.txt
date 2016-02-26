@@ -1,0 +1,122 @@
+-- 1 )
+SELECT au_nombre, au_apellido
+  FROM autores
+
+-- 2)
+SELECT titulo, (ventas_previstas * precio) expected_revenue
+  FROM titulos
+
+-- 3)
+SELECT titulo, ventas_previstas
+  FROM titulos
+  WHERE ventas_previstas BETWEEN 200 AND 5000
+
+-- 4)
+SELECT au_nombre, au_apellido 
+  FROM autores
+  WHERE au_telefono IS NULL
+
+-- 5)
+SELECT titulo_id, titulo, ventas_previstas
+  FROM titulos
+  WHERE tipo IN ('BD', 'PROG')
+  ORDER BY precio DESC
+
+SELECT titulo_id, titulo, ventas_previstas
+  FROM titulos
+  WHERE tipo = 'BD' OR tipo = 'PROG'
+  ORDER BY precio DESC
+
+-- 6)
+SELECT au_nombre, au_apellido
+  FROM autores
+  WHERE au_telefono LIKE '456%'
+
+-- 7)
+SELECT AVG(precio)
+  FROM titulos
+  WHERE tipo = 'BD'
+
+-- 8)
+SELECT ed_id, COUNT(titulo)
+  FROM editoriales, titulos
+  WHERE titulos.ed_id = ed_id
+  GROUP BY ed_id
+
+SELECT DISTINCT ed_id, tipo, COUNT(titulo)
+  FROM editoriales, titulos
+  WHERE titulos.ed_id = ed_id
+  GROUP BY ed_id, tipo
+
+-- 9)
+SELECT tipo, COUNT(titulo_id)
+  FROM titulos
+  GROUP BY tipo
+
+-- 10)
+SELECT tipo, AVG(precio)
+  FROM titulos
+  WHERE f_publicacion > TO_DATE('2000','YYYY')
+  GROUP BY tipo
+
+-- 11)
+SELECT tipo, COUNT(titulo_id)
+  FROM titulos
+  GROUP BY tipo
+    HAVING COUNT(titulo_id) >  '1'
+
+-- 12)
+SELECT tipo, AVG(precio)
+  FROM titulos
+  GROUP BY tipo
+  HAVING AVG(precio) > '35'
+
+-- 13)
+SELECT ed_id, AVG(precio)
+  FROM titulos, editoriales
+  WHERE ed_id > '2'
+  GROUP BY ed_id 
+    HAVING AVG(precio) > 60
+  ORDER BY ed_id ASC
+
+-- 14)
+SELECT editor_nombre, editor_apellido, orden_editores
+  FROM editores, titulosEditores, titulos
+  WHERE titulo_id = 1
+    AND titulosEditores.editor_id = editores.editor_id
+    AND titulosEditores.titulo_id = titulos.titulo_id
+
+-- 15)
+SELECT DISTINCT editor_nombre, ed_nombre, ed_ciudad
+  FROM editores, editoriales
+  WHERE ed_ciudad = editor_ciudad
+
+-- 16)
+SELECT DISTINCT titulo, au_nombre, orden_autores
+  FROM titulos t, titulosAutores ta, autores a
+  WHERE tipo = 'BD'
+    AND ta.titulo_id = t.titulo_id
+    AND ta.au_id = a.au_id
+
+-- 17)
+SELECT e.editor_nombre, e.editor_apellido, j.editor_nombre
+  FROM editores e, editores j
+  WHERE editor_jefe IS NOT NULL
+    AND j.editor_id = e.editor_jefe
+
+-- 18)
+SELECT DISTINCT au_id, au_nombre, au_apellido
+  FROM autores a1, autores a2
+  WHERE a1.au_apellido = a2.au_apellido
+    AND a1.au_id != a2.au_id
+
+-- 19)
+SELECT ed_nombre
+  FROM editoriales, titulos
+  WHERE tipo = 'PROG'
+    AND titulos.ed_id = editoriales.ed_id
+
+
+
+
+  
