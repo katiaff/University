@@ -32,9 +32,9 @@ curso VARCHAR(100),
 creditos DECIMAL,
 tipo VARCHAR(100) NOT NULL,
 CONSTRAINT asignatura_pk PRIMARY KEY (codasig),
-CONSTRAINT asignatura_carrera_fk FOREIGN KEY (codcarr) REFERENCES carrera(codcarr)
+CONSTRAINT asignatura_carrera_fk FOREIGN KEY (codcarr) REFERENCES carrera(codcarr),
 CONSTRAINT asignatura_nomasig_uk UNIQUE (nomasig),
-CONSTRAINT asignatura_tipo_ck CHECK (tipo IN ('obligatoria', 'optativa', 'libre configuraciÃ³n'))
+CONSTRAINT asignatura_tipo_ck CHECK (tipo IN ('obligatoria', 'optativa', 'libre configuración'))
 );
 
 CREATE TABLE imparte(
@@ -67,7 +67,7 @@ fecha_calificacion DATE,
 CONSTRAINT califica2_pk PRIMARY KEY (dnia, codasig, dnip),
 CONSTRAINT califica2_alumno_fk FOREIGN KEY(dnia) REFERENCES alumno(dnia),
 CONSTRAINT califica2_imparte_fk FOREIGN KEY(codasig, dnip) REFERENCES imparte(codasig, dnip),
-CONSTRAINT califica2_alumno_asig_uk UNIQUE (dnia, codasig)
+CONSTRAINT califica2_alumno_asig_uk UNIQUE (dnia, codasig),
 CONSTRAINT nota2_ck CHECK (nota between 0 and 10)
 );
 
