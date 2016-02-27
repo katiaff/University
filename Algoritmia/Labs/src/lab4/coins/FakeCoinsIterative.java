@@ -1,5 +1,7 @@
 package lab4.coins;
 
+import static lab4.coins.ScalePosition.*;
+
 public class FakeCoinsIterative {
     private Coins bag;
 
@@ -22,20 +24,20 @@ public class FakeCoinsIterative {
             if (balanceRight != balanceLeft) {
 
                 // if balance is different on either side of i
-                if ((balanceRight == ScalePosition.LEFT && balanceLeft == ScalePosition.RIGHT) ||
-                        (balanceRight == ScalePosition.RIGHT && balanceLeft == ScalePosition.LEFT)) {
+                if ((balanceRight == LEFT && balanceLeft == RIGHT) ||
+                        (balanceRight == RIGHT && balanceLeft == LEFT)) {
                     result = i;
                     break;
                 }
 
                 // if balance is different on the right
-                else if (balanceLeft != ScalePosition.EQUAL) {
+                else if (balanceLeft != EQUAL) {
                     result = i + 1;
                     break;
                 }
 
                 // if balance is different on the left
-                else if (balanceRight != ScalePosition.EQUAL) {
+                else if (balanceRight != EQUAL) {
                     result = i - 1;
                     break;
                 }
