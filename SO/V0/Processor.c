@@ -108,15 +108,15 @@ void Processor_DecodeAndExecuteInstruction() {
 			  registerPC_CPU++;
 			  break;
 
-		// Instruction MEMADD
-		case 'm': registerMAR_CPU=registerIR_CPU.operand2;
-			  // Send to the main memory controller the address in which the reading has to take place: use the address bus for this
-			  Buses_write_AddressBus_From_To(CPU, MAINMEMORY);
+		case 'm' : registerMAR_CPU=registerIR_CPU.operand2;
+			   Buses_write_AddressBus_From_To(CPU, MAINMEMORY);
 			  // Tell the main memory controller to read
 			  MainMemory_readMemory();
-			  registerAccumulator_CPU = registerIR_CPU.operand1 + registerIR_CPU.operand2;
+			  // Copy the read data to the accumulator register
+			  registerAccumulator_CPU= registerIR_CPU.operand1 + registerIR_CPU.operand2;
 			  registerPC_CPU++;
 			  break;
+			   
 
 		// Instruction INC
 		case 'i': registerAccumulator_CPU+= registerIR_CPU.operand1;
@@ -131,7 +131,7 @@ void Processor_DecodeAndExecuteInstruction() {
 		default : registerPC_CPU++;
 			  break;
 	}
-	ComputerSystem_DebugMessage(HARDWARE,"sdsdsds"," (PC: ", registerPC_CPU,", Accumulator: ",registerAccumulator_CPU, ", PSW: ", registerPSW_CPU,")\n");
+	ComputerSystem_DebugMessage(HARDWARE,"sdsds"," (PC: ",registerPC_CPU,", Accumulator: ",registerAccumulator_CPU,")\n");
 }
 	
 // Hardware interruption processing

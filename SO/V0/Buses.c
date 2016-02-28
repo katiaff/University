@@ -4,6 +4,12 @@
 #include <string.h>
 #include <stdlib.h>
 
+// void Buses_write_DataBus_From_To(MEMORYCELL fromRegister, MEMORYCELL *toRegister) {
+//   
+// 	memcpy((void*) toRegister, (void *) (&fromRegister), sizeof(MEMORYCELL));
+// }
+
+
 //  Function that simulates the delivery of an address by means of the address bus
 //  from a hardware component register to another hardware component register
 int Buses_write_AddressBus_From_To(int fromRegister, int toRegister) {
