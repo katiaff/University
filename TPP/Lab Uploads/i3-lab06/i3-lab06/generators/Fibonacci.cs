@@ -8,12 +8,23 @@ namespace TPP.Laboratory.Functional.Lab06 {
     static class Fibonacci {
 
         static internal IEnumerable<int> InfiniteFibonacci() {
+            // Lazy
             int first = 1, second = 1;
             while (true) {
                 yield return first;
                 int addition = first + second;
                 first = second;
                 second = addition;
+            }
+        }
+
+        static internal IEnumerable<int> EagerFibonacci()
+        {
+            int first = 1;
+            while (true)
+            {
+                yield return NonMemoizedFibonacci.Fibonacci(first);
+                first++;
             }
         }
 
