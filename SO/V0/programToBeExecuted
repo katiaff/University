@@ -1,0 +1,8 @@
+// My first program
+55  // Number of memory positions required by the program
+ADD 10 0
+INC -1
+ZJUMP 2  // If the accumulator register==0, jump two memory positions forwards
+JUMP -2  // Jump two memory positions backwards
+HALT
+
