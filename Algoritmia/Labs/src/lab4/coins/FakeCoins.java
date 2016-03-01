@@ -15,31 +15,25 @@ public class FakeCoins {
 
 	private int findFakeRecursive(int start, int end) {
 		int distance = end - start;
-		// base case
-		if (distance == 3) {
+		// base case: 3 coins
+		if (distance == 2) {
 			return getFakePos3(start, end);
 		}
-		// special case
-		else if (distance == 4) {
+		// special case : 4 coins
+		else if (distance == 3) {
 			// take unbalanced side (2 coins) + 1 from the balanced side
 			return getFakePos4(start, end);
 
 		}
-		// special case
-		else if (distance == 5) {
-			ScalePosition balance = bag.weigh(start, end-1, end, end);
-			if (balance == RIGHT){
-				return end;
-			}
-			else{
-				return getFakePos4(start, end-1);
-			}
+		// special case : 5 coins
+		else if (distance == 4) {
+			int fakePos = getFakePos4(start, end-1);
+			return fakePos != -1? fakePos : end;
 		}
 		// general case
-		// if it is not even, include new element ????
 		else {
 			int center = distance / 2;
-			if (distance % 2 != 0) {
+			if (distance % 2 == 0) {
 				ScalePosition balanceGeneral = bag.weigh(start, center, center,
 						end);
 				if (balanceGeneral == LEFT) {
@@ -55,7 +49,7 @@ public class FakeCoins {
 					return findFakeRecursive(start, center);
 				}
 				if (balanceGeneral == RIGHT) {
-					return findFakeRecursive(center + 1, end);
+					return findFakeRecursive(center+1, end);
 				}
 			}
 		}
@@ -79,12 +73,12 @@ public class FakeCoins {
 
 			// if balance is different on the right
 			else if (balanceLeft != EQUAL) {
-				return end;
+				return start;
 			}
 
 			// if balance is different on the left
 			else if (balanceRight != EQUAL) {
-				return start;
+				return end;
 			}
 		}
 
