@@ -34,22 +34,43 @@ public class FakeCoins {
 		else {
 			int center = distance / 2;
 			if (distance % 2 == 0) {
-				ScalePosition balanceGeneral = bag.weigh(start, center, center,
+				ScalePosition balanceLeft = bag.weigh(start, center/2, center/2,
+						center);
+				ScalePosition balanceRight = bag.weigh(center, center + (center/2), center + (center / 2),
 						end);
-				if (balanceGeneral == LEFT) {
+//				ScalePosition balanceGeneral = bag.weigh(start, center, center,
+//						end);
+//				if (balancegeneral == LEFT) {
+//					return findFakeRecursive(start, center);
+//				}
+//				if (balanceGeneral == RIGHT) {
+//					return findFakeRecursive(center, end);
+//				}
+				if (balanceLeft != EQUAL) {
 					return findFakeRecursive(start, center);
 				}
-				if (balanceGeneral == RIGHT) {
+				if (balanceRight != EQUAL) {
 					return findFakeRecursive(center, end);
 				}
 			} else {
-				ScalePosition balanceGeneral = bag.weigh(start, center,
-						center + 1, end);
-				if (balanceGeneral == LEFT) {
+//				ScalePosition balanceGeneral = bag.weigh(start, center,
+//						center + 1, end);
+//				if (balanceGeneral == LEFT) {
+//					return findFakeRecursive(start, center);
+//				}
+//				if (balanceGeneral == RIGHT) {
+//					return findFakeRecursive(center+1, end);
+//				}
+				
+				ScalePosition balanceLeft = bag.weigh(start, center/2, center/2 + 1,
+						center);
+				ScalePosition balanceRight = bag.weigh(center + 1, center + (center/2), center + (center / 2) + 1,
+						end);
+				if (balanceLeft != EQUAL) {
 					return findFakeRecursive(start, center);
 				}
-				if (balanceGeneral == RIGHT) {
-					return findFakeRecursive(center+1, end);
+				if (balanceRight != EQUAL) {
+					return findFakeRecursive(center + 1, end);
 				}
 			}
 		}
