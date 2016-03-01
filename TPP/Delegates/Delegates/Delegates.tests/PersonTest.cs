@@ -156,7 +156,7 @@ namespace Delegates {
                 Assert.AreEqual(endsB[i], filteredB[i]);
             }
 
-        }
+        } 
 
         [TestMethod]
         [ExpectedException(typeof(Exception))]
@@ -168,7 +168,7 @@ namespace Delegates {
 
         }
 
-        // ------------------------Filter tests------------------------
+        // ------------------------Reduce tests------------------------
 
        [TestMethod]
        public void TestReduceCountByName() {
