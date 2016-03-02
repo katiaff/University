@@ -79,14 +79,64 @@ import matplotlib.pyplot as plt
 
 #--------EXERCISE 3----------
 
+#def newton1(f, df, x0, tol):
+#    x1 = x0
+#    iters = 0
+#    while (True):
+#        x0 = x1
+#        x1 = x0 - (f(x0)/df(x0))  
+#        if (np.abs(x1 - x0)/np.abs(x1)) < tol:
+#            return [x1, iters]
+#        else:
+#            iters+=1
+#
+#    
+#f  = lambda x : x**3 - 2*x**2 + 1   
+#df = lambda x : 3*x**2 - 4*x  
+#
+#x0 = -1.0; tol = 1e-6
+#sol1 = newton1(f,df,x0,tol)
+#print(sol1)
+#
+#x0 = 0.5; tol = 1e-6
+#sol2 = newton1(f,df,x0,tol)
+#print(sol2)
+#
+#x0 = 1.5; tol = 1e-6
+#sol3 = newton1(f,df,x0,tol)
+#print(sol3)
 
 
+#-------EXERCISE 4---------
+
+#def secant1(f, x0, x1, tol):
+#    iters = 1
+#    while (True):
+#        df = (f(x1)-f(x0))/(x1 - x0)
+#        x0 = x1
+#        x1 = x1 - (f(x1)/df)     
+#        if (np.abs(x1 - x0)/np.abs(x1)) < tol:
+#            return [x1, iters]
+#        else:
+#            iters+=1
+#
+#
+#f  = lambda x : x**3 - 2*x**2 + 1  
+#
+#x0 = -1.0; x1 = -0.1; tol = 1e-6
+#sol1 = secant1(f,x0,x1,tol)
+#print(sol1)    
+#
+#x0 = 0.5; x1 = 1.1; tol = 1e-6
+#sol2 = secant1(f,0.5,1.1,1e-6)
+#print(sol2)
+#
+#x0 = 1.5; x1 = 2.0; tol = 1e-6
+#sol3 = secant1(f,x0,x1,tol)
+#print(sol3)
 
 
-
-
-
-
+#--------EXERCISE 5------------
 
 
 
