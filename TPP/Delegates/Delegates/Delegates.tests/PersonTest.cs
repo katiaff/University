@@ -156,7 +156,7 @@ namespace Delegates {
                 Assert.AreEqual(endsB[i], filteredB[i]);
             }
 
-        }
+        } 
 
         [TestMethod]
         [ExpectedException(typeof(Exception))]
@@ -166,6 +166,25 @@ namespace Delegates {
             filtered = people.Filter<Person>(person => person.IDNumber.EndsWith("p"));
             filtered = people.Filter<Person>(person => person.IDNumber.EndsWith("w"));
 
+        }
+
+        // ------------------------Reduce tests------------------------
+
+       [TestMethod]
+       public void TestReduceCountByName() {
+            Func<Person, string, double, double> countByName = ((person, name, res) => person.FirstName.Equals(name) ? res += 1 : res);
+
+            double result = people.Reduce<Person, string, double>(countByName, "María");
+            Assert.AreEqual(2, (int) result);
+
+            result = people.Reduce<Person, string, double>(countByName, "Juan");
+            Assert.AreEqual(2, (int) result);
+
+            result = people.Reduce<Person, string, double>(countByName, "Carlos");
+            Assert.AreEqual(1, (int) result);
+
+            result = people.Reduce<Person, string, double>(countByName, "SomeStrangeName");
+            Assert.AreEqual(0, (int) result);
         }
     }
 }

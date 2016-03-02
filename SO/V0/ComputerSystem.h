@@ -29,9 +29,9 @@ void ComputerSystem_DebugMessage(char , char *, ...);
 // Basic data to collect about every user program specified in
 // the command line: name of the file and the time of its arrival
 // to the system (0, by default)
-// typedef struct UserProgramsData {
-//     char *executableName;
-//     unsigned int arrivalTime;
-// } USER_PROGRAMS_DATA;
+typedef struct UserProgramsData {
+    char *executableName;
+    unsigned int arrivalTime;
+} USER_PROGRAMS_DATA;
 
 #endif

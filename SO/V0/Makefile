@@ -9,6 +9,7 @@ PROGRAM = 	Simulator
 SHELL = /bin/sh
 CC = cc
 STDCFLAGS = -g -c -Wall
+#INCLUDES = -I.
 INCLUDES = 
 LIBRARIES =
 
