@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TPP.Laboratory.Functional.Lab06 {
     public static class ExtensionClass
-    {
-
-        public delegate double Function(double x);
+    {        
         public static IEnumerable<T2> Map<T1, T2>(this IEnumerable<T1> items, Func<T1, T2> function)
         {
             List<T2> ret = new List<T2>(items.Count());
@@ -31,8 +30,7 @@ namespace TPP.Laboratory.Functional.Lab06 {
             return b => a + b;
         }
 
-        static void Main() {
-            //Console.WriteLine(Addition(1, 2));
+        static void Main() {            
             Console.WriteLine(Addition(1)(2));
             Func<int, int> increment = Addition(1);
             Console.WriteLine(increment(1));
@@ -42,10 +40,12 @@ namespace TPP.Laboratory.Functional.Lab06 {
             {
                 l.Add(i);
             }
+            Console.WriteLine("List l: \n");
+            l.Show<int>();
 
-            List<int> lNew = l.Map<int>(increment);
-
-            lNew.Show<int>;
+            List<int> lNew = (List<int>)l.Map(increment);
+            Console.WriteLine("List lNew: \n");
+            lNew.Show<int>();
 
 
         }

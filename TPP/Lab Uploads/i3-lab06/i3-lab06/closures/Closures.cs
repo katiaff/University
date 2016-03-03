@@ -21,24 +21,28 @@ namespace TPP.Laboratory.Functional.Lab06 {
 
         static void Main()
         {
-            Func<int> aux;
-            Func<int> aux1;
-            Action<int> aux2;
+            Func<int> inc;
+            Func<int> dec;
+            Action<int> assign;
 
-            Counter(out aux, out aux1, out aux2); // instantiation of closure
+            Counter(out inc, out dec, out assign); // instantiation of closure
 
-            Console.WriteLine(aux()); // write 1
-            Console.WriteLine(aux()); // write 2
-            Console.WriteLine(aux()); // write 3
+            Console.WriteLine(inc()); // write 1
+            Console.WriteLine(inc()); // write 2
+            Console.WriteLine(inc()); // write 3
 
-            Console.WriteLine(aux1()); // write 2
+            Console.WriteLine(dec()); // write 2
+
+            assign(666);
+
+            Console.WriteLine(inc()); // write 667
 
             Func<int> a;
             Func<int> b;
             Action<int> c;
-            Counter(out aux, out b, out c); // lose pointer to other function
+            Counter(out inc, out b, out c); // lose pointer to other function, create new counter
             Console.WriteLine(b()); //write -1
-            Console.WriteLine(aux()); // write 3
+            Console.WriteLine(inc()); // write 0
             Console.WriteLine();
 
         }
