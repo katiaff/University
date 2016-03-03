@@ -5,6 +5,7 @@ import lab3.Vector;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.concurrent.ForkJoinPool;
 
 /**
  * Created by carla on 17/02/2016.
@@ -23,6 +24,8 @@ public class QuicksortTimes {
         nTimes = times;
         createFiles(times);
         /*
+        If you don't want files, just execute:
+
         timeSorted();
         nTimes = times;
         timeInverse();
@@ -31,17 +34,16 @@ public class QuicksortTimes {
     }
 
     private static String timeRandom() {
-        int[] vector = new int[minSize];
+        ForkJoinPool pool = new ForkJoinPool();
         StringBuilder ret = new StringBuilder();
+        int[] vector = new int[minSize];
+        Vector.random(vector, 100);
+        ParallelQuicksort quicksort = new ParallelQuicksort(vector, 0, vector.length - 1);
 
         while (vector.length <= maxSize) {
-            Vector.random(vector, 100);
 
             long t1 = System.currentTimeMillis();
-
-            for (int i = 0; i < nTimes; i++) {
-                ParallelQuicksort.quicksort(vector);
-            }
+            pool.invoke(quicksort);
             long t2 = System.currentTimeMillis();
 
             long time = t2 - t1;
@@ -49,21 +51,21 @@ public class QuicksortTimes {
             ret.append("random;" + vector.length + ";" +
                     +time + ";" + nTimes + "\n");
 
-            vector = new int[vector.length * 2];
+            System.out.println(vector.length + " " + time);
 
             if (time > timeLimit) {
-                if (nTimes != 1) {
-                    nTimes /= 100;
-                } else {
-                    break;
-                }
+                break;
             }
+            vector = new int[vector.length * 2];
+            Vector.random(vector, 100);
+            quicksort = new ParallelQuicksort(vector, 0, vector.length - 1);
+
         }
         System.out.println("\n------------------------------------------------------------------\n");
         return ret.toString();
     }
 
-    private static String timeInverse() {
+/*    private static String timeInverse() {
         int[] vector = new int[minSize];
         StringBuilder ret = new StringBuilder();
 
@@ -127,7 +129,7 @@ public class QuicksortTimes {
         }
         System.out.println("\n------------------------------------------------------------------\n");
         return ret.toString();
-    }
+    }*/
 
     private static void createFiles(int times) {
         try {
@@ -135,12 +137,12 @@ public class QuicksortTimes {
             file.append("Sorting;Size;Total time(ms);NTimes\n");
 
             System.out.println("\n----------------------QUICKSORT ALGORITHM---------------------------\n");
-            System.out.println("Logging SORTED time");
-            file.append(timeSorted());
-
-            System.out.println("Logging INVERSE time");
-            nTimes = times;
-            file.append(timeInverse());
+//            System.out.println("Logging SORTED time");
+//            file.append(timeSorted());
+//
+//            System.out.println("Logging INVERSE time");
+//            nTimes = times;
+//            file.append(timeInverse());
 
             System.out.println("Logging RANDOM time");
             nTimes = times;
