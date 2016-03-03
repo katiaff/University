@@ -17,20 +17,12 @@ public class QuicksortTimes {
     private static int timeLimit;
 
     public static void main(String[] args) {
-        int times = Integer.parseInt(args[0]);
+        //int times = Integer.parseInt(args[0]);
         minSize = Integer.parseInt(args[1]);
         maxSize = Integer.parseInt(args[2]);
         timeLimit = Integer.parseInt(args[3]);
-        nTimes = times;
-        createFiles(times);
-        /*
-        If you don't want files, just execute:
-
-        timeSorted();
-        nTimes = times;
-        timeInverse();
-        nTimes = times;
-        timeRandom();*/
+        //nTimes = times;
+        createFiles(1);
     }
 
     private static String timeRandom() {
