@@ -27,6 +27,8 @@ void ComputerSystem_PowerOn(int argc, char *argv[]) {
 	// Obtain a list of programs in the command line
 	ComputerSystem_ObtainProgramList(argc, argv);
 	
+	ComputerSystem_PrintProgramList();
+	
 	// Request the OS to do the initial set of tasks. The last one will be
 	// the processor allocation to the process with the highest priority
 	OperatingSystem_Initialize();
@@ -34,6 +36,7 @@ void ComputerSystem_PowerOn(int argc, char *argv[]) {
 	// Tell the processor to begin its instruction cycle 
 	Processor_InstructionCycleLoop();
 	
+
 }
 
 // Powers off the CS (the C program ends)

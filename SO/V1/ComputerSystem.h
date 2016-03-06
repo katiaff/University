@@ -8,7 +8,7 @@ void ComputerSystem_PowerOn(int argc, char *argv[]);
 void ComputerSystem_PowerOff();
 void ComputerSystem_DebugMessage(char , char *, ...);
 void ComputerSystem_ObtainProgramList(int argc, char *argv[]);
-// void ComputerSystem_PrintProgramList();
+void ComputerSystem_PrintProgramList();
 
 // Sections in which we divide our simulator in terms of
 // debugging messages that show its internal working details
