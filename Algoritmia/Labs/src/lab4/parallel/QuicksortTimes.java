@@ -25,7 +25,7 @@ public class QuicksortTimes {
         createFiles(times);
     }
 
-    private static String timeRandom() {
+    private static String timeParallelRandom() {
         ForkJoinPool pool = new ForkJoinPool();
         StringBuilder ret = new StringBuilder();
         int[] vector = new int[minSize];
@@ -62,7 +62,7 @@ public class QuicksortTimes {
         return ret.toString();
     }
 
-    private static String timeInverse() {
+    private static String timeParallelInverse() {
         ForkJoinPool pool = new ForkJoinPool();
         StringBuilder ret = new StringBuilder();
         int[] vector = new int[minSize];
@@ -100,7 +100,7 @@ public class QuicksortTimes {
         return ret.toString();
     }
 
-    private static String timeSorted() {
+    private static String timeParallelSorted() {
         ForkJoinPool pool = new ForkJoinPool();
         StringBuilder ret = new StringBuilder();
         int[] vector = new int[minSize];
@@ -143,8 +143,21 @@ public class QuicksortTimes {
             FileWriter file = new FileWriter("quicksort.csv");
             file.append("Sorting;Size;Total time(ms);NTimes\n");
 
+            System.out.println("\n----------------------PARALLEL QUICKSORT ALGORITHM---------------------------\n");
+            System.out.println("Logging SORTED time");
+            file.append(timeParallelSorted());
+
+            System.out.println("Logging INVERSE time");
+            nTimes = times;
+            file.append(timeParallelInverse());
+
+            System.out.println("Logging RANDOM time");
+            nTimes = times;
+            file.append(timeParallelRandom());
+
             System.out.println("\n----------------------QUICKSORT ALGORITHM---------------------------\n");
             System.out.println("Logging SORTED time");
+            nTimes = times;
             file.append(timeSorted());
 
             System.out.println("Logging INVERSE time");
