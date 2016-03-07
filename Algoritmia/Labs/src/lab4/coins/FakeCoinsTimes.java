@@ -20,7 +20,7 @@ public class FakeCoinsTimes {
             long time = t2 - t1;
             System.out.println("Size: " + size + ", time: " + time);
             size *= 2;
-            nTimes = time > 2500 ? nTimes /= 10 : nTimes;
+            nTimes = time > 2500 ? nTimes / 10 : nTimes;
         } while (size < 700000);
 
     }

@@ -75,13 +75,16 @@ public class FakeCoins {
             if (distance % 2 != 0) {
                 // odd distance, odd center --> do not repeat central element on either half
                 if (center % 2 != 0) {
-                    ScalePosition balanceLeft = bag.weigh(start, start + center / 2, start + center / 2 + 1,
+                    ScalePosition balanceLeft = bag.weigh(start, start + center / 2,
+                            start + center / 2 + 1,
                             start + center);
-                    ScalePosition balanceRight = bag.weigh(start + center + 1, start + center + (center / 2), start + center + (center / 2) + 1,
+                    ScalePosition balanceRight = bag.weigh(start + center + 1,
+                            start + center + (center / 2), start + center + (center / 2) + 1,
                             end);
                     // fake coin can be on the center of the first half or the center of the second half
                     if (balanceLeft == EQUAL && balanceRight == EQUAL) {
-                        return getFakePosCenter(start + center / 2, start + center + (center / 2) + 1);
+                        return getFakePosCenter(start + center / 2,
+                                start + center + (center / 2) + 1);
                     }
                     // if left unbalanced --> look left
                     if (balanceLeft != EQUAL) {
@@ -94,13 +97,16 @@ public class FakeCoins {
                 }
                 // odd distance, even center --> repeat central element only on each half
                 else {
-                    ScalePosition balanceLeft = bag.weigh(start, start + center / 2, start + center / 2,
+                    ScalePosition balanceLeft = bag.weigh(start, start + center / 2,
+                            start + center / 2,
                             start + center);
-                    ScalePosition balanceRight = bag.weigh(start + center + 1, start + center + (center / 2) + 1, start + center + (center / 2) + 1,
+                    ScalePosition balanceRight = bag.weigh(start + center + 1,
+                            start + center + (center / 2) + 1, start + center + (center / 2) + 1,
                             end);
                     // fake coin can be on the center of the first half or the center of the second half
                     if (balanceLeft == EQUAL && balanceRight == EQUAL) {
-                        return getFakePosCenter(start + center / 2, start + center + (center / 2) + 1);
+                        return getFakePosCenter(start + center / 2,
+                                start + center + (center / 2) + 1);
                     }
                     // if left unbalanced --> look left
                     if (balanceLeft != EQUAL) {
@@ -116,9 +122,11 @@ public class FakeCoins {
             else {
                 // even distance, odd center --> do not repeat central element of each half
                 if (center % 2 != 0) {
-                    ScalePosition balanceLeft = bag.weigh(start, start + (center / 2), start + (center / 2) + 1,
+                    ScalePosition balanceLeft = bag.weigh(start, start + (center / 2),
+                            start + (center / 2) + 1,
                             start + center);
-                    ScalePosition balanceRight = bag.weigh(start + center, start + center + (center / 2), start + center + (center / 2) + 1,
+                    ScalePosition balanceRight = bag.weigh(start + center,
+                            start + center + (center / 2), start + center + (center / 2) + 1,
                             end);
                     // fake coin unbalances both sides, so it is the center element
                     if (balanceLeft != EQUAL && balanceRight != EQUAL) {
@@ -135,13 +143,16 @@ public class FakeCoins {
                 }
                 // even distance, even center --> repeat the central element on each half
                 else {
-                    ScalePosition balanceLeft = bag.weigh(start, start + center / 2, start + center / 2,
+                    ScalePosition balanceLeft = bag.weigh(start, start + center / 2,
+                            start + center / 2,
                             start + center);
-                    ScalePosition balanceRight = bag.weigh(start + center, start + center + (center / 2), start + center + (center / 2),
+                    ScalePosition balanceRight = bag.weigh(start + center,
+                            start + center + (center / 2), start + center + (center / 2),
                             end);
                     // fake coin can be on the center of the first half or the center of the second half
                     if (balanceLeft == EQUAL && balanceRight == EQUAL) {
-                        return getFakePosCenter(start + center / 2, start + center + (center / 2));
+                        return getFakePosCenter(start + center / 2,
+                                start + center + (center / 2));
                     }
                     // if left unbalanced --> look left
                     if (balanceLeft != EQUAL) {
