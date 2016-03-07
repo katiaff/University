@@ -19,7 +19,12 @@ namespace TPP.Laboratory.Functional.Lab06 {
                     break;
                 }
             }
+
+            // var lazy = Fibonacci.lazy(from, to)
             chrono.Stop();
+            // var lF = lazy.First() if we put it inside the chrono, you are calculating from
+            // the beginning; else, you only calculate 100000
+            // var lL = lazy.Last() --> time should be similar to eager version
             long lazyFib1 = chrono.ElapsedTicks;
             Console.WriteLine("Lazy fibonacci up to 100,000. First invocation in {0:N} ticks. Result: {1}", lazyFib1, result);
 
