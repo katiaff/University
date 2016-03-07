@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqTest", "LinqTest\LinqTest.csproj", "{20C9163B-2D4A-46F1-A059-AE969416C84F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delegates.tests", "..\..\Delegates\Delegates\Delegates.tests\Delegates.tests.csproj", "{12090681-283A-47FE-A331-2BAE5566005D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delegates", "..\..\Delegates\Delegates\Delegates\Delegates.csproj", "{7587F296-1A98-4D6B-A5B0-328DE082D901}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{20C9163B-2D4A-46F1-A059-AE969416C84F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20C9163B-2D4A-46F1-A059-AE969416C84F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20C9163B-2D4A-46F1-A059-AE969416C84F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20C9163B-2D4A-46F1-A059-AE969416C84F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12090681-283A-47FE-A331-2BAE5566005D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12090681-283A-47FE-A331-2BAE5566005D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12090681-283A-47FE-A331-2BAE5566005D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12090681-283A-47FE-A331-2BAE5566005D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7587F296-1A98-4D6B-A5B0-328DE082D901}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7587F296-1A98-4D6B-A5B0-328DE082D901}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7587F296-1A98-4D6B-A5B0-328DE082D901}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7587F296-1A98-4D6B-A5B0-328DE082D901}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
