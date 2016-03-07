@@ -13,5 +13,11 @@ namespace TPP.Laboratory.Functional.Lab07 {
             yield break;
         }
 
+        public static void ForEach<T>(this IEnumerable<T> collection, Action<T> action) {
+            foreach(T elem in collection) {
+                action(elem);
+            }
+        }
+
     }
 }
