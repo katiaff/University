@@ -95,9 +95,12 @@ void ComputerSystem_PrintProgramList(){
 	ComputerSystem_DebugMessage(INIT, "s", "User program list:\n");
 
 	for (i = 0; i<USERPROGRAMSMAXNUMBER; i++){
+		USER_PROGRAMS_DATA * prog = userProgramsList[i];
+		if (prog != NULL){
 		ComputerSystem_DebugMessage(INIT, "sBssBds", "\tProgram [",
 		userProgramsList[i] -> executableName,"] with arrival time [",
 		userProgramsList[i] -> arrivalTime, "]\n");
+		}
 	}
 	
 }
