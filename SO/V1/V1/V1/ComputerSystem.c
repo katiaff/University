@@ -27,8 +27,6 @@ void ComputerSystem_PowerOn(int argc, char *argv[]) {
 	// Obtain a list of programs in the command line
 	ComputerSystem_ObtainProgramList(argc, argv);
 	
-	ComputerSystem_PrintProgramList();
-	
 	// Request the OS to do the initial set of tasks. The last one will be
 	// the processor allocation to the process with the highest priority
 	OperatingSystem_Initialize();
@@ -36,7 +34,6 @@ void ComputerSystem_PowerOn(int argc, char *argv[]) {
 	// Tell the processor to begin its instruction cycle 
 	Processor_InstructionCycleLoop();
 	
-
 }
 
 // Powers off the CS (the C program ends)
@@ -95,12 +92,9 @@ void ComputerSystem_PrintProgramList(){
 	ComputerSystem_DebugMessage(INIT, "s", "User program list:\n");
 
 	for (i = 0; i<USERPROGRAMSMAXNUMBER; i++){
-		USER_PROGRAMS_DATA * prog = userProgramsList[i];
-		if (prog != NULL){
 		ComputerSystem_DebugMessage(INIT, "sBssBds", "\tProgram [",
 		userProgramsList[i] -> executableName,"] with arrival time [",
 		userProgramsList[i] -> arrivalTime, "]\n");
-		}
 	}
 	
 }
