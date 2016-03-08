@@ -36,10 +36,11 @@ public class QuicksortTimes {
 
             vector = new int[vector.length * 2];
             Vector.random(vector, 100);
-            quicksort = new ParallelQuicksort(vector, 0, vector.length - 1);
+
 
             long t1 = System.currentTimeMillis();
             for (int i = 0; i < nTimes; i++) {
+                quicksort = new ParallelQuicksort(vector, 0, vector.length - 1);
                 pool.invoke(quicksort);
             }
             long t2 = System.currentTimeMillis();
@@ -76,10 +77,11 @@ public class QuicksortTimes {
 
             vector = new int[vector.length * 2];
             Vector.inverselySorted(vector);
-            quicksort = new ParallelQuicksort(vector, 0, vector.length - 1);
+
 
             long t1 = System.currentTimeMillis();
             for (int i = 0; i < nTimes; i++) {
+                quicksort = new ParallelQuicksort(vector, 0, vector.length - 1);
                 pool.invoke(quicksort);
             }
             long t2 = System.currentTimeMillis();
@@ -114,10 +116,11 @@ public class QuicksortTimes {
 
             vector = new int[vector.length * 2];
             Vector.sorted(vector);
-            quicksort = new ParallelQuicksort(vector, 0, vector.length - 1);
+
 
             long t1 = System.currentTimeMillis();
             for (int i = 0; i < nTimes; i++) {
+                quicksort = new ParallelQuicksort(vector, 0, vector.length - 1);
                 pool.invoke(quicksort);
             }
             long t2 = System.currentTimeMillis();
@@ -148,16 +151,20 @@ public class QuicksortTimes {
             file.append("Sorting;Size;Total time(ms);NTimes\n");
 
             System.out.println("\n----------------------PARALLEL QUICKSORT ALGORITHM---------------------------\n");
+
+            System.out.println("Logging RANDOM time");
+            nTimes = times;
+            file.append(timeParallelRandom());
+
+
             System.out.println("Logging SORTED time");
+            nTimes = times;
             file.append(timeParallelSorted());
 
             System.out.println("Logging INVERSE time");
             nTimes = times;
             file.append(timeParallelInverse());
 
-            System.out.println("Logging RANDOM time");
-            nTimes = times;
-            file.append(timeParallelRandom());
 
             System.out.println("\n----------------------QUICKSORT ALGORITHM---------------------------\n");
             System.out.println("Logging SORTED time");
