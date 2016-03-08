@@ -1,17 +1,16 @@
 package lab4.coins;
 
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 /**
  * JUnit Test for FakeCoins
  */
-public class FakeCoinsTest2 {
+public class FakeCoinsTest {
 	@Test
 	public void test() {
 		// Coins in the bag (bags between 100 and 1000 coins)
-		for (int i = 3; i < 20; i++) {
+		for (int i = 100; i < 1000; i++) {
 			// Position of the fake coin
 			for (int j = 0; j < i; j++) {
 				// We create a bag of i coins, placing the fake coin in the
