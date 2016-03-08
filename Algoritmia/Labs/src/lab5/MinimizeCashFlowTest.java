@@ -6,13 +6,15 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import static junit.framework.TestCase.assertEquals;
+
 /**
  * JUnit Test for MinimizeCashFlow
  */
 public class MinimizeCashFlowTest {
     @Test
     public void testA() {
-        MinimizeCashFlow cashFlow = loadDataFromFile("src/main/java/labs/course15_16/lab4greedy/minimizeCashFlow/case1.txt");
+        MinimizeCashFlow cashFlow = loadDataFromFile("src/Labs/lab5/case1.txt");
 
         //Calculation
         cashFlow.calculate();
