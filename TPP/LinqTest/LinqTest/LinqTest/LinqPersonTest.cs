@@ -57,23 +57,23 @@ namespace LinqTest {
 
         [TestMethod]
         public void TestReduceCountByName() {
-            double result = people.Aggregate<Person, double>(0, (res, person) => person.FirstName.Equals("María") ? res += 1 : res);
+            double result = people.Aggregate(0, (res, person) => person.FirstName.Equals("María") ? res += 1 : res);
             Assert.AreEqual(2, (int) result);
 
-            result = people.Aggregate<Person, double>(0, (res, person) => person.FirstName.Equals("Juan") ? res += 1 : res);
+            result = people.Aggregate(0, (res, person) => person.FirstName.Equals("Juan") ? res += 1 : res);
             Assert.AreEqual(2, (int) result);
 
-            result = people.Aggregate<Person, double>(0, (res, person) => person.FirstName.Equals("Carlos") ? res += 1 : res);
+            result = people.Aggregate(0, (res, person) => person.FirstName.Equals("Carlos") ? res += 1 : res);
             Assert.AreEqual(1, (int) result);
 
-            result = people.Aggregate<Person, double>(0, (res, person) => person.FirstName.Equals("Blablabla") ? res += 1 : res);
+            result = people.Aggregate(0, (res, person) => person.FirstName.Equals("Blablabla") ? res += 1 : res);
             Assert.AreEqual(0, (int) result);
         }
 
         // ----------------MAP---------------
 
         [TestMethod]
-        public void TestMap() {
+        public void TestMapPersonsNameAndSurname() {
             String[] toCompare = new String[people.Length];
             for (int i = 0; i< people.Length; i++) {
                 toCompare[i] = people[i].FirstName + 

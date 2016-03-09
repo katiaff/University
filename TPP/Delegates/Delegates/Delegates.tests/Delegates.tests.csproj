@@ -57,7 +57,7 @@
     <Compile Include="AngleTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\Delegates.csproj">
+    <ProjectReference Include="..\Delegates\Delegates.csproj">
       <Project>{7587f296-1a98-4d6b-a5b0-328de082d901}</Project>
       <Name>Delegates</Name>
     </ProjectReference>

@@ -32,25 +32,25 @@ namespace LinqTest {
         [TestMethod]
         public void TestFirstAnglesByQuadrant() {
 
-            Assert.AreEqual(angles[0], angles.First<Angle>(angle => angle.Quadrant == 1));
-            Assert.AreNotEqual(angles[91], angles.First<Angle>(angle => angle.Quadrant == 1));
-            Assert.AreNotEqual(angles[181], angles.First<Angle>(angle => angle.Quadrant == 1));
-            Assert.AreNotEqual(angles[271], angles.First<Angle>(angle => angle.Quadrant == 1));
+            Assert.AreEqual(angles[0], angles.First(angle => angle.Quadrant == 1));
+            Assert.AreNotEqual(angles[91], angles.First(angle => angle.Quadrant == 1));
+            Assert.AreNotEqual(angles[181], angles.First(angle => angle.Quadrant == 1));
+            Assert.AreNotEqual(angles[271], angles.First(angle => angle.Quadrant == 1));
 
-            Assert.AreEqual(angles[91], angles.First<Angle>(angle => angle.Quadrant == 2));
-            Assert.AreNotEqual(angles[0], angles.First<Angle>(angle => angle.Quadrant == 2));
-            Assert.AreNotEqual(angles[181], angles.First<Angle>(angle => angle.Quadrant == 2));
-            Assert.AreNotEqual(angles[271], angles.First<Angle>(angle => angle.Quadrant == 2));
+            Assert.AreEqual(angles[91], angles.First(angle => angle.Quadrant == 2));
+            Assert.AreNotEqual(angles[0], angles.First(angle => angle.Quadrant == 2));
+            Assert.AreNotEqual(angles[181], angles.First(angle => angle.Quadrant == 2));
+            Assert.AreNotEqual(angles[271], angles.First(angle => angle.Quadrant == 2));
 
-            Assert.AreEqual(angles[181], angles.First<Angle>(angle => angle.Quadrant == 3));
-            Assert.AreNotEqual(angles[0], angles.First<Angle>(angle => angle.Quadrant == 3));
-            Assert.AreNotEqual(angles[91], angles.First<Angle>(angle => angle.Quadrant == 3));
-            Assert.AreNotEqual(angles[271], angles.First<Angle>(angle => angle.Quadrant == 3));
+            Assert.AreEqual(angles[181], angles.First(angle => angle.Quadrant == 3));
+            Assert.AreNotEqual(angles[0], angles.First(angle => angle.Quadrant == 3));
+            Assert.AreNotEqual(angles[91], angles.First(angle => angle.Quadrant == 3));
+            Assert.AreNotEqual(angles[271], angles.First(angle => angle.Quadrant == 3));
 
-            Assert.AreEqual(angles[271], angles.First<Angle>(angle => angle.Quadrant == 4));
-            Assert.AreNotEqual(angles[0], angles.First<Angle>(angle => angle.Quadrant == 4));
-            Assert.AreNotEqual(angles[91], angles.First<Angle>(angle => angle.Quadrant == 4));
-            Assert.AreNotEqual(angles[181], angles.First<Angle>(angle => angle.Quadrant == 4));
+            Assert.AreEqual(angles[271], angles.First(angle => angle.Quadrant == 4));
+            Assert.AreNotEqual(angles[0], angles.First(angle => angle.Quadrant == 4));
+            Assert.AreNotEqual(angles[91], angles.First(angle => angle.Quadrant == 4));
+            Assert.AreNotEqual(angles[181], angles.First(angle => angle.Quadrant == 4));
         }
 
         // ------------------------Filter tests------------------------
@@ -58,7 +58,7 @@ namespace LinqTest {
         [TestMethod]
         public void TestFilterRightAngles() {
             Angle[] right = new Angle[] { angles[90] };
-            Angle[] filtered = angles.Filter<Angle>(angle => angle.Degrees == 90);
+            Angle[] filtered = angles.Where(angle => angle.Degrees == 90).ToArray();
             for (int i = 0; i < filtered.Length; i++) {
                 Assert.AreEqual(right[i], filtered[i]);
             }
@@ -68,27 +68,27 @@ namespace LinqTest {
         [TestMethod]
         public void TestFilterAnglesByQuadrant() {
             Angle[] q1 = Factory.CreateAngles(90);
-            Angle[] filteredQ1 = angles.Filter<Angle>(angle => angle.Quadrant == 1);
+            Angle[] filteredQ1 = angles.Where(angle => angle.Quadrant == 1).ToArray();
             for (int i = 0; i <= 90; i++) {
                 Assert.AreEqual(q1[i], filteredQ1[i]);
             }
 
             // Creating angles up to 180 degrees
             Angle[] q2 = Factory.CreateAngles(180);
-            Angle[] filteredQ2 = angles.Filter<Angle>(angle => angle.Quadrant == 2);
+            Angle[] filteredQ2 = angles.Where(angle => angle.Quadrant == 2).ToArray();
             for (int i = 0; i < 90; i++) {
                 // Checking angles between [91,180]
                 Assert.AreEqual(q2[i + 91], filteredQ2[i]);
             }
 
             Angle[] q3 = Factory.CreateAngles(270);
-            Angle[] filteredQ3 = angles.Filter<Angle>(angle => angle.Quadrant == 3);
+            Angle[] filteredQ3 = angles.Where(angle => angle.Quadrant == 3).ToArray();
             for (int i = 0; i < 90; i++) {
                 Assert.AreEqual(q3[i + 181], filteredQ3[i]);
             }
 
             Angle[] q4 = Factory.CreateAngles();
-            Angle[] filteredQ4 = angles.Filter<Angle>(angle => angle.Quadrant == 4);
+            Angle[] filteredQ4 = angles.Where(angle => angle.Quadrant == 4).ToArray();
             for (int i = 0; i < 90; i++) {
                 Assert.AreEqual(q4[i + 271], filteredQ4[i]);
             }
@@ -99,57 +99,73 @@ namespace LinqTest {
 
         [TestMethod]
         public void TestReduceSumAllDegrees() {
-            Func<Angle, double, double> sumDegrees = (angle, res) => res += angle.Degrees;
+            Func<double, Angle, double> sumDegrees = (res, angle) => res += angle.Degrees;
 
             Angle[] angles10 = Factory.CreateAngles(10);
-            double result10 = angles10.Reduce(sumDegrees);
+            double result10 = angles10.Aggregate(0, sumDegrees);
             Assert.AreEqual(55, (int) result10);
 
             Angle[] angles90 = Factory.CreateAngles(90);
-            double result90 = angles90.Reduce(sumDegrees);
+            double result90 = angles90.Aggregate(0, sumDegrees);
             Assert.AreEqual(4095, (int) result90);
 
             Angle[] angles180 = Factory.CreateAngles(180);
-            double result180 = angles180.Reduce(sumDegrees);
+            double result180 = angles180.Aggregate(0, sumDegrees);
             Assert.AreEqual(16290, (int) result180);
 
             Angle[] angles270 = Factory.CreateAngles(270);
-            double result270 = angles270.Reduce(sumDegrees);
+            double result270 = angles270.Aggregate(0, sumDegrees);
             Assert.AreEqual(36585, (int) result270);
 
             Angle[] angles360 = Factory.CreateAngles(360);
-            double result360 = angles360.Reduce(sumDegrees);
+            double result360 = angles360.Aggregate(0, sumDegrees);
             Assert.AreEqual(64980, (int) result360);
 
         }
 
         [TestMethod]
         public void TestReduceComputeMaximumSine() {
-            Func<Angle, double, double> maxSine = (angle, res) => res = angle.Sine() > res ? angle.Sine() : res;
+            Func<double, Angle, double> maxSine = (res, angle) => res = angle.Sine() > res ? angle.Sine() : res;
 
             Angle[] angles10 = Factory.CreateAngles(10);
-            double result10 = angles10.Reduce(maxSine);
+            double result10 = angles10.Aggregate(0, maxSine);
             Assert.AreEqual(0.17364817766693, Math.Round(result10, 14));
 
             Angle[] angles90 = Factory.CreateAngles(90);
-            double result90 = angles90.Reduce(maxSine);
+            double result90 = angles90.Aggregate(0, maxSine);
             Assert.AreEqual(1, result90);
 
             Angle[] angles180 = Factory.CreateAngles(180);
-            double result180 = angles180.Reduce(maxSine);
+            double result180 = angles180.Aggregate(0, maxSine);
             Assert.AreEqual(1, result180);
 
             Angle[] angles270 = Factory.CreateAngles(270);
-            double result270 = angles270.Reduce(maxSine);
+            double result270 = angles270.Aggregate(0, maxSine);
             Assert.AreEqual(1, result270);
 
             Angle[] angles360 = Factory.CreateAngles(360);
-            double result360 = angles360.Reduce(maxSine);
+            double result360 = angles360.Aggregate(0, maxSine);
             Assert.AreEqual(1, result360);
 
             Angle[] angles70 = Factory.CreateAngles(70);
-            double result70 = angles70.Reduce(maxSine);
+            double result70 = angles70.Aggregate(0, maxSine);
             Assert.AreEqual(0.939692620785908, Math.Round(result70, 15));
+
+        }
+
+        // ----------------MAP---------------
+
+        [TestMethod]
+        public void TestMapAngleQuadrants() {
+            int[] toCompare = new int[angles.Length];
+            for (int i = 0; i < angles.Length; i++) {
+                toCompare[i] = angles[i].Quadrant;
+            }
+            int[] result = angles.Select(angle => angle.Quadrant).ToArray();
+
+            for (int i = 0; i < result.Length; i++) {
+                Assert.AreEqual(toCompare[i], (result[i]));
+            }
 
         }
     }
