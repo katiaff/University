@@ -103,17 +103,28 @@ int OperatingSystem_LongTermScheduler() {
 	
 	while (userProgramsList[i]!=NULL && i<USERPROGRAMSMAXNUMBER) {
 		PID=OperatingSystem_CreateProcess(*userProgramsList[i], USERPROCESSQUEUE);
-		if (PID != NOFREEENTRY && PID != PROGRAMDOESNOTEXIST && PID != PROGRAMNOTVALID &&
-			PID != TOOBIGPROCESS){
-			numberOfSuccessfullyCreatedProcesses++;
-			ComputerSystem_DebugMessage(INIT,"GsGdGsGsGs","Process [",PID,"] created from program [",
-				userProgramsList[i]->executableName,"]\n");
-			i++;
+		if (PID == NOFREEENTRY){
+			ComputerSystem_DebugMessage(ERROR, "RsRsRs", "ERROR: There are not free entries in the process table for the program [",
+				userProgramsList[i] -> executableName,"]\n");
+		}
+		else if (PID == PROGRAMDOESNOTEXIST){
+			ComputerSystem_DebugMessage(ERROR, "RsRsRs", "ERROR: Program name [",
+				userProgramsList[i] -> executableName,"] is not valid [---it does not exist]\n");
+		}
+		else if(PID == PROGRAMNOTVALID){
+			ComputerSystem_DebugMessage(ERROR, "RsRsRs", "ERROR: Program name [",
+				userProgramsList[i] -> executableName,"] is not valid [---invalid priority or size]\n");
+		}
+		else if (PID == TOOBIGPROCESS){
+			ComputerSystem_DebugMessage(ERROR, "RsRsRs", "ERROR: Program name [",
+				userProgramsList[i] -> executableName,"] is too big\n");
 		}
 		else{
-			numberOfNotTerminatedProcesses++;
-		 	break;
+			numberOfSuccessfullyCreatedProcesses++;
+			ComputerSystem_DebugMessage(INIT,"GsGdGsGsGs","Process [",PID,"] created from program [",
+				userProgramsList[i] -> executableName,"]\n");
 		}
+		i++;
 		
 	}
 	numberOfNotTerminatedProcesses+=numberOfSuccessfullyCreatedProcesses;
@@ -125,7 +136,6 @@ int OperatingSystem_LongTermScheduler() {
 
 // This function creates a process from an executable program
 int OperatingSystem_CreateProcess(USER_PROGRAMS_DATA executableProgram, int queueID) {
-  
 	int PID;
 	int processSize;
 	int loadingPhysicalAddress;
@@ -135,28 +145,20 @@ int OperatingSystem_CreateProcess(USER_PROGRAMS_DATA executableProgram, int queu
 	// Obtain a process ID
 	PID=OperatingSystem_ObtainAnEntryInTheProcessTable();
 	if (PID == NOFREEENTRY){
-		ComputerSystem_DebugMessage(ERROR, "RsRsRs", "ERROR: There are not free entries in the process table for the program [",
-				executableProgram.executableName,"]\n");
 		return NOFREEENTRY;
 	}
 	
 	// Obtain the memory requirements of the program
 	processSize=OperatingSystem_ObtainProgramSize(&programFile, executableProgram.executableName);
 	if (processSize == PROGRAMDOESNOTEXIST){
-		ComputerSystem_DebugMessage(ERROR, "RsRsRs", "ERROR: Program name [",
-				executableProgram.executableName,"] is not valid [---it does not exist]\n");
 		return PROGRAMDOESNOTEXIST;
 	}
 	if (processSize == TOOBIGPROCESS){
-		ComputerSystem_DebugMessage(ERROR, "RsRsRs", "ERROR: Program name [",
-				executableProgram.executableName,"] is too big\n");
 		return TOOBIGPROCESS;
 	}
 	// Obtain the priority for the process
 	priority=OperatingSystem_ObtainPriority(programFile);
 	if (priority == PROGRAMNOTVALID){
-		ComputerSystem_DebugMessage(ERROR, "RsRsRs", "ERROR: Program name [",
-				executableProgram.executableName,"] is not valid [---invalid priority or size]\n");
 		return PROGRAMNOTVALID;
 	}
 	
@@ -251,12 +253,12 @@ int OperatingSystem_ExtractFromReadyToRun() {
 	if (numberOfReadyToRunProcesses[USERPROCESSQUEUE] > 0){
 		selectedProcess=Heap_poll(readyToRunQueue[USERPROCESSQUEUE],QUEUE_PRIORITY ,numberOfReadyToRunProcesses[USERPROCESSQUEUE]);
 		if (selectedProcess>=0) 
-		numberOfReadyToRunProcesses[USERPROCESSQUEUE]--;
+			numberOfReadyToRunProcesses[USERPROCESSQUEUE]--;
 	}
-	else{
+	else if (numberOfReadyToRunProcesses[DAEMONSQUEUE] > 0){
 		selectedProcess=Heap_poll(readyToRunQueue[DAEMONSQUEUE],QUEUE_PRIORITY ,numberOfReadyToRunProcesses[DAEMONSQUEUE]);
 		if (selectedProcess>=0) 
-		numberOfReadyToRunProcesses[DAEMONSQUEUE]--;
+			numberOfReadyToRunProcesses[DAEMONSQUEUE]--;
 	}
 	
 	// Return most priority process or NOPROCESS if empty queue
