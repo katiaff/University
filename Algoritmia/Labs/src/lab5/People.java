@@ -31,10 +31,10 @@ public class People {
             Person personSource = getPerson(pay.getSource());
             Person personTarget = getPerson(pay.getTarget());
             if (personSource == null) {
-                people.add(new Person(pay.getSource(), pay.getValue(), 0, -pay.getValue()));
+                people.add(new Person(pay.getSource(), pay.getValue(), 0));
             }
             if (personTarget == null) {
-                people.add(new Person(pay.getTarget(), 0, pay.getValue(), pay.getValue()));
+                people.add(new Person(pay.getTarget(), 0, pay.getValue()));
             }
             if (personSource != null) {
                 personSource.setToPay(personSource.getToPay() + pay.getValue());

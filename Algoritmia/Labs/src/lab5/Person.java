@@ -9,10 +9,10 @@ public class Person {
     int toReceive;
     int balance;
 
-    public Person(String name, int toPay, int toReceive, int balance) {
+    public Person(String name, int toPay, int toReceive) {
         this.toPay = toPay;
         this.toReceive = toReceive;
-        this.balance = balance;
+        this.balance = toReceive - toPay;
         this.name = name;
     }
 
@@ -44,7 +44,4 @@ public class Person {
         return name;
     }
 
-    public Person getPerson() {
-        return this;
-    }
 }
