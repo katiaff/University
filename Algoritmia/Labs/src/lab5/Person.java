@@ -19,12 +19,24 @@ public class Person {
         return toPay;
     }
 
+    public void setToPay(int toPay) {
+        this.toPay = toPay;
+    }
+
     public int getToReceive() {
         return toReceive;
     }
 
+    public void setToReceive(int toReceive) {
+        this.toReceive = toReceive;
+    }
+
     public int getBalance() {
         return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
     }
 
     public String getName() {
