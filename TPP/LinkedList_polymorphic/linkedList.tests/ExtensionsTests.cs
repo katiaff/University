@@ -33,9 +33,25 @@ namespace LinkedList.tests {
 
         [TestMethod()]
         public void FilterTest() {
-            Assert.Fail();
-        }
+            Predicate<int> isEven = (x => x % 2 == 0 || x == 0);
+            Predicate<int> isOdd = (x => x % 2 != 0);
 
+            int[] compareEven = new int[l.NumberOfElements];
+            int[] compareOdd = new int[l.NumberOfElements];
+            int j = 0;
+            for (int i = 0; i < l.NumberOfElements; i++) {
+                if (i % 2 == 0 || i == 0) {
+                    compareEven[j] = i;
+                } else if (i % 2 != 0) {
+                    compareOdd[j] = i;
+                }
+                j++;
+            }
+
+            int[] resultEven = l.Filter(isEven);
+            int[] resultOdd = l.Filter(isOdd);
+
+        }
         [TestMethod()]
         public void ReduceTest() {
             Assert.Fail();
