@@ -18,17 +18,14 @@ public class MinimizeCashFlow {
     public void calculate() {
         People p = new People(payments);
         this.people = p.getPeople();
-        ArrayList<Person> toPay = new ArrayList<>();
-        for (Person person : people) {
-            if (person.getBalance() < 0) {
-                toPay.add(person);
-            }
-            if (person.getBalance() > 0) {
-                for (Person person2 : toPay) {
-                    if (person2.getToPay() == person.getToReceive()) {
-                        Payment payment = new Payment(person2.getName(), person.getName(), person.getToPay());
-                        results.add(payment);
-                    }
+        this.people.sort(new BalanceAscendingComparator());
+        for (int owes = 0; owes < people.size(); owes++) {
+            for (int receives = people.size() - 1; receives >= owes; receives--) {
+                Person personOwes = people.get(owes);
+                Person personReceives = people.get(receives);
+                if (-personOwes.getBalance() <= personReceives.getBalance()) {
+                    Payment payment = new Payment(personOwes.getName(), personReceives.getName(), -personOwes.getBalance());
+                    results.add(payment);
                 }
             }
         }
@@ -48,7 +45,7 @@ public class MinimizeCashFlow {
                 return pay.getValue();
             }
         }
-        throw new IllegalArgumentException("Source has no payment with Target");
+        return 0;
     }
 
     /**

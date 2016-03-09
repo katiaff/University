@@ -25,20 +25,20 @@ public class MinimizeCashFlowTest {
         assertEquals(3000, cashFlow.getFinalDebt("David", "Ana"));
     }
 
-//    @Test
-//    public void testB() {
-//        MinimizeCashFlow cashFlow = loadDataFromFile("src/main/java/labs/course15_16/lab4greedy/minimizeCashFlow/case2.txt");
-//
-//        //Calculation
-//        cashFlow.calculate();
-//
-//        //Expected results VS Actual results
-//        assertEquals(45, cashFlow.getFinalDebt("Victor", "Tamara"));
-//        assertEquals(15, cashFlow.getFinalDebt("Victor", "Elena"));
-//        assertEquals(5, cashFlow.getFinalDebt("Alberto", "Celia"));
-//        assertEquals(5, cashFlow.getFinalDebt("Alberto", "Pablo"));
-//    }
-//
+    @Test
+    public void testB() {
+        MinimizeCashFlow cashFlow = loadDataFromFile("D:\\Documentos\\Git\\University\\Algoritmia\\Labs\\src\\lab5\\case2.txt");
+
+        //Calculation
+        cashFlow.calculate();
+
+        //Expected results VS Actual results
+        assertEquals(45, cashFlow.getFinalDebt("Victor", "Tamara"));
+        assertEquals(15, cashFlow.getFinalDebt("Victor", "Elena"));
+        assertEquals(5, cashFlow.getFinalDebt("Alberto", "Celia"));
+        assertEquals(5, cashFlow.getFinalDebt("Alberto", "Pablo"));
+    }
+
 //    @Test
 //    public void testC() {
 //        MinimizeCashFlow cashFlow = loadDataFromFile("src/main/java/labs/course15_16/lab4greedy/minimizeCashFlow/case3.txt");

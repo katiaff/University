@@ -3,18 +3,29 @@ package lab5;
 import java.util.ArrayList;
 
 /**
- * Created by Carla on 08/03/2016.
+ * Creates an ArrayList of people calculating how
+ * much each Person owes and gets to receive.
  */
 public class People {
     private ArrayList<Person> people;
     private ArrayList<Payment> payments;
 
+    /**
+     * Create People object and people list.
+     *
+     * @param payments All the different payments we have to do.
+     */
     public People(ArrayList<Payment> payments) {
         this.people = new ArrayList<>();
         this.payments = payments;
         createPeople();
     }
 
+    /**
+     * Calculates the amount of money each Person has to pay,
+     * how much they have to receive, and the total balance from those
+     * two attributes
+     */
     private void createPeople() {
         for (Payment pay : payments) {
             Person personSource = getPerson(pay.getSource());
@@ -37,10 +48,19 @@ public class People {
         }
     }
 
+    /**
+     * Returns the people list
+     * @return people
+     */
     public ArrayList<Person> getPeople() {
         return people;
     }
 
+    /**
+     * Get a person from the list using their name
+     * @param name
+     * @return the person; null if not found
+     */
     private Person getPerson(String name) {
         for (Person person : people) {
             if (person.getName().equals(name)) {
