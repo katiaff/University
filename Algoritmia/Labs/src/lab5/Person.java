@@ -13,6 +13,7 @@ public class Person {
         this.toPay = toPay;
         this.toReceive = toReceive;
         this.balance = balance;
+        this.name = name;
     }
 
     public int getToPay() {

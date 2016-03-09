@@ -1,21 +1,21 @@
 package lab5;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Carla on 08/03/2016.
  */
 public class People {
-    List<Person> people;
-    List<Payment> payments;
+    private ArrayList<Person> people;
+    private ArrayList<Payment> payments;
 
     public People(ArrayList<Payment> payments) {
         this.people = new ArrayList<>();
         this.payments = payments;
+        createPeople();
     }
 
-    public void createPeople() {
+    private void createPeople() {
         for (Payment pay : payments) {
             Person personSource = getPerson(pay.getSource());
             Person personTarget = getPerson(pay.getTarget());
@@ -29,19 +29,19 @@ public class People {
                 personSource.setToPay(personSource.getToPay() + pay.getValue());
                 personSource.setBalance(personSource.getBalance() - pay.getValue());
             }
-            if (personTarget != null) {/*
-                personTarget.setToPay(personTarget.getToPay() + pay.getValue());
-                personTarget.setBalance(personTarget.getBalance() - pay.getValue());*/
+            if (personTarget != null) {
+                personTarget.setToReceive(personTarget.getToReceive() + pay.getValue());
+                personTarget.setBalance(personTarget.getBalance() + pay.getValue());
             }
 
         }
     }
 
-    public List<Person> getPeople() {
+    public ArrayList<Person> getPeople() {
         return people;
     }
 
-    public Person getPerson(String name) {
+    private Person getPerson(String name) {
         for (Person person : people) {
             if (person.getName().equals(name)) {
                 return person;

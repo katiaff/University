@@ -1,32 +1,37 @@
 package lab5;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Solution to minimize the cash flow among a group
  * of people.
  */
 public class MinimizeCashFlow {
-    private List<Payment> payments = new ArrayList<>();
-    private List<Payment> results = new ArrayList<>();
+    private ArrayList<Payment> payments = new ArrayList<>();
+    private ArrayList<Payment> results = new ArrayList<>();
+    private ArrayList<Person> people;
 
     /**
      * Calculates the most efficient cash flow among all the
      * payments
      */
     public void calculate() {
-/*       create class Person
-         toPay
-         toReceive
-         balance
-
-         create class People ??
-
-         iterate through all the people, calculate the balance
-
-         */
-
+        People p = new People(payments);
+        this.people = p.getPeople();
+        ArrayList<Person> toPay = new ArrayList<>();
+        for (Person person : people) {
+            if (person.getBalance() < 0) {
+                toPay.add(person);
+            }
+            if (person.getBalance() > 0) {
+                for (Person person2 : toPay) {
+                    if (person2.getToPay() == person.getToReceive()) {
+                        Payment payment = new Payment(person2.getName(), person.getName(), person.getToPay());
+                        results.add(payment);
+                    }
+                }
+            }
+        }
 
     }
 
