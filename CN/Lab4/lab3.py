@@ -145,11 +145,11 @@ def bisection3(f, a, b, maxIter):
         xk = (ak + bk)/2
         if f(ak)*f(xk) < 0:
             bk = xk
-            print xk
+            print (xk)
         else:
             ak = xk
-            print xk
-    print xk
+            print (xk)
+    print (xk)
     return xk
 
 
