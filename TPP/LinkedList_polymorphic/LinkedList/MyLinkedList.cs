@@ -213,10 +213,18 @@ namespace LinkedList {
             return sb.ToString().TrimEnd();
         }
 
+        /// <summary>
+        /// Gets the IEnumerator for this list
+        /// </summary>
+        /// <returns></returns>
         public IEnumerator<T> GetEnumerator() {
             return new ListEnumerator<T>(this);
         }
 
+        /// <summary>
+        /// Gets the IEnumerator for this list
+        /// </summary>
+        /// <returns></returns>
         IEnumerator IEnumerable.GetEnumerator() {
             return GetEnumerator();
         }
@@ -232,5 +240,18 @@ namespace LinkedList {
                 {
                     return GetEnumerator();
                 }*/
+
+        /// <summary>
+        /// [] operator overloading, get an item from an index
+        /// </summary>
+        /// <param name="list">The list</param>
+        /// <param name="index">Index to get the element</param>
+        /// <returns>Element at index i of the list</returns>
+        public T this[int index] {
+            get { return GetElementByIndex(index); }
+
+            set { GetElementByIndex(index); }
+
+        }
     }
 }

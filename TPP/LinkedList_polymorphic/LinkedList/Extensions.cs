@@ -37,8 +37,23 @@ namespace LinkedList {
             foreach (T item in items) {
                 result = function(result, item);
             }
-
             return result;
+        }
+
+        public static MyLinkedList<TRet> Map<T, TRet>(this IEnumerable<T> items, Func<T, TRet> function) {
+            MyLinkedList<TRet> ret = new MyLinkedList<TRet>();
+
+            foreach (T num in items) {
+                ret.Add(function(num));
+            }
+            return ret;
+        }
+
+        public static void Show<T>(this IEnumerable<T> items) {
+            foreach (T num in items) {
+                Console.WriteLine(num);
+            }
+            Console.WriteLine();
         }
     }
 }

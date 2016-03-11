@@ -58,19 +58,6 @@ namespace LinkedList {
         }
 
         /// <summary>
-        /// [] operator overloading, get an item from an index
-        /// </summary>
-        /// <param name="set">The set</param>
-        /// <param name="index">Index to get the element</param>
-        /// <returns>Element at index i of the set</returns>
-        public T this[int index] {
-            get { return GetElementByIndex(index); }
-
-            set { GetElementByIndex(index); }
-
-        }
-
-        /// <summary>
         /// | operator overloading, provides union of two sets
         /// </summary>
         /// <param name="s1">First set</param>
