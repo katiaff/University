@@ -21,12 +21,12 @@ namespace LinkedList.tests {
         [TestMethod()]
         public void FindTest() {
             Predicate<int> isEven = (x => x % 2 == 0);
-            Assert.AreEqual(2, l.Find(isEven));
+            Assert.AreEqual(0, l.Find(isEven));
 
             Predicate<int> isOdd = (x => x % 2 != 0);
             Assert.AreEqual(1, l.Find(isOdd));
 
-            Predicate<int> isDivisibleBy15And20 = (x => x % 15 == 0 && x % 20 == 0);
+            Predicate<int> isDivisibleBy15And20 = (x => x % 15 == 0 && x % 20 == 0 && x != 0);
             Assert.AreEqual(60, l.Find(isDivisibleBy15And20));
 
         }
@@ -58,7 +58,7 @@ namespace LinkedList.tests {
             Func<int, int, int> sumAll = ((res, x) => res += x);
             Assert.AreEqual(499500, l.Reduce(sumAll));
 
-            Func<int, int, int> sumEven = ((res, x) => x % 2 == 0? res += x : res );
+            Func<int, int, int> sumEven = ((res, x) => x % 2 == 0 ? res += x : res);
             Assert.AreEqual(249500, l.Reduce(sumEven));
 
             Func<int, int, int> sumOdd = ((res, x) => x % 2 != 0 ? res += x : res);
@@ -91,6 +91,7 @@ namespace LinkedList.tests {
             }
 
         }
+
 
 
     }

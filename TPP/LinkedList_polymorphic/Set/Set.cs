@@ -10,8 +10,7 @@ namespace LinkedList {
     /// repeated elements
     /// </summary>
     public class Set<T> : MyLinkedList<T> {
-        
-        
+
         /// <summary>
         /// Constructs a new empty Set
         /// </summary>

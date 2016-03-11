@@ -199,6 +199,19 @@ namespace LinkedList {
         }
 
         /// <summary>
+        /// [] operator overloading, get an item from an index
+        /// </summary>
+        /// <param name="list">The list</param>
+        /// <param name="index">Index to get the element</param>
+        /// <returns>Element at index i of the list</returns>
+        public T this[int index] {
+            get { return GetElementByIndex(index); }
+
+            set { GetElementByIndex(index); }
+
+        }
+
+        /// <summary>
         /// Returns a string showing all the elements
         /// on the list.
         /// </summary>
@@ -213,13 +226,24 @@ namespace LinkedList {
             return sb.ToString().TrimEnd();
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Gets the IEnumerator for this list
         /// </summary>
         /// <returns></returns>
-        public IEnumerator<T> GetEnumerator() {
+       public IEnumerator<T> GetEnumerator() {
             return new ListEnumerator<T>(this);
+        }*/
+
+        /// <summary>
+        /// Generator for  the IEnumerator for this list
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<T> GetEnumerator() {
+            for (int i = 0; i < NumberOfElements; i++) {
+                yield return GetElementByIndex(i);
+            }
         }
+
 
         /// <summary>
         /// Gets the IEnumerator for this list
@@ -229,29 +253,5 @@ namespace LinkedList {
             return GetEnumerator();
         }
 
-        /*        public IEnumerator<T> GetEnumerator()
-                {
-                    for (int i = 0; i<NumberOfElements; i++) {
-                        yield return GetElementByIndex(i);
-                    }
-                }
-
-                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-                {
-                    return GetEnumerator();
-                }*/
-
-        /// <summary>
-        /// [] operator overloading, get an item from an index
-        /// </summary>
-        /// <param name="list">The list</param>
-        /// <param name="index">Index to get the element</param>
-        /// <returns>Element at index i of the list</returns>
-        public T this[int index] {
-            get { return GetElementByIndex(index); }
-
-            set { GetElementByIndex(index); }
-
-        }
     }
 }
