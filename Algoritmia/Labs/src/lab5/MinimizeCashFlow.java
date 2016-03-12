@@ -18,6 +18,8 @@ public class MinimizeCashFlow {
     public void calculate() {
         People p = new People(payments);
         this.people = p.getPeople();
+        printBeforeMsg();
+
         do {
             Person paysMore = findMin();
             Person receivesMore = findMax();
@@ -33,6 +35,25 @@ public class MinimizeCashFlow {
         }
         while (!allBalanced());
 
+        printAfterMsg();
+
+
+    }
+
+    private void printAfterMsg() {
+        System.out.println("Final results: \n");
+        results.forEach(payment -> System.out.println(payment.getSource() + " has to pay " +
+                payment.getValue() + " to " +
+                payment.getTarget()));
+        System.out.println("---------------------------------------------\n");
+    }
+
+    private void printBeforeMsg() {
+        System.out.println("Calculating balance for: \n");
+        payments.forEach(payment -> System.out.println(payment.getSource() + " has to pay " +
+                payment.getValue() + " to " +
+                payment.getTarget()));
+        System.out.println("\n");
     }
 
     /**
