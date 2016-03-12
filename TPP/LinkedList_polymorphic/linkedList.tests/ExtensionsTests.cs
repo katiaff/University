@@ -63,6 +63,12 @@ namespace LinkedList.tests {
 
             Func<int, int, int> sumOdd = ((res, x) => x % 2 != 0 ? res += x : res);
             Assert.AreEqual(250000, l.Reduce(sumOdd));
+
+            Func<int, int, int> substractAll = ((res, x) => res -= x);
+            Assert.AreEqual(-499500, l.Reduce(substractAll));
+
+            Func<int, int, int> substractLast3 = ((res, x) => x > 996 ? res -= x : res);
+            Assert.AreEqual(-2994, l.Reduce(substractLast3));
         }
 
         [TestMethod()]
@@ -84,7 +90,7 @@ namespace LinkedList.tests {
                 toCompare.Add(l[i] + 10000);
             }
 
-            var result = l.Map((x => x + 10000));
+            MyLinkedList<int> result = new MyLinkedList<int>(l.Map(x => x + 10000));
 
             for (int i = 0; i < result.NumberOfElements; i++) {
                 Assert.AreEqual(toCompare[i], (result[i]));
@@ -92,7 +98,18 @@ namespace LinkedList.tests {
 
         }
 
+        [TestMethod]
+        public void ForEachTest() {
+            l.ForEach(x => {
+                if (x % 30 == 0) Console.WriteLine(x + " DRAGONS over the fence");
+                else Console.WriteLine(x + " sheep over the fence");
+            });
 
+        }
 
+        [TestMethod]
+        public void InvertToTest() {
+
+        }
     }
 }

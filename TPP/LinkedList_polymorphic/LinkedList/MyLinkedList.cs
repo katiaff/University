@@ -38,6 +38,16 @@ namespace LinkedList {
         }
 
         /// <summary>
+        /// Constructs a new list from a given set of values
+        /// </summary>
+        /// <param name="values">IEnumerable containing values/></param>
+        public MyLinkedList(IEnumerable<T> values) {
+            foreach(T value in values){
+                Add(value);
+            }
+        }
+
+        /// <summary>
         /// Adds an element to the beginning of the list
         /// </summary>
         /// <param name="value">Element to add</param>

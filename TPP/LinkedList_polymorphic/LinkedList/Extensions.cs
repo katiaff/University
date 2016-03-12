@@ -40,13 +40,17 @@ namespace LinkedList {
             return result;
         }
 
-        public static MyLinkedList<TRet> Map<T, TRet>(this IEnumerable<T> items, Func<T, TRet> function) {
-            MyLinkedList<TRet> ret = new MyLinkedList<TRet>();
-
-            foreach (T num in items) {
-                ret.Add(function(num));
+        public static IEnumerable<TResult> Map<TElement, TResult>(this IEnumerable<TElement> collection, Func<TElement, TResult> function) {
+            foreach (TElement x in collection) {
+                yield return function(x);
             }
-            return ret;
+            yield break;
+        }
+
+        public static void ForEach<T>(this IEnumerable<T> items, Action<T> action) {
+            foreach(T item in items) {
+                action(item);
+            }
         }
 
         public static void Show<T>(this IEnumerable<T> items) {
@@ -55,5 +59,23 @@ namespace LinkedList {
             }
             Console.WriteLine();
         }
+
+        public static TRet InvertTo<T, TRet> (this IEnumerable<T> items, Func<TRet, T, TRet> function) {
+            TRet result = default(TRet);
+            for (int i = items.Count()-1; i >= 0; i--) {
+                result = function(result, items.ElementAt(i));
+            }
+            return result;
+        }
+
+    //    public static TRet Reduce<T, TRet>(this IEnumerable<T> items,
+    //Func<TRet, T, TRet> function, TRet accumulator = default(TRet)) {
+
+    //        TRet result = accumulator;
+    //        foreach (T item in items) {
+    //            result = function(result, item);
+    //        }
+    //        return result;
+    //    }
     }
 }
