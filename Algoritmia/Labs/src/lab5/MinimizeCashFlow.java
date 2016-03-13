@@ -13,23 +13,77 @@ public class MinimizeCashFlow {
 
     /**
      * Calculates the most efficient cash flow among all the
-     * payments
+     * payments.
      */
     public void calculate() {
         People p = new People(payments);
         this.people = p.getPeople();
-        this.people.sort(new BalanceAscendingComparator());
-        for (int owes = 0; owes < people.size(); owes++) {
-            for (int receives = people.size() - 1; receives >= owes; receives--) {
-                Person personOwes = people.get(owes);
-                Person personReceives = people.get(receives);
-                if (-personOwes.getBalance() <= personReceives.getBalance()) {
-                    Payment payment = new Payment(personOwes.getName(), personReceives.getName(), -personOwes.getBalance());
-                    results.add(payment);
-                }
+        do {
+            Person paysMore = findMin();
+            Person receivesMore = findMax();
+            if (-paysMore.getBalance() <= receivesMore.getBalance()) {
+                results.add(new Payment(paysMore.getName(), receivesMore.getName(), -paysMore.getBalance()));
+                receivesMore.setBalance(receivesMore.getBalance() + paysMore.getBalance());
+                paysMore.setBalance(0);
+            } else {
+                results.add(new Payment(paysMore.getName(), receivesMore.getName(), receivesMore.getBalance()));
+                paysMore.setBalance(paysMore.getBalance() + receivesMore.getBalance());
+                receivesMore.setBalance(0);
             }
         }
+        while (!allBalanced());
 
+    }
+
+    /**
+     * Finds the maximum balance among the people
+     *
+     * @return maximum balance (person who receives more)
+     */
+    private Person findMax() {
+        int max = people.get(people.size() - 1).getBalance();
+        for (int i = people.size() - 2; i >= 0; i--) {
+            int balance = people.get(i).getBalance();
+
+            if (balance > max) {
+                return people.get(i);
+            }
+
+        }
+        return people.get(people.size() - 1);
+    }
+
+    /**
+     * Finds the minimum balance among the people
+     *
+     * @return minimum balance (person who pays more)
+     */
+    private Person findMin() {
+        int min = people.get(0).getBalance();
+        for (int i = 1; i < people.size(); i++) {
+            int balance = people.get(i).getBalance();
+
+            if (balance < min) {
+                return people.get(i);
+            }
+
+        }
+        return people.get(0);
+    }
+
+    /**
+     * Checks if everyone in the people array has fulfilled
+     * their payments
+     *
+     * @return true if everything is balanced; false, otherwise
+     */
+    private boolean allBalanced() {
+        for (Person p : people) {
+            if (p.getBalance() != 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

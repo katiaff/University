@@ -1,13 +1,13 @@
 package lab5;
 
 /**
- * Created by Carla on 08/03/2016.
+ * Models a person who has money to pay and to receive
  */
 public class Person {
-    String name;
-    int toPay;
-    int toReceive;
-    int balance;
+    private int toReceive;
+    private int toPay;
+    private String name;
+    private int balance;
 
     public Person(String name, int toPay, int toReceive) {
         this.toPay = toPay;
@@ -16,27 +16,11 @@ public class Person {
         this.name = name;
     }
 
-    public int getToPay() {
-        return toPay;
-    }
-
-    public void setToPay(int toPay) {
-        this.toPay = toPay;
-    }
-
-    public int getToReceive() {
-        return toReceive;
-    }
-
-    public void setToReceive(int toReceive) {
-        this.toReceive = toReceive;
-    }
-
     public int getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    protected void setBalance(int balance) {
         this.balance = balance;
     }
 
@@ -44,4 +28,19 @@ public class Person {
         return name;
     }
 
+    public int getToReceive() {
+        return toReceive;
+    }
+
+    protected void setToReceive(int toReceive) {
+        this.toReceive = toReceive;
+    }
+
+    public int getToPay() {
+        return toPay;
+    }
+
+    protected void setToPay(int toPay) {
+        this.toPay = toPay;
+    }
 }

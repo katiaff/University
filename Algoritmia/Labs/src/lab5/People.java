@@ -53,12 +53,13 @@ public class People {
      * @return people
      */
     public ArrayList<Person> getPeople() {
+        people.sort((o1, o2) -> o1.getBalance() - o2.getBalance());
         return people;
     }
 
     /**
      * Get a person from the list using their name
-     * @param name
+     * @param name the name of the person
      * @return the person; null if not found
      */
     private Person getPerson(String name) {
