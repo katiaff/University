@@ -108,7 +108,28 @@ namespace LinkedList.tests {
         }
 
         [TestMethod]
-        public void InvertToTest() {
+        public void InvertToBasicTest() {
+            MyLinkedList<int> res = new MyLinkedList<int>(l.Invert());
+
+            for (int i = 0; i < l.NumberOfElements; i++) {
+                int j = l.NumberOfElements - 1 - i;
+                Assert.AreEqual(l[i], res[j]);
+            }
+        }
+
+        [TestMethod]
+        public void InvertWithReduceTest() {
+
+            string[] leftToRight = l.Reduce<int, string>((res, x) => res += "hello " + x +  "\n" ).Trim().Split('\n');
+            leftToRight.Show();
+
+            string[] rightToLeft = l.Invert().Reduce<int, string>((res, x) => res += "hello " + x + "\n").Trim().Split('\n');
+            rightToLeft.Show();
+
+            for (int i = 0; i < leftToRight.Length; i++) {
+                int j = leftToRight.Length - 1 - i;
+                Assert.AreEqual(leftToRight[i], rightToLeft[j]);
+            }
 
         }
     }

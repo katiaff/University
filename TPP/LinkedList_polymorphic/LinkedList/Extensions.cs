@@ -54,28 +54,19 @@ namespace LinkedList {
         }
 
         public static void Show<T>(this IEnumerable<T> items) {
-            foreach (T num in items) {
-                Console.WriteLine(num);
+            foreach (T item in items) {
+                Console.WriteLine(item);
             }
             Console.WriteLine();
         }
 
-        public static TRet InvertTo<T, TRet> (this IEnumerable<T> items, Func<TRet, T, TRet> function) {
-            TRet result = default(TRet);
+        public static IEnumerable<T> Invert<T> (this IEnumerable<T> items) {
+            List<T> ret = new List<T>();
             for (int i = items.Count()-1; i >= 0; i--) {
-                result = function(result, items.ElementAt(i));
+                ret.Add(items.ElementAt(i));
             }
-            return result;
+            return ret;
         }
 
-    //    public static TRet Reduce<T, TRet>(this IEnumerable<T> items,
-    //Func<TRet, T, TRet> function, TRet accumulator = default(TRet)) {
-
-    //        TRet result = accumulator;
-    //        foreach (T item in items) {
-    //            result = function(result, item);
-    //        }
-    //        return result;
-    //    }
     }
 }
