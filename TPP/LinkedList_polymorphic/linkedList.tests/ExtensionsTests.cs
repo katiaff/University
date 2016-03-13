@@ -120,7 +120,7 @@ namespace LinkedList.tests {
         [TestMethod]
         public void InvertWithReduceTest() {
 
-            string[] leftToRight = l.Reduce<int, string>((res, x) => res += "hello " + x +  "\n" ).Trim().Split('\n');
+            string[] leftToRight = l.Reduce<int, string>((res, x) => res += "hello " + x + "\n").Trim().Split('\n');
             leftToRight.Show();
 
             string[] rightToLeft = l.Invert().Reduce<int, string>((res, x) => res += "hello " + x + "\n").Trim().Split('\n');

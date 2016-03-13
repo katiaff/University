@@ -14,7 +14,7 @@ namespace TPP.Laboratory.Functional.Lab07 {
         }
 
         public static void ForEach<T>(this IEnumerable<T> collection, Action<T> action) {
-            foreach(T elem in collection) {
+            foreach (T elem in collection) {
                 action(elem);
             }
         }

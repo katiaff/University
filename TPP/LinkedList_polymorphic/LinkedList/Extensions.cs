@@ -30,7 +30,7 @@ namespace LinkedList {
             }
         }
 
-        public static TRet Reduce<T, TRet>(this IEnumerable<T> items, 
+        public static TRet Reduce<T, TRet>(this IEnumerable<T> items,
             Func<TRet, T, TRet> function, TRet accumulator = default(TRet)) {
 
             TRet result = accumulator;
@@ -48,7 +48,7 @@ namespace LinkedList {
         }
 
         public static void ForEach<T>(this IEnumerable<T> items, Action<T> action) {
-            foreach(T item in items) {
+            foreach (T item in items) {
                 action(item);
             }
         }
@@ -60,9 +60,9 @@ namespace LinkedList {
             Console.WriteLine();
         }
 
-        public static IEnumerable<T> Invert<T> (this IEnumerable<T> items) {
+        public static IEnumerable<T> Invert<T>(this IEnumerable<T> items) {
             List<T> ret = new List<T>();
-            for (int i = items.Count()-1; i >= 0; i--) {
+            for (int i = items.Count() - 1; i >= 0; i--) {
                 ret.Add(items.ElementAt(i));
             }
             return ret;
