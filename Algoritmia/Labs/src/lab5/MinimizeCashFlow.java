@@ -24,11 +24,13 @@ public class MinimizeCashFlow {
             Person paysMore = findMin();
             Person receivesMore = findMax();
             if (-paysMore.getBalance() <= receivesMore.getBalance()) {
-                results.add(new Payment(paysMore.getName(), receivesMore.getName(), -paysMore.getBalance()));
+                results.add(new Payment(paysMore.getName(), receivesMore.getName(),
+                        -paysMore.getBalance()));
                 receivesMore.setBalance(receivesMore.getBalance() + paysMore.getBalance());
                 paysMore.setBalance(0);
             } else {
-                results.add(new Payment(paysMore.getName(), receivesMore.getName(), receivesMore.getBalance()));
+                results.add(new Payment(paysMore.getName(), receivesMore.getName(),
+                        receivesMore.getBalance()));
                 paysMore.setBalance(paysMore.getBalance() + receivesMore.getBalance());
                 receivesMore.setBalance(0);
             }
