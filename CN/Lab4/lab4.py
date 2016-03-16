@@ -78,27 +78,100 @@ import lab3
 
 
 # ---------------EXERCISE 4-------------
-x = np.linspace(0, 10)
-f = lambda x: np.cosh(x) * np.cos(x) - 1
-df = lambda x: np.cos(x)*np.sinh(x) - np.sin(x)*np.cosh(x)
-OX=0*f(x) 
+#x = np.linspace(0, 10)
+#f = lambda x: np.cosh(x) * np.cos(x) - 1
+#df = lambda x: np.cos(x)*np.sinh(x) - np.sin(x)*np.cosh(x)
+#OX=0*f(x) 
+#plt.figure(1)
+#plt.plot(x,f(x))
+#plt.plot(x,OX,'k-')         
+#plt.xlabel('x')
+#plt.ylabel('y')
+#plt.show()
+#
+#tol = 10**(-6)
+#newtonSol = lab3.newton1(f, df, 4, tol)
+#print ("Newton solution with x0 = 4: ", newtonSol[0])
+#newtonSolOK = lab3.newton1(f,df, 4.7, tol)
+#print ("Newton solution with x0 = 4.7: ", newtonSolOK[0])
+#print ("Newton solution with op.ridder, x0 = 4.7: ", op.newton(f, 4.7))
+
+# ----------------EXERCISE 5--------------
+
+def convergence(p, linA, linB, sol):
+    xk = np.linspace(linA,linB, 200)
+    limNewton = []
+    for i in range(1, len(xk)):
+        limNewton.append(np.abs(xk[i] - sol[0])/(np.abs(xk[i-1] - sol[0]))**p)
+    plt.plot(limNewton)
+    
+#tol = 10**-6
+#fA = lambda x : 1 - np.exp(-2*x) - x
+#dfA = lambda x: 2*np.exp(-2*x) - 1
+#fB = lambda x: x * np.log(x) - 1
+#dfB = lambda x : 1 + np.log(x)
+#
+#solA = lab3.newton1(fA, dfA, 1, tol)
+#
+#solB = lab3.newton1(fB, dfB, 1.7, tol)
+#
+#print "Solution for a :", solA[0], "Iterations: ", solA[1]
+#print "Residual for a:", np.abs(0 - fA(solA[0])), "\n"
+#print "Solution for b :", solB[0], "Iterations: ", solB[1]
+#print "Residual for B:", np.abs(0 - fB(solB[0]))
+#    
+#convergence(2, 3, 10)
+    
+# ----------------EXERCISE 6--------------
+
+#f = lambda x : x**4 - 6*x**2 + 9
+#df = lambda x: 4*x**3 - 12*x
+#tol = 10**-6
+#x = np.linspace(-3,3)
+#OX=0*f(x) 
+#plt.figure(1)
+#plt.plot(x,f(x))
+#plt.plot(x,OX,'k-')         
+#plt.xlabel('x')
+#plt.ylabel('y')
+#plt.show()
+#
+#solNewtonA = lab3.newton1(f, df, -2, tol)
+#solNewtonB = lab3.newton1(f, df, 2, tol)
+#print "Newton's solutions: ", solNewtonA, solNewtonB, "\n"
+#
+#convergence(2,-1.5,1.5, solNewtonA)
+#
+#
+#solSecantA = lab3.secant1(f, -3, -2, tol)
+#solSecantB = lab3.secant1(f, 2, 3, tol)
+#
+#convergence(1.6,-1.6,1.5, solSecantA)
+#
+#print "Secant's solutions: ", solSecantA, solSecantB,"\n"
+#
+#solBisectionA = lab3.bisection2(f, -2, -1.5, tol)
+#solBisectionB = lab3.bisection2(f, 1.5, 2, tol)
+#
+#convergence(1,-0.5,1.5, solBisectionA)
+#
+#print "Bisection's solutions: ", solBisectionA, solBisectionB,"\n"
+
+# ---------------EXERCISE 7-------------------
+fA = lambda x : x**3 - 1.2*x**2 - 8.19*x + 13.23
+fB = lambda x : x**4 + 0.9*x**3 - 2.3*x**2 + 3.6*x - 25.2
+fC = lambda x : x**4 + 2*x**3 - 7*x**2 + 3
+
+x = np.linspace(-10, 10)
+OX=0*fA(x) 
 plt.figure(1)
-plt.plot(x,f(x))
+plt.plot(x,fA(x))
+plt.plot(x, fB(x))
+plt.plot(x,fC(x))
 plt.plot(x,OX,'k-')         
 plt.xlabel('x')
 plt.ylabel('y')
 plt.show()
-
-tol = 10**(-6)
-newtonSol = lab3.newton1(f, df, 4, tol)
-print ("Newton solution with x0 = 4: ", newtonSol[0])
-newtonSolOK = lab3.newton1(f,df, 4.7, tol)
-print ("Newton solution with x0 = 4.7: ", newtonSolOK[0])
-print ("Newton solution with op.ridder, x0 = 4.7: ", op.newton(f, 4.7))
-
-
-
-
 
 
 

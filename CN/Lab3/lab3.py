@@ -22,22 +22,22 @@ def bisection1(f, a, b, maxIter):
             ak = xk
     return xk
 
-
-
-    
-f = lambda x : x**3 - 2*x**2 + 1 
-a = -1.0; b = -0.1; n = 20
-sol1 = bisection1(f,a,b,n)
-print(sol1)
-
-
-a = 0.5; b = 1.1; n = 20
-sol2 = bisection1(f,a,b,n)
-print(sol2)
-
-a = 1.5; b = 2.0; n = 20
-sol3 = bisection1(f,a,b,n)
-print(sol3)
+#
+#
+#    
+#f = lambda x : x**3 - 2*x**2 + 1 
+#a = -1.0; b = -0.1; n = 20
+#sol1 = bisection1(f,a,b,n)
+#print(sol1)
+#
+#
+#a = 0.5; b = 1.1; n = 20
+#sol2 = bisection1(f,a,b,n)
+#print(sol2)
+#
+#a = 1.5; b = 2.0; n = 20
+#sol3 = bisection1(f,a,b,n)
+#print(sol3)
 
 #--------EXERCISE 2------------
 
@@ -60,20 +60,20 @@ def bisection2(f, a, b, tol):
             iters+=1
     return [xk1, iters]
 
-f = lambda x : x**3 - 2*x**2 + 1 
-
-a = -1.0; b = -0.1; tol = 1e-6
-sol1 = bisection2(f,a,b,tol)
-print(sol1)
-
-a = 0.5; b = 1.1; tol =1e-6
-sol2 = bisection2(f,a,b,tol)
-print(sol2)
-
-
-a = 1.5; b = 2.0;  tol =1e-6
-sol3 = bisection2(f,a,b,tol)
-print(sol3) 
+#f = lambda x : x**3 - 2*x**2 + 1 
+#
+#a = -1.0; b = -0.1; tol = 1e-6
+#sol1 = bisection2(f,a,b,tol)
+#print(sol1)
+#
+#a = 0.5; b = 1.1; tol =1e-6
+#sol2 = bisection2(f,a,b,tol)
+#print(sol2)
+#
+#
+#a = 1.5; b = 2.0;  tol =1e-6
+#sol3 = bisection2(f,a,b,tol)
+#print(sol3) 
 
 
 
@@ -91,20 +91,20 @@ def newton1(f, df, x0, tol):
             iters+=1
 
     
-f  = lambda x : x**3 - 2*x**2 + 1   
-df = lambda x : 3*x**2 - 4*x  
-
-x0 = -1.0; tol = 1e-6
-sol1 = newton1(f,df,x0,tol)
-print(sol1)
-
-x0 = 0.5; tol = 1e-6
-sol2 = newton1(f,df,x0,tol)
-print(sol2)
-
-x0 = 1.5; tol = 1e-6
-sol3 = newton1(f,df,x0,tol)
-print(sol3)
+#f  = lambda x : x**3 - 2*x**2 + 1   
+#df = lambda x : 3*x**2 - 4*x  
+#
+#x0 = -1.0; tol = 1e-6
+#sol1 = newton1(f,df,x0,tol)
+#print(sol1)
+#
+#x0 = 0.5; tol = 1e-6
+#sol2 = newton1(f,df,x0,tol)
+#print(sol2)
+#
+#x0 = 1.5; tol = 1e-6
+#sol3 = newton1(f,df,x0,tol)
+#print(sol3)
 
 
 #-------EXERCISE 4---------
@@ -121,19 +121,19 @@ def secant1(f, x0, x1, tol):
             iters+=1
 
 
-f  = lambda x : x**3 - 2*x**2 + 1  
-
-x0 = -1.0; x1 = -0.1; tol = 1e-6
-sol1 = secant1(f,x0,x1,tol)
-print(sol1)    
-
-x0 = 0.5; x1 = 1.1; tol = 1e-6
-sol2 = secant1(f,0.5,1.1,1e-6)
-print(sol2)
-
-x0 = 1.5; x1 = 2.0; tol = 1e-6
-sol3 = secant1(f,x0,x1,tol)
-print(sol3)
+#f  = lambda x : x**3 - 2*x**2 + 1  
+#
+#x0 = -1.0; x1 = -0.1; tol = 1e-6
+#sol1 = secant1(f,x0,x1,tol)
+#print(sol1)    
+#
+#x0 = 0.5; x1 = 1.1; tol = 1e-6
+#sol2 = secant1(f,0.5,1.1,1e-6)
+#print(sol2)
+#
+#x0 = 1.5; x1 = 2.0; tol = 1e-6
+#sol3 = secant1(f,x0,x1,tol)
+#print(sol3)
 
 
 #--------EXERCISE 5------------
@@ -153,18 +153,18 @@ def bisection3(f, a, b, maxIter):
     return xk
 
 
-f  = lambda x : x**3 - 2*x**2 + 1       
-df = lambda x : 3*x**2 - 4*x  
-
-a = 0.5; b = 1.1; n = 12; p = 1         
-x = bisection3(f,a,b,n)
-
-lamb=abs((x[1:]-1.0)/(x[0:-1]-1.0)**p)  # Compute expression (1)
-fig=plt.figure()
-plt.plot(lamb,'*-') 
-plt.xlabel('Iteration',fontsize = 16)
-plt.ylabel(r'$\lambda$',fontsize = 18, rotation = 0)     # 'r' is for raw strings (in this cse, Latex string)
-plt.show()
+#f  = lambda x : x**3 - 2*x**2 + 1       
+#df = lambda x : 3*x**2 - 4*x  
+#
+#a = 0.5; b = 1.1; n = 12; p = 1         
+#x = bisection3(f,a,b,n)
+#
+#lamb=abs((x[1:]-1.0)/(x[0:-1]-1.0)**p)  # Compute expression (1)
+#fig=plt.figure()
+#plt.plot(lamb,'*-') 
+#plt.xlabel('Iteration',fontsize = 16)
+#plt.ylabel(r'$\lambda$',fontsize = 18, rotation = 0)     # 'r' is for raw strings (in this cse, Latex string)
+#plt.show()
 
 
 def newton2(f, df, x0, n):
@@ -179,18 +179,18 @@ def newton2(f, df, x0, n):
     return [x1, iters]
 
     
-f  = lambda x : x**3 - 2*x**2 + 1   
-df = lambda x : 3*x**2 - 4*x  
-
-x0 = 0.02; n = 12; p = 2                
-x = newton2(f,df,x0,n)
-
-lamb=abs((x[1:]-1.0)/(x[0:-1]-1.0)**p)  # Compute expression (1)
-fig=plt.figure()
-plt.plot(lamb,'*-') 
-plt.xlabel('Iteration',fontsize = 16)
-plt.ylabel(r'$\lambda$',fontsize = 18, rotation = 0)
-plt.show()
+#f  = lambda x : x**3 - 2*x**2 + 1   
+#df = lambda x : 3*x**2 - 4*x  
+#
+#x0 = 0.02; n = 12; p = 2                
+#x = newton2(f,df,x0,n)
+#
+#lamb=abs((x[1:]-1.0)/(x[0:-1]-1.0)**p)  # Compute expression (1)
+#fig=plt.figure()
+#plt.plot(lamb,'*-') 
+#plt.xlabel('Iteration',fontsize = 16)
+#plt.ylabel(r'$\lambda$',fontsize = 18, rotation = 0)
+#plt.show()
 
 def secant2(f, x0, x1, n):  
     iters = 1
@@ -203,16 +203,16 @@ def secant2(f, x0, x1, n):
     print ([x1, iters])
     return [x1, iters]
 
-f  = lambda x : x**3 - 2*x**2 + 1 
-x0 = 0.5; x1 = 1.5; n = 9; p = 1.618;       # Datos
-x = secant2(f,x0,x1,n)  
-
-lamb=abs((x[1:]-1.0)/(x[0:-1]-1.0)**p)      # Calculamos la expresión (1)
-fig=plt.figure()
-plt.plot(lamb,'*-') 
-plt.xlabel('Iteration',fontsize = 16)
-plt.ylabel(r'$\lambda$',fontsize = 18, rotation = 0)
-plt.show() 
+#f  = lambda x : x**3 - 2*x**2 + 1 
+#x0 = 0.5; x1 = 1.5; n = 9; p = 1.618;       # Datos
+#x = secant2(f,x0,x1,n)  
+#
+#lamb=abs((x[1:]-1.0)/(x[0:-1]-1.0)**p)      # Calculamos la expresión (1)
+#fig=plt.figure()
+#plt.plot(lamb,'*-') 
+#plt.xlabel('Iteration',fontsize = 16)
+#plt.ylabel(r'$\lambda$',fontsize = 18, rotation = 0)
+#plt.show() 
 
 
 
