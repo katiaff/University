@@ -53,6 +53,7 @@ public class People {
      * @return people
      */
     public ArrayList<Person> getPeople() {
+        people.sort((o1, o2) -> o1.getBalance() - o2.getBalance());
         return people;
     }
 

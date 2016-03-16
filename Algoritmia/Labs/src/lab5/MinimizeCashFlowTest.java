@@ -52,6 +52,20 @@ public class MinimizeCashFlowTest {
         assertEquals(16, cashFlow.getFinalDebt("Alberto", "Elena"));
     }
 
+    @Test
+    public void testD() {
+        MinimizeCashFlow cashFlow = loadDataFromFile("D:\\Documentos\\Git\\University\\Algoritmia\\Labs\\src\\lab5\\case4.txt");
+
+        //Calculation
+        cashFlow.calculate();
+
+        //Expected results VS Actual results
+        assertEquals(10, cashFlow.getFinalDebt("Alberto", "Adrian"));
+        assertEquals(10, cashFlow.getFinalDebt("Alberto", "Maria"));
+        assertEquals(16, cashFlow.getFinalDebt("Tomas", "Cesar"));
+    }
+
+
     private MinimizeCashFlow loadDataFromFile(String file) {
         MinimizeCashFlow cashFlow = new MinimizeCashFlow(); //Create an object to work
         //Input
