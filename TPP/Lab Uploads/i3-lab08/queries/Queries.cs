@@ -27,6 +27,9 @@ namespace TPP.Laboratory.Functional.Lab08 {
             query.Query4();
             Console.WriteLine("\n");
             query.Query5();
+
+            Console.WriteLine("\n");
+            query.Homework1();
         }
 
         private void Query1() {
@@ -122,6 +125,30 @@ namespace TPP.Laboratory.Functional.Lab08 {
             // Show, ordered by age, the names of the employees in the Computer Science department, 
             // who have an office in the Faculty of Science, 
             // and who have done phone calls longer than one minute
+            
+            //var results = model.Employees
+            //    .Join(model.PhoneCalls, emp => emp.TelephoneNumber, call => call.SourceNumber, (emp, call) => new { emp.Name, emp.Age, emp.Office, emp.TelephoneNumber, call.Seconds })
+            //    .Where(emp => emp.Office.Building.Equals("Faculty of Science")).Where(call => call.Seconds > 60).OrderBy(emp => emp.Age);
+
+            var results = from department in model.Departments
+                          join employee in model.Employees
+                          on department.Employees.Select(depEmp => depEmp.Name) equals employee.Name
+                          join call in model.PhoneCalls 
+                          on employee.TelephoneNumber equals call.SourceNumber
+                          where department.Equals("Computer Science")
+                          where employee.Office.Equals("Faculty of Science")
+                          where call.Seconds > 60
+                          orderby employee.Age
+                          select new { employee.Name, call.Seconds };
+                          
+
+
+            //results = from employee in model.Employees
+            //          join call in model.PhoneCalls
+            //          on employee.TelephoneNumber equals call.SourceNumber
+            //          select new { employee.Name, call.Seconds };
+
+            Show(results);
         }
 
         private void Homework2() {

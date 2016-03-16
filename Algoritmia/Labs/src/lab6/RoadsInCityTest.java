@@ -19,18 +19,18 @@ public class RoadsInCityTest {
         assertEquals(2, result);
     }
 
-//    @Test
-//    public void testB() {
-//        long result = executeFromFile("D:\\Documentos\\Git\\University\\Algoritmia\\Labs\\src\\lab6\\case2.txt");
-//        assertEquals(252, result);
-//    }
+    @Test
+    public void testB() {
+        long result = executeFromFile("D:\\Documentos\\Git\\University\\Algoritmia\\Labs\\src\\lab6\\case2.txt");
+        assertEquals(252, result);
+    }
 
-    //    @Test
-//    public void testC() {
-//        long result = executeFromFile("src/main/java/labs/course15_16/lab5dynamic/roadsInCity/case3.txt");
-//        assertEquals(0, result);
-//    }
-//
+    @Test
+    public void testC() {
+        long result = executeFromFile("src/main/java/labs/course15_16/lab5dynamic/roadsInCity/case3.txt");
+        assertEquals(0, result);
+    }
+
     @Test
     public void testD() {
         long result = executeFromFile("D:\\Documentos\\Git\\University\\Algoritmia\\Labs\\src\\lab6\\case4.txt");
@@ -43,13 +43,13 @@ public class RoadsInCityTest {
         assertEquals(4, result);
     }
 
-    //
-//    @Test
-//    public void testF() {
-//        long result = executeFromFile("src/main/java/labs/course15_16/lab5dynamic/roadsInCity/case6.txt");
-//        assertEquals(2, result);
-//    }
-//
+
+    @Test
+    public void testF() {
+        long result = executeFromFile("src/main/java/labs/course15_16/lab5dynamic/roadsInCity/case6.txt");
+        assertEquals(2, result);
+    }
+
     @Test
     public void testG() {
         long result = executeFromFile("D:\\Documentos\\Git\\University\\Algoritmia\\Labs\\src\\lab6\\case7.txt");

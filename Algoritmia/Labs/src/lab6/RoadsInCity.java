@@ -18,6 +18,10 @@ public class RoadsInCity {
         if (endX >= startX || endY <= startY) {
             return -1;
         }
+        if (startX == results.length || endX == results.length
+                || startY == results[0].length || endY == results[0].length) {
+            return -1;
+        }
 
         for (int i = startX; i >= endX; i--) {
             for (int j = startY; j <= endY; j++) {
