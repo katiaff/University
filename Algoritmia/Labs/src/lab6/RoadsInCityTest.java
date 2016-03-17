@@ -27,14 +27,14 @@ public class RoadsInCityTest {
 
     @Test
     public void testC() {
-        long result = executeFromFile("src/main/java/labs/course15_16/lab5dynamic/roadsInCity/case3.txt");
+        long result = executeFromFile("D:\\Documentos\\Git\\University\\Algoritmia\\Labs\\src\\lab6\\case3.txt");
         assertEquals(0, result);
     }
 
     @Test
     public void testD() {
         long result = executeFromFile("D:\\Documentos\\Git\\University\\Algoritmia\\Labs\\src\\lab6\\case4.txt");
-        assertEquals(6406484391866534976l, result);
+        assertEquals(6406484391866534976L, result);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class RoadsInCityTest {
 
     @Test
     public void testF() {
-        long result = executeFromFile("src/main/java/labs/course15_16/lab5dynamic/roadsInCity/case6.txt");
+        long result = executeFromFile("D:\\Documentos\\Git\\University\\Algoritmia\\Labs\\src\\lab6\\case6.txt");
         assertEquals(2, result);
     }
 
