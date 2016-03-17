@@ -21,10 +21,14 @@ public class RoadsInCity {
         printTable(startX, startY, endX, endY, BEGIN);
 
         if (endX >= startX || endY <= startY) {
+            results[endX][endY] = -1;
+            printTable(startX, startY, endX, endY, END);
             return -1;
         }
         if (startX == results.length || endX == results.length
                 || startY == results[0].length || endY == results[0].length) {
+            results[endX][endY] = -1;
+            printTable(startX, startY, endX, endY, END);
             return -1;
         }
 
@@ -43,18 +47,19 @@ public class RoadsInCity {
         } else {
             System.out.println("Representation of the map at the end");
         }
+
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < results.length; i++) {
             for (int j = 0; j < results[0].length; j++) {
-                if (i == startX && j == startY) {
-                    sb.append("START" + "\t");
-                } else if (i == endX && j == endY) {
+                if (i == endX && j == endY) {
                     if (when == BEGIN) {
                         sb.append("END" + "\t");
                     } else {
                         sb.append("END = ").append(results[i][j]).append("\t");
                     }
 
+                } else if (i == startX && j == startY) {
+                    sb.append("START" + "\t");
                 } else {
                     sb.append(results[i][j]).append("\t\t");
                 }
