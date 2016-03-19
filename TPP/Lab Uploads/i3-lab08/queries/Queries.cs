@@ -30,6 +30,18 @@ namespace TPP.Laboratory.Functional.Lab08 {
 
             Console.WriteLine("\n");
             query.Homework1();
+
+            Console.WriteLine("\n");
+            query.Homework2();
+
+            Console.WriteLine("\n");
+            query.Homework3();
+
+            Console.WriteLine("\n");
+            query.Homework4();
+
+            Console.WriteLine("\n");
+            query.Homework5();
         }
 
         private void Query1() {
@@ -40,7 +52,7 @@ namespace TPP.Laboratory.Functional.Lab08 {
             //                where employee.Age > 50
             //                select employee.Name;
 
-            Console.WriteLine("Employees:");
+            Console.WriteLine("Query1: Employees:");
             Show(employees);
         }
 
@@ -50,7 +62,7 @@ namespace TPP.Laboratory.Functional.Lab08 {
             //var info = model.Employees.Where(emp => emp.Province.Equals("Asturias")).Select(emp => new Tuple<int, string>(emp.Age, emp.Email ));   
             var info = model.Employees.Where(emp => emp.Province.Equals("Asturias")).Select(emp => new { emp.Age, emp.Email });
 
-            Console.WriteLine("Employees who work in Asturias info:");
+            Console.WriteLine("Query2: Employees who work in Asturias info:");
             Show(info);
         }
 
@@ -68,7 +80,7 @@ namespace TPP.Laboratory.Functional.Lab08 {
             //             where department.Employees.Any(emp => emp.Office.Number.StartsWith("2.1")
             //             select department.Name;
 
-            Console.WriteLine("Departments with employees 18 or beyond which office number starts with 2.1:");
+            Console.WriteLine("Query3: Departments with employees 18 or beyond which office number starts with 2.1:");
             Show(departments);
 
         }
@@ -83,7 +95,7 @@ namespace TPP.Laboratory.Functional.Lab08 {
                           where employee.TelephoneNumber.Equals(call.SourceNumber)
                           select new { employee.Name, call.Seconds };
 
-            Console.WriteLine("Name of the employee and phone call duration");
+            Console.WriteLine("Query4: Name of the employee and phone call duration");
             Show(results);
 
             results = from employee in model.Employees
@@ -91,31 +103,23 @@ namespace TPP.Laboratory.Functional.Lab08 {
                       on employee.TelephoneNumber equals call.SourceNumber
                       select new { employee.Name, call.Seconds };
 
-            Console.WriteLine("Name of the employee and phone call duration");
+            Console.WriteLine("Query4: Name of the employee and phone call duration");
             Show(results);
-
-            // do it functionally
 
 
         }
 
         private void Query5() {
             // Show, grouped by each province, the name of the employees 
-            // (both province and employees must be lexicographically ordered)
-
-            //var results = model.Employees.Select(emp => emp.Name).GroupBy());
+            // (both province and employees must be lexicographically ordered)          
 
             var result = from employee in model.Employees
+                         orderby employee.Name, employee.Province
                          group employee by employee.Province into g
-                         select new { Name = g.Select(x => x.Name) };
+                         select g.Select(emp => emp.Name + " " + emp.Surname);                         
 
-            Show(result);
-            // double for loop to print in the dictionary
-            // alicante carlos carles
-            // asturias bernardo felipe
-            // cantabria alvaro alvarez dario dariez
-            // granada eduardo eduardez
-
+            Console.WriteLine("Query5:");
+            Show(result.SelectMany(x => x));
 
         }
 
@@ -125,51 +129,72 @@ namespace TPP.Laboratory.Functional.Lab08 {
             // Show, ordered by age, the names of the employees in the Computer Science department, 
             // who have an office in the Faculty of Science, 
             // and who have done phone calls longer than one minute
-            
-            //var results = model.Employees
-            //    .Join(model.PhoneCalls, emp => emp.TelephoneNumber, call => call.SourceNumber, (emp, call) => new { emp.Name, emp.Age, emp.Office, emp.TelephoneNumber, call.Seconds })
-            //    .Where(emp => emp.Office.Building.Equals("Faculty of Science")).Where(call => call.Seconds > 60).OrderBy(emp => emp.Age);
-
-            var results = from department in model.Departments
-                          join employee in model.Employees
-                          on department.Employees.Select(depEmp => depEmp.Name) equals employee.Name
-                          join call in model.PhoneCalls 
-                          on employee.TelephoneNumber equals call.SourceNumber
-                          where department.Equals("Computer Science")
-                          where employee.Office.Equals("Faculty of Science")
-                          where call.Seconds > 60
-                          orderby employee.Age
-                          select new { employee.Name, call.Seconds };
-                          
 
 
-            //results = from employee in model.Employees
-            //          join call in model.PhoneCalls
-            //          on employee.TelephoneNumber equals call.SourceNumber
-            //          select new { employee.Name, call.Seconds };
+            var results = model.Employees
+                .Join(model.PhoneCalls, emp => emp.TelephoneNumber, call => call.SourceNumber,
+                    (emp, call) => new { emp.Name, emp.Age, emp.Department, emp.Office, emp.TelephoneNumber, call.Seconds })
+                .Where(emp => emp.Office.Building.Equals("Faculty of Science"))
+                .Where(emp => emp.Department.Name.Equals("Computer Science"))
+                .Where(call => call.Seconds > 60)
+                .OrderBy(emp => emp.Age);
 
+            Console.WriteLine("Homework1: ");
             Show(results);
         }
 
         private void Homework2() {
             // Show the summation, in seconds, of the phone calls done by the employees of the Computer Science department
+
+            var result = model.Employees.Where(emp => emp.Department.Name.Equals("Computer Science"))
+                .Join(model.PhoneCalls, emp => emp.TelephoneNumber, call => call.SourceNumber, (emp, call) => call.Seconds)
+                .Aggregate((res, secs) => res += secs);
+
+            Console.WriteLine("Homework2: ");
+            Console.WriteLine(result);
+
         }
 
         private void Homework3() {
             // Show the phone calls done by each department, ordered by department names. 
             // Each line must show “Department = <Name>, Duration = <Seconds>”
+
+            var results = model.Employees.Join(model.PhoneCalls, emp => emp.TelephoneNumber, call => call.SourceNumber, 
+                (emp, call) => new { Department = emp.Department.Name, Duration = call.Seconds })
+                .OrderBy(join => join.Department);
+
+            Console.WriteLine("Homework3: ");
+            Show(results);
         }
 
         private void Homework4() {
             // Show the departments with the youngest employee, 
             // together with the name of the youngest employee and his/her age 
             // (more than one youngest employee may exist)
+
+            var results = model.Employees.Where(emp => emp.Age == model.Employees.Min(minEmp => minEmp.Age))
+                .Select(emp => new { Department = emp.Department, Name = emp.Name + " " + emp.Surname, Age = emp.Age});
+
+            Console.WriteLine("Homework4: ");
+            Show(results);
         }
 
         private void Homework5() {
             // Show the greatest summation of phone call durations, in seconds, 
             // of the employees in the same department, together with the name of the department 
             // (it can be assumed that there is only one department fulfilling that condition)
+
+            var results = from emp1 in model.Employees
+                          from emp2 in model.Employees
+                          where !emp1.Equals(emp2)
+                          where emp1.Department.Name.Equals(emp2.Department.Name)                          
+                          join call in model.PhoneCalls
+                          on new { T1 = emp1.TelephoneNumber, T2 = emp2.TelephoneNumber }
+                                equals new { T1 = call.SourceNumber, T2 = call.DestinationNumber }
+                          select new { DepName = emp1.Department, Duration = call.Seconds, NameA = emp1.Name, NameB = emp2.Name };
+
+            Console.WriteLine("Homework5: ");
+            Show(results);
         }
 
 
