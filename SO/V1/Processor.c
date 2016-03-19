@@ -37,6 +37,9 @@ int registerA_CPU; // General purpose register
 
 int interruptLines_CPU; // Processor interrupt lines
 
+char * PSW_BITS_names [INTERRUPTTYPES]={"POWEROFF_BIT","EXECUTION_MODE_BIT","USUSED",
+"UNSUSED","UNSUSED","UNSUSED","UNSUSED","EXECUTION_MODE_BIT","UNSUSED","UNSUSED"};
+
 // Interrupt vector table: an array of function pointers
 void (* interruptVectorTable[INTERRUPTTYPES])();
 
@@ -148,12 +151,13 @@ void Processor_DecodeAndExecuteInstruction() {
 			  registerPC_CPU++;
 			  break;
 
+		// Instruction MEMADD
 		case 'm' : registerMAR_CPU=registerIR_CPU.operand2;
 			   Buses_write_AddressBus_From_To(CPU, MMU);
 			  // Tell the main memory controller to read
-			  MMU_readMemory();
-			  // Copy the read data to the accumulator register
-			  registerAccumulator_CPU= registerIR_CPU.operand1 + registerIR_CPU.operand2;
+			  MMU_readMemory();	
+			  // Sum the operand 1 and the read value		  
+			  registerAccumulator_CPU= registerIR_CPU.operand1 + Processor_GetMBR_Value();
 			  registerPC_CPU++;
 			  break;
 
@@ -163,7 +167,14 @@ void Processor_DecodeAndExecuteInstruction() {
 			  break;
 
 		// Instruction HALT
-		case 'h': Processor_ActivatePSW_Bit(POWEROFF_BIT);
+		case 'h': 
+			  if (Processor_PSW_BitState(EXECUTION_MODE_BIT) == 1){
+				  ComputerSystem_DebugMessage(HARDWARE, "s", "\n");
+				  Processor_ActivatePSW_Bit(POWEROFF_BIT);
+			  }
+			  else{
+				  Processor_RaiseInterrupt(EXCEPTION_BIT);
+			  }
 			  break;
 			  
 			  // Unknown instruction
@@ -238,6 +249,9 @@ void Processor_ActivatePSW_Bit(const unsigned int nbit) {
 
 	mask = mask << nbit;
 	registerPSW_CPU = registerPSW_CPU | mask;
+	
+	ComputerSystem_DebugMessage(HARDWARE,"sRss","Activating PSW bit: ",
+	PSW_BITS_names[nbit], nbit!=POWEROFF_BIT?"\n":" ");
 }
 
 // Unset a given bit position in the PSW register
@@ -248,6 +262,9 @@ void Processor_DeactivatePSW_Bit(const unsigned int nbit) {
 	mask = ~mask;
 
 	registerPSW_CPU = registerPSW_CPU & mask;
+	
+	ComputerSystem_DebugMessage(HARDWARE,"sRss","Deactivating PSW bit: ",
+	PSW_BITS_names[nbit],"\n");
 }
 
 // Returns the state of a given bit position in the PSW register

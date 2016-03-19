@@ -1,0 +1,8 @@
+1. Several test cases for 0-user-processes succesfully created
+2. Several test cases for programs producing exceptions
+	(because of a DIV by ZERO or HALT by user)
+3. Several test cases for programs using the YIELD system call.
+	3.1 Some of them with the same priority
+	3.2 .................. different priority
+	3.3 In all cases, programs could use loops in their instructions
+4. Combinations of the above
