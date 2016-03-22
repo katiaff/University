@@ -12,21 +12,14 @@ namespace LinkedList {
                     return item;
                 }
             }
-            throw new Exception();
-
+            return default(T);
         }
 
-        public static T[] Filter<T>(this IEnumerable<T> items, Predicate<T> pred) {
-            List<T> ret = new List<T>();
+        public static IEnumerable<T> Filter<T>(this IEnumerable<T> items, Predicate<T> pred) {
             foreach (T item in items) {
                 if (pred(item)) {
-                    ret.Add(item);
+                    yield return item;
                 }
-            }
-            if (ret.Count != 0) {
-                return ret.ToArray<T>();
-            } else {
-                throw new Exception();
             }
         }
 
@@ -61,11 +54,9 @@ namespace LinkedList {
         }
 
         public static IEnumerable<T> Invert<T>(this IEnumerable<T> items) {
-            List<T> ret = new List<T>();
             for (int i = items.Count() - 1; i >= 0; i--) {
-                ret.Add(items.ElementAt(i));
+                yield return items.ElementAt(i);
             }
-            return ret;
         }
 
     }

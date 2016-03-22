@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LinkedList;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,8 +49,8 @@ namespace LinkedList.tests {
                 j++;
             }
 
-            int[] resultEven = l.Filter(isEven);
-            int[] resultOdd = l.Filter(isOdd);
+            int[] resultEven = l.Filter(isEven).ToArray();
+            int[] resultOdd = l.Filter(isOdd).ToArray();
 
         }
 

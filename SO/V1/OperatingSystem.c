@@ -71,7 +71,9 @@ void OperatingSystem_Initialize() {
 	}
 	
 	// Create all user processes from the information given in the command line
-	OperatingSystem_LongTermScheduler();
+	if (OperatingSystem_LongTermScheduler() == 0){
+		processTable[sipID].copyOfPCRegister=processTable[sipID].processSize-1;
+	}
 	
 	// At least, one user process has been created
 	// Select the first process that is going to use the processor
@@ -150,12 +152,16 @@ int OperatingSystem_CreateProcess(USER_PROGRAMS_DATA executableProgram, int queu
 	
 	// Obtain the memory requirements of the program
 	processSize=OperatingSystem_ObtainProgramSize(&programFile, executableProgram.executableName);
+	if (processSize == PROGRAMNOTVALID){
+		return PROGRAMNOTVALID;
+	}
 	if (processSize == PROGRAMDOESNOTEXIST){
 		return PROGRAMDOESNOTEXIST;
 	}
 	if (processSize == TOOBIGPROCESS){
 		return TOOBIGPROCESS;
 	}
+
 	// Obtain the priority for the process
 	priority=OperatingSystem_ObtainPriority(programFile);
 	if (priority == PROGRAMNOTVALID){
@@ -164,9 +170,15 @@ int OperatingSystem_CreateProcess(USER_PROGRAMS_DATA executableProgram, int queu
 	
 	// Obtain enough memory space
  	loadingPhysicalAddress=OperatingSystem_ObtainMainMemory(processSize, PID);
+ 	if (loadingPhysicalAddress == TOOBIGPROCESS){
+		return TOOBIGPROCESS;
+	}
+ 	
 	
 	// Load program in the allocated memory
-	OperatingSystem_LoadProgram(programFile, loadingPhysicalAddress, processSize);
+	if (OperatingSystem_LoadProgram(programFile, loadingPhysicalAddress, processSize) == PROGRAMNOTVALID){
+		return TOOBIGPROCESS;
+	}
 	
 	// PCB initialization
 	OperatingSystem_PCBInitialization(PID, loadingPhysicalAddress, processSize, priority, queueID);
@@ -214,7 +226,8 @@ void OperatingSystem_PCBInitialization(int PID, int initialPhysicalAddress, int 
 	processTable[PID].copyOfPCRegister=0;
 	processTable[PID].priority=priority;
 	processTable[PID].queueID = queueID;
-	ComputerSystem_DebugMessage(SYSPROC, "sGdsGss" , "New process [", PID, "] moving to the [", statesNames[0],"] state\n");
+	ComputerSystem_DebugMessage(SYSPROC, "sGdsGss" , "New process [", PID, "] moving to the [",
+	 statesNames[0],"] state\n");
 	processTable[PID].state=NEW;
 	OperatingSystem_MoveToTheREADYState(PID);
 }
@@ -226,7 +239,8 @@ void OperatingSystem_MoveToTheREADYState(int PID) {
 	
 	if (Heap_add(PID, readyToRunQueue[queueID],QUEUE_PRIORITY ,numberOfReadyToRunProcesses[queueID] ,PROCESSTABLEMAXSIZE)>=0) {
 	  numberOfReadyToRunProcesses[queueID]++;
-	ComputerSystem_DebugMessage(SYSPROC, "sGdsGssGss" , "Process [", PID, "] moving from the [", statesNames[processTable[PID].state],"] to the [", statesNames[1],"] state\n");
+	ComputerSystem_DebugMessage(SYSPROC, "sGdsGssGss" , "Process [", PID, "] moving from the [", 
+		statesNames[processTable[PID].state],"] to the [", statesNames[1],"] state\n");
 	  processTable[PID].state=READY;
 	} 
 	OperatingSystem_PrintReadyToRunQueue();
@@ -255,7 +269,7 @@ int OperatingSystem_ExtractFromReadyToRun() {
 		if (selectedProcess>=0) 
 			numberOfReadyToRunProcesses[USERPROCESSQUEUE]--;
 	}
-	else if (numberOfReadyToRunProcesses[DAEMONSQUEUE] > 0){
+	else {
 		selectedProcess=Heap_poll(readyToRunQueue[DAEMONSQUEUE],QUEUE_PRIORITY ,numberOfReadyToRunProcesses[DAEMONSQUEUE]);
 		if (selectedProcess>=0) 
 			numberOfReadyToRunProcesses[DAEMONSQUEUE]--;
@@ -274,6 +288,13 @@ void OperatingSystem_Dispatch(int PID) {
 	executingProcessID=PID;
 	// Change the process' state
 	ComputerSystem_DebugMessage(SYSPROC, "sGdsGssGss" , "Process [", PID, "] moving from the [", statesNames[processTable[PID].state],"] to the [", statesNames[2],"] state\n");
+	
+	if (processTable[PID].queueID == USERPROCESSQUEUE){
+		Processor_DeactivatePSW_Bit(EXECUTION_MODE_BIT);
+	}
+	else{
+		Processor_ActivatePSW_Bit(EXECUTION_MODE_BIT);
+	}
 	processTable[PID].state=EXECUTING;
 }
 
@@ -285,7 +306,7 @@ void OperatingSystem_RestoreContext(int PID) {
 	Processor_SetPC(processTable[PID].copyOfPCRegister);
 	// Same thing for the MMU registers
 	MMU_SetBase(processTable[PID].initialPhysicalAddress);
-	MMU_SetLimit(processTable[PID].processSize);
+	MMU_SetLimit(processTable[PID].processSize);	
 }
 
 void OperatingSystem_PrintReadyToRunQueue(){
@@ -351,7 +372,9 @@ void OperatingSystem_TerminateProcess() {
   
 	int selectedProcess;
   	
-	ComputerSystem_DebugMessage(SYSPROC, "sGdsGssGss" , "Process [", executingProcessID, "] moving from the [", statesNames[processTable[executingProcessID].state],"] to the [", statesNames[4],"] state\n");
+	ComputerSystem_DebugMessage(SYSPROC, "sGdsGssGss" , "Process [", executingProcessID,
+	 "] moving from the [", statesNames[processTable[executingProcessID].state],
+	"] to the [", statesNames[4],"] state\n");
 	processTable[executingProcessID].state=EXIT;
 	
 	// One more process that has terminated
@@ -373,6 +396,7 @@ void OperatingSystem_TerminateProcess() {
 void OperatingSystem_HandleSystemCall() {
   
 	int systemCallID;
+	int execQueue;
 
 	// Register A contains the identifier of the issued system call
 	systemCallID=Processor_GetRegisterA();
@@ -387,6 +411,25 @@ void OperatingSystem_HandleSystemCall() {
 		ComputerSystem_DebugMessage(SYSPROC,"RsRdRs","Process [",executingProcessID,"] has requested to terminate\n");
 		OperatingSystem_TerminateProcess();
 		break;
+
+	  case SYSCALL_YIELD:
+		execQueue = processTable[executingProcessID].queueID;
+		
+		if (numberOfReadyToRunProcesses[execQueue] != 0){
+			int PID = readyToRunQueue[execQueue][0];
+
+			if (processTable[PID].priority == processTable[executingProcessID].priority){
+				ComputerSystem_DebugMessage(SHORTTERMSCHEDULE,"sGdsGds",
+				"Process [",executingProcessID,"] transfers control of the processor to process [", PID, "] \n");
+				OperatingSystem_ExtractFromReadyToRun();				
+				OperatingSystem_SaveContext(executingProcessID);
+				OperatingSystem_MoveToTheREADYState(executingProcessID);
+				OperatingSystem_Dispatch(PID);
+			}
+
+		}
+	    	break;
+
 	}
 }
 
